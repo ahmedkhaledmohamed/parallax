@@ -1,0 +1,59 @@
+{
+  "id": "tacos-street-authentic",
+  "restaurant": "Tacos El Asador",
+  "city": "Toronto",
+  "intent": "Authentic Mexican street tacos, real al pastor, corn tortillas, don't care about ambiance or seating",
+  "mockPlace": {
+    "name": "Tacos El Asador",
+    "address": "689 Bloor St W, Toronto, ON M6G 1L3, Canada",
+    "placeId": "ChIJi3FM_Iw0K4gRZCq6WEoqyjU",
+    "rating": 4.4,
+    "totalReviews": 1461,
+    "priceLevel": 1
+  },
+  "mockReviews": [
+    {
+      "author": "Chef Solito",
+      "rating": 4,
+      "text": "Was watching the blue jays games here .This place has excellent customer service they attend to you very sweet and warm welcoming .The food is very hot and served so fast I couldn’t believe it . The nachos with no meat added was amazing !! And even the pupusas were good I got revuelta and I order tacos de birria. This the second time I went to this place and the food taste was still the same I like that :) check this place out and sorry didn’t take to many pictures was eating ahaha",
+      "relativeTime": "8 months ago"
+    },
+    {
+      "author": "Divy Thasarathan",
+      "rating": 5,
+      "text": "Was in the area and craving Birria tacos and it did not disappoint!\n\nTacos were full of flavour and the side hot sauces were the perfect pairing to add a kick 🌮 🔥",
+      "relativeTime": "4 months ago"
+    },
+    {
+      "author": "Jenny",
+      "rating": 5,
+      "text": "went in for a quick bite on a friday night and was pleasantly surprised by this 30+ year family run joint! food was great - will be back :)",
+      "relativeTime": "2 months ago"
+    },
+    {
+      "author": "Lee Smith",
+      "rating": 3,
+      "text": "Sorry guys, but  my delivery order didn't cut it. Burrito was more than 50% beans and the meat was slices of tough beef. The lamb taco meat was dry and not seasoned. Guoc was great, sauces great. Missed the mark today.",
+      "relativeTime": "4 months ago"
+    },
+    {
+      "author": "Rachelle Lopez",
+      "rating": 4,
+      "text": "The Food was proper but nothing to write about. Enjoyed my Platano maduros, the burrito was good according to my friend but my tacos need more flavour.",
+      "relativeTime": "11 months ago"
+    }
+  ],
+  "expectations": {
+    "dimensionsMustInclude": [
+      "food_quality",
+      "authenticity"
+    ],
+    "dimensionsMustExclude": [
+      "ambiance"
+    ],
+    "weightOrder": [
+      "authenticity",
+      "food_quality"
+    ]
+  }
+}

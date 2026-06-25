@@ -1,0 +1,56 @@
+{
+  "id": "keg-steak-quality",
+  "restaurant": "The Keg Steakhouse + Bar - Leslie Street",
+  "city": "Toronto",
+  "intent": "Best steak quality, proper aging, excellent cuts, serious steakhouse experience",
+  "mockPlace": {
+    "name": "The Keg Steakhouse + Bar - Leslie Street",
+    "address": "1977 Leslie St, North York, ON M3B 2M3, Canada",
+    "placeId": "ChIJJxsUTKLS1IkRRVSoeMEIsW0",
+    "rating": 4.5,
+    "totalReviews": 4409,
+    "priceLevel": 3
+  },
+  "mockReviews": [
+    {
+      "author": "Micheal",
+      "rating": 5,
+      "text": "Came here for a birthday dinner and had a great experience overall, much better than my visit to the King Street location a few days prior, where the food came out cold. Here, everything arrived warm and well-prepared.\n\nOur server Renee was excellent, attentive, professional, and on top of everything throughout the meal. The greeters were equally welcoming and accommodated our booth request without any hassle. When I asked the greeter who seated us to take some photos, she was happy to help, which was a nice touch for a birthday occasion.\n\nThe complimentary ice cream cake was a great surprise and much appreciated. Washrooms were clean as well, which always matters.\n\nThe only thing worth mentioning is the noise level. Some guests were incredibly loud, the kind where you feel like you’re sitting next to a theme park ride rather than a dinner table. That said, it has nothing to do with the staff or the restaurant itself, so it doesn’t take away from the 5 stars. Everything within their control was handled really well.\n\nWould definitely return.",
+      "relativeTime": "2 weeks ago"
+    },
+    {
+      "author": "Ann.",
+      "rating": 5,
+      "text": "I visited Keg Restaurant for lunch with a friend and had a wonderful experience. Our food arrived very quickly  within about 10 minutes  which was impressive.\nWe ordered a few appetizers, including the tartare, and also tried the grilled seafood. Everything was incredibly fresh and very tasty. I also had a cocktail that was perfectly made and complemented the meal nicely.\nThe atmosphere of the restaurant is beautiful and very welcoming. Overall, it was a lovely lunch, and I truly enjoyed my time there. I would definitely come back again.",
+      "relativeTime": "3 months ago"
+    },
+    {
+      "author": "TheTkhan",
+      "rating": 5,
+      "text": "I managed to get a a reservation for Valentine's Day, and we had the same waiter as last time probably one of the best waiters ever gave us top notch service and my daughter was smiling at him as well.\n\nI ordered the calamari appetizer delicious as always, crispy and tender on the inside.\n\nI ordered the 18 oz prime rib with mash potatoes , with the red wine jus and fried onions and horseradish.\n\nThe prime rib was cooked to perfection, and massive and the waiter who served us before recognized us and even gave us a free billy miner pie as it was me and wife's anniversary.\n\nThe horseradish is strong eat with caution but the prime rib was fantastic really heavy I don't think I have to eat for a week honestly. Keg always been a staple and consistent",
+      "relativeTime": "4 months ago"
+    },
+    {
+      "author": "Doni",
+      "rating": 3,
+      "text": "It was actually my first time visiting The Keg Steakhouse. I usually go to all-you-can-eat steakhouses, so I always wondered why people would pay for just a single steak. I really enjoyed the service. Our server was very polite, and I also liked how the chef personally brought out the dishes. The nachos with beef on top were amazing — the toppings matched perfectly, and the portion size was great for 2–3 people. Their pitcher of sangria also tasted really good and came in a generous portion.\nHowever, I was disappointed with the steak. I ordered the prime rib, and it had a lot of fat on the sides. Maybe because of that, it didn’t taste as good as people usually say about this restaurant. I’ve honestly never seen a steak with that much fat before. I asked for medium rare, it leaned more toward rare, it was juicy enough tho.  Maybe their other steak options are better, but if I had known, I probably wouldn’t have ordered the prime rib.",
+      "relativeTime": "a month ago"
+    },
+    {
+      "author": "Dina Bakhit",
+      "rating": 5,
+      "text": "The Keg Steakhouse Leslie location.  We keep coming back, and a big part of that is thanks to Marline and Will. Their customer service is truly top-notch. They went above and beyond to make sure every detail of our evening was perfect, constantly checking in and making sure we were enjoying our dinner. Their attentiveness and genuine care made the whole experience feel extra special. Service like that is hard to find, and it’s what makes this place stand out every time we visit. Keep up the amazing work and thank you from my family for always welcoming us with a smile.",
+      "relativeTime": "2 months ago"
+    }
+  ],
+  "expectations": {
+    "dimensionsMustInclude": [
+      "food_quality"
+    ],
+    "weightOrder": [
+      "food_quality",
+      "authenticity"
+    ]
+  },
+  "pairedWith": "keg-family-dinner"
+}

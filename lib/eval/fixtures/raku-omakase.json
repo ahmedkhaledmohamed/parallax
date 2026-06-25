@@ -1,0 +1,56 @@
+{
+  "id": "raku-omakase",
+  "restaurant": "Ju-Raku Japanese Restaurant",
+  "city": "Toronto",
+  "intent": "Traditional Japanese omakase, fresh fish quality, authentic preparation, minimalist presentation",
+  "mockPlace": {
+    "name": "Ju-Raku Japanese Restaurant",
+    "address": "2901 Bayview Ave Unit 101, North York, ON M2K 1E6, Canada",
+    "placeId": "ChIJTSEX8EktK4gR_daO9G4EArI",
+    "rating": 4.6,
+    "totalReviews": 843
+  },
+  "mockReviews": [
+    {
+      "author": "Ka Chi",
+      "rating": 5,
+      "text": "Had a great dinner at Ju-Raku recently. The food quality was excellent and they have many Japanese dishes that are very hard to find in Toronto.\n\nThe Kinmedai sashimi was super fresh and sweet. The uni was rich and creamy, and the otoro was amazing. The oysters were also very fresh. One of my favourite dishes was the grilled fish fin, which is not something you can easily find in other Japanese restaurants. The mentaiko chicken skewers were also very tasty.\n\nI was also impressed by their sake selection. They have many premium Japanese sake that you don’t usually see outside Japan, and it was nice to try something different from the usual sake available in most restaurants.\n\nThe service was excellent as well. The staff were very friendly, attentive, and knowledgeable about both the food and sake. They took the time to explain the dishes and gave good recommendations, which made the whole dining experience even better.\n\nThe restaurant has a comfortable atmosphere and is a good place for both special occasions and casual dinners.\n\nIf you enjoy authentic Japanese food, fresh seafood, rare Japanese dishes, and good sake, I highly recommend Ju-Raku. Definitely one of my favourite Japanese restaurants in Toronto. Will definitely come back again! 🍣🍶👍🏻✨",
+      "relativeTime": "3 weeks ago"
+    },
+    {
+      "author": "Hank Ban",
+      "rating": 3,
+      "text": "Tuna nigiri was surprisingly good. Every large platter of sushi, they throw in these pre-prepared California rolls that are cold and dry to make plate seem fuller. It's nice if you're gong for quantity but it brings the quality level down. Appetizers were meh. Hamachi carpace tasted a little odd.\n\nService was pretty good. Inside the mall. Ample seating and well lit, clean and nice modern decor. Separate room for teppanyaki which is nice as those tend to get noisy. Thing off is they have random storage out in the open - also another point off for the place's overall quality. Use of plastic serving trays for some of their fish also brings down the quality feel despite colorful patterns including potentially affecting the taste. They try hard for the upscale look for other things like having monogrammed place settings and crane chopsticks rest. Therefore all-in-all, it doesn't justify the price they're charging. Maybe for teppanyaki but I don't believe so for their sushi. I think they could be better and do have potential. May explain partly why they weren't overly busy when I went.",
+      "relativeTime": "5 months ago"
+    },
+    {
+      "author": "Paul Murata",
+      "rating": 2,
+      "text": "My excitement for Ju-Raku was high on Valentine's Day. As a newly opened spot with a sleek online presence, it seemed like a great choice. However, from the moment we arrived, it was clear that the reality didn't match the high-end image we had built up in our minds.\n\nFollow post owner review. There will not be a return visit.\nTo be clear, a more casual atmosphere isn't a bad thing. But when a restaurant requires your credit card information to secure a reservation, it sets a certain expectation for the level of service and quality. Unfortunately, the online portrayal felt misleading compared to our in-person experience.\n\nThe restaurant is presented as Japanese, but the vibe from the start suggested it's a Chinese-run establishment serving Japanese-style food. That’s not inherently negative, but it became a defining characteristic of the meal. The sushi rice was a pleasant surprise—well-prepared—and the fish was fresh, but that was the peak of the culinary experience. The teppanyaki was average, and the chawanmushi missed the mark entirely. In my opinion, it lacked the delicate subtlety that defines Japanese cuisine; it felt like a poor translation of the dish, with odd ingredient additions and, most notably, the absence of the traditional ginkgo nut.\n\nThe miso soup arrived lukewarm, which was disappointing. The green salad, while refreshing, was also quite small. On the positive side, the Winterlicious lunch teppanyaki menu was reasonably priced, and the quality of the meats was good, though the Wagyu fat was chewy and its texture inconsistent.\n\nIt’s possible the restaurant is still finding its footing, being so new. But the impression it left was less of a place perfecting its craft and more of one experimenting to see what sells, without a strong focus on delivering a refined product.\n\nThis brings me back to the credit card requirement for a reservation. I fail to see its necessity unless a restaurant is either a highly exclusive, sought-after venue or overly concerned about preventing no-shows. Ju-Raku is neither.\n\nIn summary, Ju-Raku isn’t a bad restaurant. It’s more Japanese-adjacent than authentically Japanese. I’d recommend it for families with young children who might enjoy the teppanyaki show and the reasonable prices. For anyone seeking a genuine Japanese dining experience, I’d suggest looking elsewhere.",
+      "relativeTime": "3 months ago"
+    },
+    {
+      "author": "Michele Marques",
+      "rating": 5,
+      "text": "I finally tried Ju-Raku for lunch, and I will definitely be back. The atmosphere is elegant, with beautiful murals and unusual lighting.\n\nThe food is a little pricey but absolutely delicious. The hamachi in the daily special handroll was so tender and fresh.\n\nMy only complaint is that the level of service is very mixed. On the positive side, the waiter asked about allergies, and told us about one item having dairy that we did not expect. However, the timing of delivering dishes was odd.  I realize that food might not be ready at the same time, but why did one of us get our miso soup and salad about 15 minutes before the other?",
+      "relativeTime": "2 months ago"
+    },
+    {
+      "author": "Joanne Cheung (Hungry.Jo)",
+      "rating": 5,
+      "text": "We had our Christmas gathering here and the service was excellent and everyone was very impressed with the food. Comfortable and spacious seating for our party of 6.\n\nWe ordered the Sashimi Moriawase ( 30 pieces for $99). The sushi is the freshest and the assortment flown in from Japan and Europe. The Otoro was amazing and melts in your mouth.\n\nWe ordered some maki rolls and were a good size and right proportions of rice. We highly recommend the Lobster Maki along with the Golden Dragon Maki.\n\nWe also enjoyed the Steamed Clams in sake and Kombu broth. Generous portion served in a traditional iron Japanese pot.\n\nFor curry Udon, we selected the beef for our protein and we were pleasantly surprised topped with a perfectly grilled steak.\n\nFor apps we included GYOZAS and shrimp and vegetable Tempura.\n\nIf you haven’t been to Ju Raku located inside Bayview Village in North York, it’s time to make a visit in your the New Year",
+      "relativeTime": "5 months ago"
+    }
+  ],
+  "expectations": {
+    "dimensionsMustInclude": [
+      "food_quality",
+      "authenticity"
+    ],
+    "weightOrder": [
+      "authenticity",
+      "food_quality",
+      "ambiance"
+    ]
+  }
+}

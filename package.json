@@ -9,7 +9,8 @@
     "lint": "eslint",
     "eval": "tsx lib/eval/runner.ts run",
     "eval:compare": "tsx lib/eval/runner.ts compare",
-    "eval:baseline": "tsx lib/eval/runner.ts baseline"
+    "eval:baseline": "tsx lib/eval/runner.ts baseline",
+    "eval:capture": "tsx lib/eval/capture-fixtures.ts"
   },
   "dependencies": {
     "next": "16.2.9",

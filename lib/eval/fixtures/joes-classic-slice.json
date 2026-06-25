@@ -1,0 +1,55 @@
+{
+  "id": "joes-classic-slice",
+  "restaurant": "Joe's Pizza Broadway",
+  "city": "New York",
+  "intent": "Classic New York slice, thin crust, good fold, no fancy toppings, quick and cheap",
+  "mockPlace": {
+    "name": "Joe's Pizza Broadway",
+    "address": "1435 Broadway, New York, NY 10018, USA",
+    "placeId": "ChIJifIePKtZwokRVZ-UdRGkZzs",
+    "rating": 4.4,
+    "totalReviews": 25918,
+    "priceLevel": 1
+  },
+  "mockReviews": [
+    {
+      "author": "Girish Wangikar",
+      "rating": 4,
+      "text": "As a tourists visited the highly recommended Joe’s pizza and it didn’t let me down. Had multiple slices across three days and everything was amazing. The prices are reasonable, service is super fast. Locations are spread across the city. You might not get place to sit inside so better to carry to nearby parks where you can eat it in peace. I went early in the morning when the crowd was manageable but later on people started pouring in and it wad nonstop.",
+      "relativeTime": "3 weeks ago"
+    },
+    {
+      "author": "SL Wong",
+      "rating": 5,
+      "text": "This is the main outlet of Joe's pizza.  If you don't want to queue, come before dinner as the queues get really longer after that. Even at 9 pm the queue gets even longer.\n\nThe left shop sells pizza by the slice and the right shop(also Joe's pizza) sells them by pie (whole pizza).\n\nThe pizzas were absolutely delicious.  I would highly recommend getting the classic cheese. It was probably one of the best pizzas I've tasted.  The crust was thin and doesnt gets soft.\n\nThey will heat up your slices after you've ordered.",
+      "relativeTime": "3 weeks ago"
+    },
+    {
+      "author": "Highway Video",
+      "rating": 4,
+      "text": "A must-visit if you’re in New York.\nSimple, classic and full of that authentic New York pizza vibe. The slices were fresh, cheesy and so good — exactly the kind of pizza you imagine having in NYC.\nBe prepared for a queue though. There’s almost always a line and the wait can easily be around 30–45 minutes, but the pizza is definitely worth it.\nQuick service once inside and perfect for grabbing a slice while exploring the city. Definitely lived up to the hype.",
+      "relativeTime": "a month ago"
+    },
+    {
+      "author": "Bruno g",
+      "rating": 4,
+      "text": "My experience at Joe’s Pizza on Broadway was a bit mixed.\n\nFirst of all, the service felt very fast-paced and almost “assembly line” style. Everything is designed to move quickly, which makes sense given how popular the place is, but it doesn’t really allow you to take your time to enjoy the experience if you’re eating on site. You order, receive your slice, and things move on immediately.\n\nIn terms of taste, I honestly expected something more exceptional given the reputation. The pizza was good, but not outstanding for me. It didn’t quite match the level of hype I had built up before coming here.\n\nI also get the impression that a big part of its popularity comes from its appearance in Spider-Man and the celebrity photos on the walls, which definitely adds to the “iconic New York spot” feeling.\n\nTo be clear, it wasn’t bad at all — just not as memorable as I expected considering all the reputation around it. I was simply expecting a bit more in terms of flavor and overall experience.\n\nStill, it’s an iconic place worth trying once if you’re in New York, especially for the history and pop culture aspect.",
+      "relativeTime": "2 weeks ago"
+    },
+    {
+      "author": "Salman Idrees",
+      "rating": 5,
+      "text": "I just had to share my amazing experience at Joe’s Pizza — it truly exceeded all my expectations!\n\nFrom the moment I walked in, the atmosphere was warm, lively, and welcoming. The staff greeted me with genuine smiles and were incredibly friendly and attentive throughout my visit. It’s clear they take pride not just in their food but in making customers feel valued and comfortable.\n\nNow let’s talk about the pizza — absolutely phenomenal. The crust was perfectly crisp on the outside while staying soft and chewy inside. The sauce had that rich, balanced flavor that tastes fresh and homemade, and the cheese was melted to perfection with just the right stretch in every bite. Every slice was packed with flavor, and you can really tell they use high-quality ingredients.\n\nService was fast and efficient even though the place was busy, which says a lot about how well the team works together. The staff were patient, helpful with recommendations, and made the whole experience even better.\n\nIf you’re looking for authentic, delicious pizza served by a team that genuinely cares, Joe’s Pizza is a must-visit. I’ll definitely be coming back for more!\n\n⭐️⭐️⭐️⭐️⭐️ Highly recommend",
+      "relativeTime": "4 months ago"
+    }
+  ],
+  "expectations": {
+    "dimensionsMustInclude": [
+      "food_quality"
+    ],
+    "weightOrder": [
+      "food_quality",
+      "price_value"
+    ]
+  }
+}
