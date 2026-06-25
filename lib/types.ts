@@ -52,6 +52,7 @@ export interface AnalysisResult {
   restaurant: {
     name: string;
     address: string;
+    placeId: string;
     googleRating: number;
     totalReviews: number;
     priceLevel?: number;
