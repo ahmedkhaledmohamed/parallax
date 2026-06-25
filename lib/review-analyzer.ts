@@ -250,6 +250,7 @@ Respond as JSON:
     restaurant: {
       name: place.name,
       address: place.address,
+      placeId: place.placeId,
       googleRating: place.rating,
       totalReviews: place.totalReviews,
       priceLevel: place.priceLevel,
