@@ -6,17 +6,72 @@ import {
   AnalysisResult,
 } from "./types";
 
-const MODEL = "llama-3.3-70b-versatile";
+interface ProviderConfig {
+  name: string;
+  apiKey: string | undefined;
+  baseURL: string;
+  model: string;
+}
 
-let _groq: OpenAI | null = null;
-function groq(): OpenAI {
-  if (!_groq) {
-    _groq = new OpenAI({
+function getProviders(): ProviderConfig[] {
+  const providers: ProviderConfig[] = [];
+
+  if (process.env.GROQ_API_KEY) {
+    providers.push({
+      name: "groq",
       apiKey: process.env.GROQ_API_KEY,
       baseURL: "https://api.groq.com/openai/v1",
+      model: "llama-3.3-70b-versatile",
     });
   }
-  return _groq;
+
+  if (process.env.TOGETHER_API_KEY) {
+    providers.push({
+      name: "together",
+      apiKey: process.env.TOGETHER_API_KEY,
+      baseURL: "https://api.together.xyz/v1",
+      model: "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+    });
+  }
+
+  return providers;
+}
+
+const _clients = new Map<string, OpenAI>();
+
+function getClient(provider: ProviderConfig): OpenAI {
+  if (!_clients.has(provider.name)) {
+    _clients.set(
+      provider.name,
+      new OpenAI({ apiKey: provider.apiKey, baseURL: provider.baseURL })
+    );
+  }
+  return _clients.get(provider.name)!;
+}
+
+async function chatWithFallback(
+  params: Omit<OpenAI.Chat.ChatCompletionCreateParamsNonStreaming, "model">
+): Promise<OpenAI.Chat.ChatCompletion> {
+  const providers = getProviders();
+  if (providers.length === 0) {
+    throw new Error("No LLM provider configured. Set GROQ_API_KEY or TOGETHER_API_KEY.");
+  }
+
+  for (let i = 0; i < providers.length; i++) {
+    try {
+      return await getClient(providers[i]).chat.completions.create({
+        ...params,
+        model: providers[i].model,
+      });
+    } catch (err) {
+      const isRateLimit = err instanceof Error && err.message.includes("429");
+      const isLast = i === providers.length - 1;
+      if (isRateLimit && !isLast) continue;
+      throw err;
+    }
+  }
+
+  throw new Error("All providers failed");
 }
 
 function calculateConfidence(
@@ -111,8 +166,7 @@ function extractJson(text: string): unknown {
 export async function decomposeReviews(
   reviews: GoogleReview[]
 ): Promise<DecomposedReview[]> {
-  const response = await groq().chat.completions.create({
-    model: MODEL,
+  const response = await chatWithFallback({
     temperature: 0.1,
     max_tokens: 4096,
     response_format: { type: "json_object" },
@@ -174,8 +228,7 @@ export async function matchAndScore(
   decomposed: DecomposedReview[],
   userIntent: string
 ): Promise<AnalysisResult> {
-  const response = await groq().chat.completions.create({
-    model: MODEL,
+  const response = await chatWithFallback({
     temperature: 0.1,
     max_tokens: 4096,
     response_format: { type: "json_object" },
