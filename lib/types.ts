@@ -65,4 +65,5 @@ export interface AnalysisResult {
   sampleSize: number;
   dimensionBreakdown: DimensionScore[];
   sourceBreakdown?: { source: string; count: number }[];
+  dimensionClaims?: Record<string, { author: string; claim: string; sentiment: number }[]>;
 }

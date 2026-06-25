@@ -157,6 +157,28 @@ export function computeParallaxScore(
   return { score: clampedScore, dimensionBreakdown: breakdown };
 }
 
+function buildDimensionClaims(
+  decomposed: DecomposedReview[],
+  weights: { dimension: string }[]
+): Record<string, { author: string; claim: string; sentiment: number }[]> {
+  const relevant = new Set(weights.map((w) => w.dimension));
+  const claims: Record<string, { author: string; claim: string; sentiment: number }[]> = {};
+
+  for (const review of decomposed) {
+    for (const dim of review.dimensions) {
+      if (!relevant.has(dim.dimension)) continue;
+      if (!claims[dim.dimension]) claims[dim.dimension] = [];
+      claims[dim.dimension].push({
+        author: review.author,
+        claim: dim.claim,
+        sentiment: dim.sentiment,
+      });
+    }
+  }
+
+  return claims;
+}
+
 function extractJson(text: string): unknown {
   const match = text.match(/```(?:json)?\s*([\s\S]*?)```/);
   const raw = match ? match[1].trim() : text.trim();
@@ -315,6 +337,7 @@ Respond as JSON:
     confidence,
     sampleSize: decomposed.length,
     dimensionBreakdown,
+    dimensionClaims: buildDimensionClaims(decomposed, parsed.dimensionWeights),
   };
 }
 
