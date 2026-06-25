@@ -1,5 +1,6 @@
 import { ReviewSource, UnifiedReview, PlaceInfo } from "./types";
 import { GooglePlacesSource, isGoogleMapsUrl } from "./google-places";
+import { RedditSource } from "./reddit";
 
 export interface AggregatedResult {
   place: PlaceInfo;
@@ -7,7 +8,7 @@ export interface AggregatedResult {
   sourceBreakdown: { source: string; count: number }[];
 }
 
-const sources: ReviewSource[] = [new GooglePlacesSource()];
+const sources: ReviewSource[] = [new GooglePlacesSource(), new RedditSource()];
 
 export function registerSource(source: ReviewSource): void {
   sources.push(source);
@@ -32,13 +33,15 @@ export async function aggregateReviews(
 
   const allReviews: UnifiedReview[] = [...googleResult.reviews];
 
+  const resolvedCity = city || extractCity(googleResult.place.address);
+
   const otherSources = sources.filter(
     (s) => s.name !== "google" && s.isAvailable()
   );
 
   const supplementary = await Promise.allSettled(
     otherSources.map((s) =>
-      s.fetchReviews(googleResult.place.name, city)
+      s.fetchReviews(googleResult.place.name, resolvedCity)
     )
   );
 
@@ -99,6 +102,11 @@ function jaccardSimilarity(a: string, b: string): number {
   const intersection = new Set([...setA].filter((x) => setB.has(x)));
   const union = new Set([...setA, ...setB]);
   return union.size > 0 ? intersection.size / union.size : 0;
+}
+
+function extractCity(address: string): string {
+  const parts = address.split(",").map((p) => p.trim());
+  return parts.length >= 2 ? parts[parts.length - 3] ?? parts[0] : address;
 }
 
 function buildSourceBreakdown(
