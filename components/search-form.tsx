@@ -37,7 +37,7 @@ export function SearchForm({ onSubmit, isLoading }: SearchFormProps) {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Osteria Francescana, Modena"
+          placeholder="Restaurant name or Google Maps URL"
           className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-3 text-zinc-100 placeholder:text-zinc-600 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 transition-colors"
           disabled={isLoading}
         />
