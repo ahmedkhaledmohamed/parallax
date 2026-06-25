@@ -15,8 +15,14 @@ const INTENT_EXAMPLES = [
   "Brunch with friends, good vibes, strong coffee",
 ];
 
+function getSharedQuery(): string {
+  if (typeof window === "undefined") return "";
+  const params = new URLSearchParams(window.location.search);
+  return params.get("query") || params.get("url") || params.get("text") || "";
+}
+
 export function SearchForm({ onSubmit, isLoading }: SearchFormProps) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(getSharedQuery);
   const [intent, setIntent] = useState("");
 
   function handleSubmit(e: React.FormEvent) {
