@@ -88,6 +88,24 @@ Add `EVAL_JUDGE_API_KEY` to `.env.local`.
 
 Capture mock reviews by running Google API once and freezing responses. Add human scores for at least 10 cases.
 
+### 0F. Eval Dashboard (Admin Portal)
+
+A `/admin` route in the Next.js app that answers "how is Parallax performing right now?" at a glance.
+
+**Views:**
+- **Overview**: Latest eval run scores across all 7 dimensions, color-coded (green/amber/red). Overall system health score.
+- **Trend**: Line chart showing each dimension's score over time across eval runs. Did quality improve or regress after the last change?
+- **Fixture drill-down**: Click any fixture to see full results — expected vs actual score, confidence, dimensions, explanation. Failing cases highlighted red.
+- **Comparison**: Pick two eval runs and see a diff — which scores improved, which regressed, which fixtures flipped.
+- **Run trigger**: Button to kick off a new eval run from the dashboard (hits the eval runner, stores results, refreshes view).
+
+**Implementation:**
+- `app/admin/page.tsx` — dashboard layout
+- `app/admin/layout.tsx` — password gate (simple env var `ADMIN_PASSWORD`, checked via middleware or server component)
+- `app/api/eval/route.ts` — GET returns latest/historical eval results, POST triggers a new run
+- Eval results stored as JSON in `lib/eval/reports/` (git-tracked) and optionally in Vercel KV for faster dashboard reads
+- Use `recharts` for trend visualization (same library as Phase 3 radar charts)
+
 ---
 
 ## Phase 1: Core Quality Improvements (Weeks 3-6)
