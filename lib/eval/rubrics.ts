@@ -201,6 +201,26 @@ export function scoreWeightCoherence(
   };
 }
 
+export function scoreIntentAlignment(
+  resultA: AnalysisResult,
+  resultB: AnalysisResult,
+  caseIdA: string,
+  caseIdB: string
+): RubricScore {
+  const delta = Math.abs(resultA.parallaxScore - resultB.parallaxScore);
+  const passed = delta >= 0.3;
+
+  return {
+    dimension: "intent_alignment",
+    score: passed ? 1 : 0,
+    maxScore: 1,
+    passed,
+    details: passed
+      ? `Paired cases "${caseIdA}" (${resultA.parallaxScore}) and "${caseIdB}" (${resultB.parallaxScore}) diverge by ${delta.toFixed(1)} — intent produces different scores`
+      : `Paired cases "${caseIdA}" (${resultA.parallaxScore}) and "${caseIdB}" (${resultB.parallaxScore}) only differ by ${delta.toFixed(1)} — system is not personalizing`,
+  };
+}
+
 export function runAllRubrics(
   result: AnalysisResult,
   decomposed: DecomposedReview[],
