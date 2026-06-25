@@ -7,12 +7,15 @@ import { ParallaxScore } from "@/components/parallax-score";
 import { Explanation } from "@/components/explanation";
 import { DimensionRadar } from "@/components/dimension-radar";
 import { DimensionDelta } from "@/components/dimension-delta";
+import { DimensionDetail } from "@/components/dimension-detail";
 import { ReviewCard } from "@/components/review-card";
+import { SearchHistory, saveToHistory } from "@/components/search-history";
 
 export default function Home() {
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [historyKey, setHistoryKey] = useState(0);
 
   async function handleSearch(query: string, intent: string) {
     setIsLoading(true);
@@ -34,6 +37,13 @@ export default function Home() {
       }
 
       setResult(data);
+      saveToHistory({
+        restaurant: data.restaurant.name,
+        intent,
+        parallaxScore: data.parallaxScore,
+        googleScore: data.googleScore,
+      });
+      setHistoryKey((k) => k + 1);
     } catch {
       setError("Failed to connect. Please try again.");
     } finally {
@@ -62,23 +72,41 @@ export default function Home() {
       )}
 
       {result && (
-        <div className="mt-10 w-full max-w-2xl space-y-6">
-          <ParallaxScore result={result} />
-          <DimensionRadar dimensions={result.dimensionBreakdown} />
-          <DimensionDelta dimensions={result.dimensionBreakdown} />
-          <Explanation result={result} />
+        <div className="mt-10 w-full max-w-5xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Left column: scores + visualizations */}
+            <div className="space-y-6">
+              <ParallaxScore result={result} />
+              <DimensionRadar dimensions={result.dimensionBreakdown} />
+              <DimensionDelta dimensions={result.dimensionBreakdown} />
+            </div>
 
-          <div>
-            <h3 className="text-sm font-medium uppercase tracking-wider text-amber-500 mb-4">
-              Reviews that matter to you
-            </h3>
-            <div className="space-y-3">
-              {result.relevantReviews.map((review, i) => (
-                <ReviewCard key={i} review={review} />
-              ))}
+            {/* Right column: explanation + evidence + reviews */}
+            <div className="space-y-6">
+              <Explanation result={result} />
+              <DimensionDetail result={result} />
+              <div>
+                <h3 className="text-sm font-medium uppercase tracking-wider text-amber-500 mb-4">
+                  Reviews that matter to you
+                </h3>
+                <div className="space-y-3">
+                  {result.relevantReviews.map((review, i) => (
+                    <ReviewCard key={i} review={review} />
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      )}
+
+      {!result && (
+        <SearchHistory
+          key={historyKey}
+          onSelect={(restaurant, intent) =>
+            handleSearch(restaurant, intent)
+          }
+        />
       )}
     </main>
   );
