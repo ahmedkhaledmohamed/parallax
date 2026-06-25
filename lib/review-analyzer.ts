@@ -1,4 +1,4 @@
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import {
   GooglePlaceResult,
   GoogleReview,
@@ -6,7 +6,12 @@ import {
   AnalysisResult,
 } from "./types";
 
-const anthropic = new Anthropic();
+const groq = new OpenAI({
+  apiKey: process.env.GROQ_API_KEY,
+  baseURL: "https://api.groq.com/openai/v1",
+});
+
+const MODEL = "llama-3.3-70b-versatile";
 
 function extractJson(text: string): unknown {
   const match = text.match(/```(?:json)?\s*([\s\S]*?)```/);
@@ -17,10 +22,16 @@ function extractJson(text: string): unknown {
 async function decomposeReviews(
   reviews: GoogleReview[]
 ): Promise<DecomposedReview[]> {
-  const response = await anthropic.messages.create({
-    model: "claude-sonnet-4-20250514",
+  const response = await groq.chat.completions.create({
+    model: MODEL,
+    temperature: 0.1,
     max_tokens: 4096,
+    response_format: { type: "json_object" },
     messages: [
+      {
+        role: "system",
+        content: "You are a review analysis engine. Respond with ONLY valid JSON, no markdown or explanation.",
+      },
       {
         role: "user",
         content: `Analyze these restaurant reviews. For each review, extract structured dimensional claims.
@@ -39,7 +50,7 @@ For each review, extract:
 3. Context signals — inferred visit context: date_night, family, business, solo, friends, celebration, casual, tourist, regular.
 4. Overall tone: positive, negative, mixed, or neutral.
 
-Respond with ONLY valid JSON (no markdown, no explanation):
+Respond as JSON:
 {
   "reviews": [
     {
@@ -57,8 +68,7 @@ Respond with ONLY valid JSON (no markdown, no explanation):
     ],
   });
 
-  const text =
-    response.content[0].type === "text" ? response.content[0].text : "";
+  const text = response.choices[0].message.content ?? "";
   const parsed = extractJson(text) as {
     reviews: Omit<DecomposedReview, "text" | "relativeTime">[];
   };
@@ -75,13 +85,19 @@ async function matchAndScore(
   decomposed: DecomposedReview[],
   userIntent: string
 ): Promise<AnalysisResult> {
-  const response = await anthropic.messages.create({
-    model: "claude-sonnet-4-20250514",
+  const response = await groq.chat.completions.create({
+    model: MODEL,
+    temperature: 0.1,
     max_tokens: 4096,
+    response_format: { type: "json_object" },
     messages: [
       {
+        role: "system",
+        content: "You are Parallax, a review re-scoring engine. Respond with ONLY valid JSON, no markdown or explanation.",
+      },
+      {
         role: "user",
-        content: `You are Parallax, a review re-scoring engine. Given decomposed restaurant reviews and a user's specific intent, compute a personalized score that reflects what this user actually cares about.
+        content: `Given decomposed restaurant reviews and a user's specific intent, compute a personalized score that reflects what this user actually cares about.
 
 Restaurant: ${place.name}
 Address: ${place.address}
@@ -102,7 +118,7 @@ Instructions:
 6. Write a concise, direct explanation of why the Google aggregate differs from the Parallax score for this user. Reference specific dimensions and reviewer perspectives. No generic filler.
 7. Set confidence: "high" if 3+ reviews address the user's key dimensions, "medium" if 1-2 do, "low" if extrapolating.
 
-Respond with ONLY valid JSON:
+Respond as JSON:
 {
   "parallaxScore": 3.2,
   "dimensionBreakdown": [
@@ -124,8 +140,7 @@ Respond with ONLY valid JSON:
     ],
   });
 
-  const text =
-    response.content[0].type === "text" ? response.content[0].text : "";
+  const text = response.choices[0].message.content ?? "";
   const parsed = extractJson(text) as {
     parallaxScore: number;
     dimensionBreakdown: AnalysisResult["dimensionBreakdown"];

@@ -23,11 +23,11 @@ npm run dev
 ### Required API keys
 
 - `GOOGLE_PLACES_API_KEY` — [Google Cloud Console](https://console.cloud.google.com/apis/credentials) with Places API enabled
-- `ANTHROPIC_API_KEY` — [Anthropic Console](https://console.anthropic.com/)
+- `GROQ_API_KEY` — [Groq Console](https://console.groq.com/) (free tier)
 
 ## Tech stack
 
 - Next.js 16 (App Router)
-- Claude API for review decomposition and re-scoring
+- Groq (Llama 3.3 70B) for review decomposition and re-scoring
 - Google Places API for restaurant data and reviews
 - Tailwind CSS
