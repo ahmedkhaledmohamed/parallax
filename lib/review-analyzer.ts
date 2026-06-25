@@ -19,6 +19,25 @@ function groq(): OpenAI {
   return _groq;
 }
 
+function calculateConfidence(
+  totalReviews: number,
+  dimensionBreakdown: AnalysisResult["dimensionBreakdown"]
+): "high" | "medium" | "low" {
+  if (totalReviews < 3) return "low";
+
+  const keyDimensions = dimensionBreakdown.filter((d) => d.weight > 0.15);
+  if (keyDimensions.length === 0) return "low";
+
+  const avgCoverage =
+    keyDimensions.reduce((sum, d) => sum + d.reviewCount, 0) /
+    keyDimensions.length;
+  const coverageRatio = avgCoverage / totalReviews;
+
+  if (coverageRatio < 0.3) return "low";
+  if (coverageRatio < 0.6 || totalReviews < 5) return "medium";
+  return "high";
+}
+
 function extractJson(text: string): unknown {
   const match = text.match(/```(?:json)?\s*([\s\S]*?)```/);
   const raw = match ? match[1].trim() : text.trim();
@@ -155,6 +174,11 @@ Respond as JSON:
     confidence: "high" | "medium" | "low";
   };
 
+  const confidence = calculateConfidence(
+    decomposed.length,
+    parsed.dimensionBreakdown
+  );
+
   return {
     restaurant: {
       name: place.name,
@@ -167,7 +191,7 @@ Respond as JSON:
     googleScore: place.rating,
     relevantReviews: parsed.relevantReviews,
     explanation: parsed.explanation,
-    confidence: parsed.confidence,
+    confidence,
     sampleSize: decomposed.length,
     dimensionBreakdown: parsed.dimensionBreakdown,
   };
