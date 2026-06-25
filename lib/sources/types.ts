@@ -1,5 +1,5 @@
 export interface UnifiedReview {
-  source: "google" | "yelp" | "reddit" | "blog";
+  source: "google" | "yelp" | "reddit" | "blog" | string;
   author: string;
   rating?: number;
   text: string;
