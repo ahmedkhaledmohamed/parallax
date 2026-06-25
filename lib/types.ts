@@ -43,6 +43,7 @@ export interface RelevantReview {
 export interface DimensionScore {
   dimension: string;
   averageSentiment: number;
+  googleSentiment: number;
   weight: number;
   reviewCount: number;
 }

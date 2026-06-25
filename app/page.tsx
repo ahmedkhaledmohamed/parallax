@@ -5,6 +5,7 @@ import { AnalysisResult } from "@/lib/types";
 import { SearchForm } from "@/components/search-form";
 import { ParallaxScore } from "@/components/parallax-score";
 import { Explanation } from "@/components/explanation";
+import { DimensionRadar } from "@/components/dimension-radar";
 import { ReviewCard } from "@/components/review-card";
 
 export default function Home() {
@@ -62,6 +63,7 @@ export default function Home() {
       {result && (
         <div className="mt-10 w-full max-w-2xl space-y-6">
           <ParallaxScore result={result} />
+          <DimensionRadar dimensions={result.dimensionBreakdown} />
           <Explanation result={result} />
 
           <div>
