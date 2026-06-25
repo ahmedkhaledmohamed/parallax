@@ -9,7 +9,7 @@ function getJudgeClient(): { client: OpenAI; model: string } {
         apiKey: process.env.TOGETHER_API_KEY,
         baseURL: "https://api.together.xyz/v1",
       }),
-      model: "meta-llama/Llama-3.1-8B-Instruct-Turbo",
+      model: "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
     };
   }
   return {
