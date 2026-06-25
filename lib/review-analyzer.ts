@@ -19,7 +19,7 @@ function extractJson(text: string): unknown {
   return JSON.parse(raw);
 }
 
-async function decomposeReviews(
+export async function decomposeReviews(
   reviews: GoogleReview[]
 ): Promise<DecomposedReview[]> {
   const response = await groq.chat.completions.create({
@@ -80,7 +80,7 @@ Respond as JSON:
   }));
 }
 
-async function matchAndScore(
+export async function matchAndScore(
   place: GooglePlaceResult,
   decomposed: DecomposedReview[],
   userIntent: string
