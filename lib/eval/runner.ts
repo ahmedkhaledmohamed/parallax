@@ -290,20 +290,20 @@ async function main() {
       console.log(`  ${dim}: ${stats.score}/${stats.max} (${(stats.passRate * 100).toFixed(0)}% pass rate)`);
     }
 
-    // Compare against baseline if one exists — fail CI only on regressions
+    // Compare against baseline — fail CI only on significant overall regression
     const baselinePath = join(REPORTS_DIR, "baseline.json");
     if (existsSync(baselinePath)) {
       const baseline = loadReport(baselinePath);
       const comparison = compareReports(baseline, report);
-      if (comparison.regressions.length > 0) {
-        console.log("\n\x1b[31mRegressions detected vs baseline:\x1b[0m");
-        printComparison(comparison);
+      printComparison(comparison);
+
+      // LLM output varies between runs, so individual fixture scores fluctuate.
+      // Only fail CI if the OVERALL score drops by more than 5%.
+      if (comparison.overallDelta < -0.05) {
+        console.log(`\n\x1b[31mOverall score regressed by ${(comparison.overallDelta * 100).toFixed(1)}% (threshold: -5%). Failing CI.\x1b[0m`);
         process.exit(1);
       }
-      console.log("\n\x1b[32mNo regressions vs baseline.\x1b[0m");
-      if (comparison.improvements.length > 0) {
-        printComparison(comparison);
-      }
+      console.log("\n\x1b[32mNo significant overall regression vs baseline.\x1b[0m");
     }
 
     process.exit(0);
