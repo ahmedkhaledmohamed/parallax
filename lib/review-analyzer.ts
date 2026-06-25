@@ -140,8 +140,13 @@ Instructions:
 3. For each review, assess how much it addresses the user's concerns.
 4. Compute a Parallax Score (1.0 to 5.0, one decimal) — this is the weighted average of sentiment scores on relevant dimensions, mapped to a 1-5 scale. If a review doesn't mention a relevant dimension, exclude it from that dimension's calculation.
 5. Select the 3-5 most relevant review excerpts — reviews that specifically address what the user cares about.
-6. Write a concise, direct explanation of why the Google aggregate differs from the Parallax score for this user. Reference specific dimensions and reviewer perspectives. No generic filler.
-7. Set confidence: "high" if 3+ reviews address the user's key dimensions, "medium" if 1-2 do, "low" if extrapolating.
+6. Write the explanation following this structure:
+   - Start: "For someone looking for [restate the user's intent in your own words],"
+   - State whether the Parallax score is higher, lower, or similar to Google's and by how much.
+   - Explain WHY using specific dimension findings: name the dimensions, cite sentiment direction, and reference how many reviewers mentioned them (e.g., "3 of 5 reviewers praised the ambiance, but only 1 mentioned noise level — and negatively").
+   - Contrast: explain what drives Google's aggregate that the user does NOT care about (e.g., "Google's high rating is driven by presentation and service scores, which you deprioritized").
+   - NEVER use these phrases: "based on the reviews analyzed", "the restaurant has mixed reviews", "overall the restaurant", or any statement that would be equally valid for a completely different user intent.
+7. Set confidence to "medium" (this will be overridden by deterministic calculation).
 
 Respond as JSON:
 {
