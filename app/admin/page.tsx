@@ -212,7 +212,7 @@ export default function AdminPage() {
   const [password, setPassword] = useState("");
   const [authed, setAuthed] = useState(false);
 
-  const headers = useCallback(
+  const getHeaders = useCallback(
     (): Record<string, string> =>
       password ? { Authorization: `Bearer ${password}` } : {},
     [password]
@@ -221,7 +221,7 @@ export default function AdminPage() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/eval", { headers: headers() });
+      const res = await fetch("/api/eval", { headers: getHeaders() });
       if (res.status === 401) {
         setAuthed(false);
         setLoading(false);
@@ -235,11 +235,35 @@ export default function AdminPage() {
     } finally {
       setLoading(false);
     }
-  }, [headers]);
+  }, [getHeaders]);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    let cancelled = false;
+
+    async function load() {
+      setLoading(true);
+      try {
+        const res = await fetch("/api/eval", { headers: getHeaders() });
+        if (cancelled) return;
+        if (res.status === 401) {
+          setAuthed(false);
+          setLoading(false);
+          return;
+        }
+        const json = await res.json();
+        if (cancelled) return;
+        setData(json);
+        setAuthed(true);
+      } catch {
+        if (!cancelled) setError("Failed to load eval data");
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+
+    load();
+    return () => { cancelled = true; };
+  }, [getHeaders]);
 
   async function runEvals() {
     setRunning(true);
@@ -247,7 +271,7 @@ export default function AdminPage() {
     try {
       const res = await fetch("/api/eval", {
         method: "POST",
-        headers: headers(),
+        headers: getHeaders(),
       });
       if (!res.ok) {
         const json = await res.json();
