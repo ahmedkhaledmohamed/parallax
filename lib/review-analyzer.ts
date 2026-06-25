@@ -6,12 +6,18 @@ import {
   AnalysisResult,
 } from "./types";
 
-const groq = new OpenAI({
-  apiKey: process.env.GROQ_API_KEY,
-  baseURL: "https://api.groq.com/openai/v1",
-});
-
 const MODEL = "llama-3.3-70b-versatile";
+
+let _groq: OpenAI | null = null;
+function groq(): OpenAI {
+  if (!_groq) {
+    _groq = new OpenAI({
+      apiKey: process.env.GROQ_API_KEY,
+      baseURL: "https://api.groq.com/openai/v1",
+    });
+  }
+  return _groq;
+}
 
 function extractJson(text: string): unknown {
   const match = text.match(/```(?:json)?\s*([\s\S]*?)```/);
@@ -22,7 +28,7 @@ function extractJson(text: string): unknown {
 export async function decomposeReviews(
   reviews: GoogleReview[]
 ): Promise<DecomposedReview[]> {
-  const response = await groq.chat.completions.create({
+  const response = await groq().chat.completions.create({
     model: MODEL,
     temperature: 0.1,
     max_tokens: 4096,
@@ -85,7 +91,7 @@ export async function matchAndScore(
   decomposed: DecomposedReview[],
   userIntent: string
 ): Promise<AnalysisResult> {
-  const response = await groq.chat.completions.create({
+  const response = await groq().chat.completions.create({
     model: MODEL,
     temperature: 0.1,
     max_tokens: 4096,
