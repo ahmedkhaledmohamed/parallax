@@ -33,6 +33,10 @@ yarn-error.log*
 # env files
 .env*.local
 
+# eval reports (except baseline)
+lib/eval/reports/*.json
+!lib/eval/reports/baseline.json
+
 # vercel
 .vercel
 
