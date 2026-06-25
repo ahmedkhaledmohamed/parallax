@@ -62,4 +62,5 @@ export interface AnalysisResult {
   confidence: "high" | "medium" | "low";
   sampleSize: number;
   dimensionBreakdown: DimensionScore[];
+  sourceBreakdown?: { source: string; count: number }[];
 }
