@@ -15,12 +15,14 @@ export default function Home() {
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [lastSearch, setLastSearch] = useState<{ query: string; intent: string } | null>(null);
   const [historyKey, setHistoryKey] = useState(0);
 
   async function handleSearch(query: string, intent: string) {
     setIsLoading(true);
     setError(null);
     setResult(null);
+    setLastSearch({ query, intent });
 
     try {
       const res = await fetch("/api/analyze", {
@@ -66,8 +68,16 @@ export default function Home() {
       <SearchForm onSubmit={handleSearch} isLoading={isLoading} />
 
       {error && (
-        <div className="mt-8 w-full max-w-2xl rounded-lg border border-red-900 bg-red-950/30 px-4 py-3 text-sm text-red-400">
-          {error}
+        <div className="mt-8 w-full max-w-2xl rounded-lg border border-red-900 bg-red-950/30 px-4 py-3 text-sm text-red-400 flex items-center justify-between">
+          <span>{error}</span>
+          {lastSearch && (
+            <button
+              onClick={() => handleSearch(lastSearch.query, lastSearch.intent)}
+              className="ml-4 rounded border border-red-800 px-3 py-1 text-xs font-medium text-red-400 hover:bg-red-900/30 transition-colors"
+            >
+              Try again
+            </button>
+          )}
         </div>
       )}
 

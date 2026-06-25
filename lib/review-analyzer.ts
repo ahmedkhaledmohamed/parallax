@@ -59,14 +59,23 @@ async function chatWithFallback(
 
   for (let i = 0; i < providers.length; i++) {
     try {
-      return await getClient(providers[i]).chat.completions.create({
-        ...params,
-        model: providers[i].model,
-      });
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 30000);
+      try {
+        const result = await getClient(providers[i]).chat.completions.create(
+          { ...params, model: providers[i].model },
+          { signal: controller.signal }
+        );
+        return result;
+      } finally {
+        clearTimeout(timeout);
+      }
     } catch (err) {
       const isRateLimit = err instanceof Error && err.message.includes("429");
+      const isTimeout = err instanceof Error && err.name === "AbortError";
       const isLast = i === providers.length - 1;
-      if (isRateLimit && !isLast) continue;
+      if ((isRateLimit || isTimeout) && !isLast) continue;
+      if (isTimeout) throw new Error("LLM request timed out after 30 seconds");
       throw err;
     }
   }
@@ -182,7 +191,13 @@ function buildDimensionClaims(
 function extractJson(text: string): unknown {
   const match = text.match(/```(?:json)?\s*([\s\S]*?)```/);
   const raw = match ? match[1].trim() : text.trim();
-  return JSON.parse(raw);
+  try {
+    return JSON.parse(raw);
+  } catch {
+    const objectMatch = raw.match(/\{[\s\S]*\}/);
+    if (objectMatch) return JSON.parse(objectMatch[0]);
+    throw new Error("LLM returned invalid JSON — could not parse response");
+  }
 }
 
 export async function decomposeReviews(
@@ -276,6 +291,14 @@ ${JSON.stringify(decomposed, null, 2)}
 Instructions:
 1. Identify which dimensions the user cares about based on their intent. Be specific — "quiet dinner" maps to noise_level and ambiance, not food_quality.
 2. Assign weights to relevant dimensions (0.0 to 1.0, should roughly sum to 1.0). Do NOT compute a score — the score will be calculated separately from your weights.
+
+CRITICAL WEIGHT RULES:
+- Dimensions explicitly mentioned in the user's intent MUST receive the highest weights.
+- If the user says "authentic" or "real" or "traditional", authenticity MUST be the top-weighted dimension.
+- If the user says "don't care about X", dimension X MUST receive weight 0.0 and be EXCLUDED.
+- food_quality should only be highly weighted if the user explicitly mentions food quality, taste, or flavor.
+- Do NOT default to food_quality as the highest weight — many intents prioritize other dimensions.
+- Rank dimensions STRICTLY by how prominently they appear in the user's intent statement.
 3. Select the 3-5 most relevant review excerpts — reviews that specifically address what the user cares about.
 4. Write the explanation following this structure:
    - Start: "For someone looking for [restate the user's intent in your own words],"

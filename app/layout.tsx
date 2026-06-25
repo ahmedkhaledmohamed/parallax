@@ -18,6 +18,19 @@ export const metadata: Metadata = {
     "See what a restaurant's rating actually means for what you care about.",
   manifest: "/manifest.json",
   themeColor: "#d97706",
+  openGraph: {
+    title: "Parallax",
+    description:
+      "Same reviews, your viewpoint. See what a restaurant's rating actually means for what you care about.",
+    type: "website",
+    siteName: "Parallax",
+  },
+  twitter: {
+    card: "summary",
+    title: "Parallax — Same reviews, your viewpoint",
+    description:
+      "Personalized restaurant review re-scoring. See what matters to you.",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
