@@ -1,0 +1,56 @@
+{
+  "id": "dishoom-brunch",
+  "restaurant": "Dishoom Covent Garden",
+  "city": "London",
+  "intent": "Vibrant brunch spot, great atmosphere, Bombay-style breakfast, good chai, worth the queue",
+  "mockPlace": {
+    "name": "Dishoom Covent Garden",
+    "address": "12 Upper St Martin's Ln, London WC2H 9FB, UK",
+    "placeId": "ChIJxZXYx7cEdkgRdgAOZ6OHOJw",
+    "rating": 4.7,
+    "totalReviews": 29117,
+    "priceLevel": 2
+  },
+  "mockReviews": [
+    {
+      "author": "Thomas Bloom",
+      "rating": 5,
+      "text": "Ok the important things , you can book after 6 pm provided the group is 6 people or more.\nAround 7 to 8 pm on a Friday night at least , the wait for the restaurant is 25-30 minutes.\nFree tea is served at random for the queueing customers.\n\nThe restaurant is on 2 floors , each floor is huge . The lower floor seems the more quiet part. The whole place is very busy but buzzing with good vibes and atmosphere. An army of well organized servers are constantly around cleaning serving and taking orders. Indeed our server was a well spoken knowledgeable gentleman.\n\nThe menu is a moderate size , a good selection of everything.\nThe food itself was one of the best experiences of Indian food I've ever had , and I've been to a lot of places in the UK and india .\nThe spice levels are fortunately catered for the Indian palate . So westerners beware lol\nToilets were very nicely decorated and very clean , a bit oldly worldy in design\n\nYou must at least try this restaurant once in your life! I'll definitely come back here.",
+      "relativeTime": "2 weeks ago"
+    },
+    {
+      "author": "KJ L",
+      "rating": 5,
+      "text": "Recommended to try at least once on your trip! Tasty and flavourful indian cuisine - different from the usual. We were on a vegetarian diet that evening and there's a great selection of vegetarian options available. Although it may lean towards the saltier side. For people who prefer less sodium in your diets, yoy may wish to try requesting for less salt and see if it could be accommodated.\nGreat service as well! The server presented us with a complimentary molten chocolate cake as it was my birthday. Thankful for the kind gesture!",
+      "relativeTime": "a week ago"
+    },
+    {
+      "author": "A Luk",
+      "rating": 4,
+      "text": "Overall I think the food is good and tasty, though I’m not entirely convinced the price tag is worth it as the portions are small. Lineup was considerable but they bring out chai tea to the waiting customers. As I don’t recall the specific dish names, it’ll be a bit generic. Shrimp: dry but flavourful. Okra fries: well seasoned, crispy. Baked rice: average. Chicken curry: rich, recommended. Salad: not very impressive.",
+      "relativeTime": "7 months ago"
+    },
+    {
+      "author": "Saleh Alajlan",
+      "rating": 4,
+      "text": "I visited Dishoom around 16:00 and was pleasantly surprised by how smooth the experience was, no booking required and no waiting at all, which was a big plus.\n\nThe service was exceptional. Staff were attentive, friendly, and efficient throughout the meal, which really elevated the overall experience.\n\nAs for the food, it was generally average. Some dishes were enjoyable, but nothing particularly stood out as memorable. Unfortunately, the salad was disappointing and didn’t match the quality or flavour of the other items on the table.\n\nOverall, Dishoom delivered excellent service and a relaxed dining experience, but the food itself felt hit-or-miss. Worth visiting for the service and convenience, though the menu could be more consistent.",
+      "relativeTime": "5 months ago"
+    },
+    {
+      "author": "Don Eatsalot",
+      "rating": 4,
+      "text": "I had higher hopes for liking this place but may have ordered poorly - going for their most popular dishes rather than things I knew I liked. They have two kids meals and we tried both. The chicken was excellent and the paneer was disappointing. The fried okra, gunpowder potatoes and pau bhaji were good. The chicken Ruby was decent and if you like butter chicken will probably be a hit. The black daal, I didn't like but I don't usually like black daal so I can't fault the restaurant here. The naan and roti were good but didn't feel worth the high price point. We had a mezcal margarita that tasted more sweet than smokey and a glass of wine that was fine. Overall, I was underwhelmed but nothing was bad. I'm tempted to go back and try some different items. A service fee is automatically added (service was very good). Food came out quickly. We didn't have a reservation but showed up a little before 5 on a Saturday and were seated within 20 minutes.",
+      "relativeTime": "2 months ago"
+    }
+  ],
+  "expectations": {
+    "dimensionsMustInclude": [
+      "food_quality",
+      "ambiance"
+    ],
+    "weightOrder": [
+      "ambiance",
+      "food_quality"
+    ]
+  }
+}

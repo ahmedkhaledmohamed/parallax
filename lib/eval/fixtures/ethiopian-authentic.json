@@ -1,0 +1,55 @@
+{
+  "id": "ethiopian-authentic",
+  "restaurant": "The Spicy Ethiopian",
+  "city": "Toronto",
+  "intent": "Authentic Ethiopian food, traditional injera, real spice blends, communal eating, not westernized",
+  "mockPlace": {
+    "name": "The Spicy Ethiopian",
+    "address": "175 Queen St E, Toronto, ON M5A 1S2, Canada",
+    "placeId": "ChIJt0qbE2jL1IkRYg9NBBiuJ4w",
+    "rating": 4.9,
+    "totalReviews": 589
+  },
+  "mockReviews": [
+    {
+      "author": "Shelby Young",
+      "rating": 5,
+      "text": "This restaurant is beautiful!!! So much care into the design and food. You can feel the love and intent as soon as you walk in. We were greeted as soon as we walked in, had everything explained to us and given recommendations. Our server was so kind and warm. The owner made us feel so welcomed and loved.\nThe food was insane!!! This is my first experience with Ethiopian food, we drove from Niagara... and were not disappointed.  Beautifully played and lovingly made... the taste was incredible.\nAnd the coffee has ruined me for all other coffee. It was the best I have ever had! Planning another trip ASAP",
+      "relativeTime": "3 weeks ago"
+    },
+    {
+      "author": "M. N.",
+      "rating": 5,
+      "text": "Wonderful restaurant. I've had Ethiopian food many, many times and the food at this restaurant is top of the list for among the best I've ever eaten. The restaurant has a beautiful ambience, very nice, warm decor. Excellent presentation, and incredibly delicious. It is quite spicy, as the name implies, but not overbearing. Excellent, very kind and attentive service. It's been a long time since I've even felt compelled to write a restaurant review, but this place is quite special. A lovely place that's perfect for a date. I'll be returning for sure.",
+      "relativeTime": "3 months ago"
+    },
+    {
+      "author": "Simarjot Sidhu",
+      "rating": 5,
+      "text": "A fantastic new Ethiopian restaurant, full of charm and soul! The staff were wonderful! So welcoming, helpful, and genuinely kind.\n\nThe menu has an amazing selection, and everything we tried was outstanding. The vegan platter was excellent, and the meat platter and doro tibs were incredible, we keep wanting to come back for more!\nThe injera and lentils were absolutely amazing, pairs perfectly together. And we were welcomed with crispy injera bread and house-made hot sauces to start, as well as extra injira during our meal. We also tried some traditional drinks (can’t remember the names!). One made with sunflower seeds and another with flaxseed, both unique and delicious.\n\nThe ambiance is beautiful and warm. I truly hope to see this restaurant thrive. Highly recommend!",
+      "relativeTime": "4 months ago"
+    },
+    {
+      "author": "Israa",
+      "rating": 1,
+      "text": "Food was below to on par with average taste and portion size. Meat done better than vegetarian dishes. Good ambience. Attentive service. Location more accessible than alternatives. If you have time, consider wandering up the road to Ethiopian House.\n\n——-\nRegarding the frankly disrespectful and unprofessional response below by an erratic owner lacking fundamental language comprehension: portion sizes are objective and irrespective of group sizes. I have been to several Ethiopian restaurants across different cities, and reflect only objectively on my experiences. If you must know, in the middle of the downpour in Toronto, I made the mistake of encouraging my family to try Ethiopian food for the first time at this establishment since it was a 10 minute walk compared to the 20 to Ethiopian House from Eaton, and we got samplers with the intention of continuing our meal with which dishes resonated the most with them, but found that the taste was unimpressive and thus continued our meal elsewhere. Also, below to average taste does not mean inedible, especially not with a downpour outside. I even told your server the food was “ok” and she was content with this answer. Stars reduced because of disappointing response. How bizarre!",
+      "relativeTime": "a month ago"
+    },
+    {
+      "author": "Kevin Johar",
+      "rating": 5,
+      "text": "Went with my mom for Mother's Day yesterday. This is a local staple for me now. The owner, Gelila is incredibly hospitable. Such a warm welcoming environment. When it comes to food, it was incredible. My mom had it for the first time and LOVED it. We got the Vegan and Meat Sampler plates, which is a great way to try all the different dishes. Hidden gem in the core of downtown!",
+      "relativeTime": "a month ago"
+    }
+  ],
+  "expectations": {
+    "dimensionsMustInclude": [
+      "food_quality",
+      "authenticity"
+    ],
+    "weightOrder": [
+      "authenticity",
+      "food_quality"
+    ]
+  }
+}

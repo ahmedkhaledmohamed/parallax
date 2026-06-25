@@ -1,0 +1,58 @@
+{
+  "id": "lahore-spice-value",
+  "restaurant": "Lahore Tikka House",
+  "city": "Toronto",
+  "intent": "Authentic Pakistani food, real spice levels, generous portions, good value, not a fancy place",
+  "mockPlace": {
+    "name": "Lahore Tikka House",
+    "address": "1365 Gerrard St E, Toronto, ON M4L 1Z3, Canada",
+    "placeId": "ChIJSxC05IfL1IkR8ljOgpwnOIg",
+    "rating": 4.3,
+    "totalReviews": 10002,
+    "priceLevel": 2
+  },
+  "mockReviews": [
+    {
+      "author": "Wendy",
+      "rating": 5,
+      "text": "Lovely decor with painting of Taj Mahal and actual tuk-tuks. Very festive with lights at night time in Indiatown.\n\nIt is a busy and popular spot. Takes a long time for food to come for dine-on as well as long wait for take-out.\n\nDelicious food. Tried the chicken and lamb biryani.\n\nPatient staff and kid-friendly.",
+      "relativeTime": "a month ago"
+    },
+    {
+      "author": "Aadil Siddique",
+      "rating": 5,
+      "text": "Excellent meal and service despite how busy it was. Everything was really good. We ordered the chicken karahi, chana masala, seekh kabob, chicken tikka, daal and fried fish. Standouts were definitley the daal, chana and karahi. Unfortunately they were out of the ribs and goat chops but I will make sure to get it next time. The kulfi was also really good! The chai however could be stronger, it is very milky and doesnt have much tea flavour.",
+      "relativeTime": "3 months ago"
+    },
+    {
+      "author": "Shay Gray",
+      "rating": 5,
+      "text": "I have been here a few times and I can’t say I have any complaints. I actually ordered through Uber Eats this time and can say the taste remained the same! In fact, as soon as I opened the container it had the loveliest aroma. The portion size was also pretty good, though the salad was layered on the rice lol which was actually fine. Also, a solid choice eating and ordering from here.",
+      "relativeTime": "3 months ago"
+    },
+    {
+      "author": "Ahmed Sachwani",
+      "rating": 5,
+      "text": "It was our first visit and we're so glad we came. The food was absolutely delicious. Just the right balance of spice. The staff was friendly and very attentive. I would definitely come back for the nihari and kababs.",
+      "relativeTime": "3 months ago"
+    },
+    {
+      "author": "Family Room",
+      "rating": 5,
+      "text": "Possibly the best Pakistani restaurant in Ontario! Bold statement, but true. First and foremost - the food is swimming in flavour. Doesn’t matter what you get, I guarantee it will be delicious 😋 Secondly, the restaurant is clean and the service is prompt and friendly. We don’t live in the area but whenever we’re passing by, we make time for lunch or dinner here. We’re never disappointed and neither will you.",
+      "relativeTime": "8 months ago"
+    }
+  ],
+  "expectations": {
+    "dimensionsMustInclude": [
+      "food_quality",
+      "authenticity",
+      "portion_size"
+    ],
+    "weightOrder": [
+      "authenticity",
+      "food_quality",
+      "price_value"
+    ]
+  }
+}

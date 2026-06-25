@@ -1,0 +1,53 @@
+{
+  "id": "mcdonalds-late-night",
+  "restaurant": "McDonald's",
+  "city": "New York",
+  "intent": "Late night food, open 24 hours, fast service, cheap, don't care about quality",
+  "mockPlace": {
+    "name": "McDonald's",
+    "address": "1528 Broadway Times Square, New York, NY 10036, USA",
+    "placeId": "ChIJQXY5d3dZwokROz4N4S6oh0M",
+    "rating": 3.7,
+    "totalReviews": 1659,
+    "priceLevel": 1
+  },
+  "mockReviews": [
+    {
+      "author": "Jaidyn Fantastic Beasts (HARRY POTTER)",
+      "rating": 3,
+      "text": "Our coffees were awful! Way too hot, burnt and un-drinkable. We threw them out.\n\nThe bacon, egg and cheese biscuit was undercooked and doughy and the egg tasted old and chewy - the bacon and cheese were tasty though.\n\nThe sausage and egg bagel was delicious!",
+      "relativeTime": "a month ago"
+    },
+    {
+      "author": "Dharven Panchal",
+      "rating": 3,
+      "text": "That is average McDonald's store and outlet for you. You can only go for if you want some quick bite. It is located on the prime location nearby to Times Square. They have both done in and take away options available. You can order on the kiosk and wait for your order. The first floor is for dine in area. Only one burger is there for vegeterian people that only you have to do customisation. No parking area available. Rush hours will have much traffic here.",
+      "relativeTime": "3 months ago"
+    },
+    {
+      "author": "Elvis Jimenez",
+      "rating": 5,
+      "text": "One of the cleanest mc'D in NYC very fast service hot food and hot coffee. Worth the trip",
+      "relativeTime": "6 months ago"
+    },
+    {
+      "author": "VinVin C",
+      "rating": 3,
+      "text": "I have a complaint. Every time I order an iced coffee, it never consistent. Sometimes there's syrup added, but most of the time there's no sugar at all. If it's for kids or young people, they usually prefer sweeter drinks, and iced coffee is supposed to be a sweet beverage. So I really don't understand why this times square location is so bad at this and almost never adds sugar. It feels like I am wasting my money on a coffee that isn't made properly. If I didn't want sugar, I would have ordered a hot coffee instead.",
+      "relativeTime": "4 weeks ago"
+    },
+    {
+      "author": "GHD_1109",
+      "rating": 4,
+      "text": "McDonald’s Times Square is a good stop if you’re near Times Square. The upstairs seating is nice, but you have to buy something to go up there.",
+      "relativeTime": "3 months ago"
+    }
+  ],
+  "expectations": {
+    "confidenceShouldBe": "medium",
+    "weightOrder": [
+      "wait_time",
+      "price_value"
+    ]
+  }
+}
