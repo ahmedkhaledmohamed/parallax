@@ -3,7 +3,8 @@ import { join } from "path";
 import { createHash } from "crypto";
 import { GooglePlaceResult } from "../types";
 import { decomposeReviews, matchAndScore } from "../review-analyzer";
-import { runAllRubrics } from "./rubrics";
+import { runAllRubrics, scoreIntentAlignment } from "./rubrics";
+import { judgeExplanationQuality } from "./judge";
 import { EvalCase, EvalResult, EvalReport, EvalComparison } from "./types";
 
 const FIXTURES_DIR = join(__dirname, "fixtures");
@@ -48,6 +49,13 @@ async function runCase(evalCase: EvalCase): Promise<EvalResult> {
   const analysis = await matchAndScore(place, decomposed, evalCase.intent);
 
   const rubricScores = runAllRubrics(analysis, decomposed, evalCase);
+
+  try {
+    const judgeScore = await judgeExplanationQuality(evalCase.intent, analysis);
+    rubricScores.push(judgeScore);
+  } catch (err) {
+    console.error(`    Judge failed for ${evalCase.id}: ${err}`);
+  }
 
   const overallScore = rubricScores.reduce((sum, r) => sum + r.score, 0);
   const overallMax = rubricScores.reduce((sum, r) => sum + r.maxScore, 0);
@@ -236,6 +244,36 @@ async function main() {
       } catch (err) {
         console.error(`  \x1b[31mERROR\x1b[0m ${fixture.id}: ${err}`);
       }
+    }
+
+    // Run paired intent-alignment checks
+    const resultMap = new Map(results.map((r) => [r.caseId, r]));
+    const checkedPairs = new Set<string>();
+
+    for (const fixture of fixtures) {
+      if (!fixture.pairedWith) continue;
+      const pairKey = [fixture.id, fixture.pairedWith].sort().join(":");
+      if (checkedPairs.has(pairKey)) continue;
+      checkedPairs.add(pairKey);
+
+      const resultA = resultMap.get(fixture.id);
+      const resultB = resultMap.get(fixture.pairedWith);
+      if (!resultA || !resultB) continue;
+
+      const alignmentScore = scoreIntentAlignment(
+        resultA.analysis,
+        resultB.analysis,
+        resultA.caseId,
+        resultB.caseId
+      );
+
+      resultA.rubricScores.push(alignmentScore);
+      resultA.overallScore += alignmentScore.score;
+      resultA.overallMax += alignmentScore.maxScore;
+      if (!alignmentScore.passed) resultA.passed = false;
+
+      const icon = alignmentScore.passed ? "\x1b[32m✓\x1b[0m" : "\x1b[31m✗\x1b[0m";
+      console.log(`  ${icon} PAIRED: ${alignmentScore.details}\n`);
     }
 
     const report = buildReport(results);
