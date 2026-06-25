@@ -1,6 +1,6 @@
 import { ReviewSource, UnifiedReview, PlaceInfo } from "./types";
 import { GooglePlacesSource, isGoogleMapsUrl } from "./google-places";
-import { RedditSource } from "./reddit";
+import { YelpSource } from "./yelp";
 
 export interface AggregatedResult {
   place: PlaceInfo;
@@ -8,7 +8,7 @@ export interface AggregatedResult {
   sourceBreakdown: { source: string; count: number }[];
 }
 
-const sources: ReviewSource[] = [new GooglePlacesSource(), new RedditSource()];
+const sources: ReviewSource[] = [new GooglePlacesSource(), new YelpSource()];
 
 export function registerSource(source: ReviewSource): void {
   sources.push(source);
