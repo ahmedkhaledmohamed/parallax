@@ -38,6 +38,51 @@ function calculateConfidence(
   return "high";
 }
 
+export function computeParallaxScore(
+  decomposed: DecomposedReview[],
+  dimensionWeights: { dimension: string; weight: number }[]
+): { score: number; dimensionBreakdown: AnalysisResult["dimensionBreakdown"] } {
+  const breakdown: AnalysisResult["dimensionBreakdown"] = [];
+  let weightedSum = 0;
+  let totalWeight = 0;
+
+  for (const dw of dimensionWeights) {
+    const claims = decomposed.flatMap((r) =>
+      r.dimensions.filter((d) => d.dimension === dw.dimension)
+    );
+
+    if (claims.length === 0) {
+      breakdown.push({
+        dimension: dw.dimension,
+        averageSentiment: 0,
+        weight: dw.weight,
+        reviewCount: 0,
+      });
+      continue;
+    }
+
+    const avgSentiment =
+      claims.reduce((sum, c) => sum + c.sentiment, 0) / claims.length;
+
+    breakdown.push({
+      dimension: dw.dimension,
+      averageSentiment: avgSentiment,
+      weight: dw.weight,
+      reviewCount: claims.length,
+    });
+
+    weightedSum += avgSentiment * dw.weight;
+    totalWeight += dw.weight;
+  }
+
+  // Map weighted sentiment [-1, 1] to score [1, 5]
+  const normalizedSentiment = totalWeight > 0 ? weightedSum / totalWeight : 0;
+  const score = Math.round(((normalizedSentiment + 1) / 2) * 4 * 10 + 10) / 10;
+  const clampedScore = Math.max(1.0, Math.min(5.0, score));
+
+  return { score: clampedScore, dimensionBreakdown: breakdown };
+}
+
 function extractJson(text: string): unknown {
   const match = text.match(/```(?:json)?\s*([\s\S]*?)```/);
   const raw = match ? match[1].trim() : text.trim();
@@ -136,23 +181,19 @@ ${JSON.stringify(decomposed, null, 2)}
 
 Instructions:
 1. Identify which dimensions the user cares about based on their intent. Be specific — "quiet dinner" maps to noise_level and ambiance, not food_quality.
-2. Assign weights to relevant dimensions (0.0 to 1.0, should roughly sum to 1.0).
-3. For each review, assess how much it addresses the user's concerns.
-4. Compute a Parallax Score (1.0 to 5.0, one decimal) — this is the weighted average of sentiment scores on relevant dimensions, mapped to a 1-5 scale. If a review doesn't mention a relevant dimension, exclude it from that dimension's calculation.
-5. Select the 3-5 most relevant review excerpts — reviews that specifically address what the user cares about.
-6. Write the explanation following this structure:
+2. Assign weights to relevant dimensions (0.0 to 1.0, should roughly sum to 1.0). Do NOT compute a score — the score will be calculated separately from your weights.
+3. Select the 3-5 most relevant review excerpts — reviews that specifically address what the user cares about.
+4. Write the explanation following this structure:
    - Start: "For someone looking for [restate the user's intent in your own words],"
    - State whether the Parallax score is higher, lower, or similar to Google's and by how much.
    - Explain WHY using specific dimension findings: name the dimensions, cite sentiment direction, and reference how many reviewers mentioned them (e.g., "3 of 5 reviewers praised the ambiance, but only 1 mentioned noise level — and negatively").
    - Contrast: explain what drives Google's aggregate that the user does NOT care about (e.g., "Google's high rating is driven by presentation and service scores, which you deprioritized").
    - NEVER use these phrases: "based on the reviews analyzed", "the restaurant has mixed reviews", "overall the restaurant", or any statement that would be equally valid for a completely different user intent.
-7. Set confidence to "medium" (this will be overridden by deterministic calculation).
 
 Respond as JSON:
 {
-  "parallaxScore": 3.2,
-  "dimensionBreakdown": [
-    { "dimension": "noise_level", "averageSentiment": -0.3, "weight": 0.4, "reviewCount": 3 }
+  "dimensionWeights": [
+    { "dimension": "noise_level", "weight": 0.4 }
   ],
   "relevantReviews": [
     {
@@ -163,8 +204,7 @@ Respond as JSON:
       "dimensionScores": [{ "dimension": "noise_level", "sentiment": -0.5 }]
     }
   ],
-  "explanation": "Google's 4.2 reflects X, but for someone prioritizing Y, the picture is different because...",
-  "confidence": "medium"
+  "explanation": "For someone looking for X, this restaurant scores [higher/lower] than Google's Y because..."
 }`,
       },
     ],
@@ -172,16 +212,19 @@ Respond as JSON:
 
   const text = response.choices[0].message.content ?? "";
   const parsed = extractJson(text) as {
-    parallaxScore: number;
-    dimensionBreakdown: AnalysisResult["dimensionBreakdown"];
+    dimensionWeights: { dimension: string; weight: number }[];
     relevantReviews: AnalysisResult["relevantReviews"];
     explanation: string;
-    confidence: "high" | "medium" | "low";
   };
+
+  const { score, dimensionBreakdown } = computeParallaxScore(
+    decomposed,
+    parsed.dimensionWeights
+  );
 
   const confidence = calculateConfidence(
     decomposed.length,
-    parsed.dimensionBreakdown
+    dimensionBreakdown
   );
 
   return {
@@ -192,13 +235,13 @@ Respond as JSON:
       totalReviews: place.totalReviews,
       priceLevel: place.priceLevel,
     },
-    parallaxScore: parsed.parallaxScore,
+    parallaxScore: score,
     googleScore: place.rating,
     relevantReviews: parsed.relevantReviews,
     explanation: parsed.explanation,
     confidence,
     sampleSize: decomposed.length,
-    dimensionBreakdown: parsed.dimensionBreakdown,
+    dimensionBreakdown,
   };
 }
 
