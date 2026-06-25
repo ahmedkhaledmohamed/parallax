@@ -42,6 +42,17 @@ export function computeParallaxScore(
   decomposed: DecomposedReview[],
   dimensionWeights: { dimension: string; weight: number }[]
 ): { score: number; dimensionBreakdown: AnalysisResult["dimensionBreakdown"] } {
+  // Compute unweighted (Google-perspective) sentiment across ALL dimensions
+  const allDimensions = new Map<string, number[]>();
+  for (const review of decomposed) {
+    for (const claim of review.dimensions) {
+      if (!allDimensions.has(claim.dimension)) {
+        allDimensions.set(claim.dimension, []);
+      }
+      allDimensions.get(claim.dimension)!.push(claim.sentiment);
+    }
+  }
+
   const breakdown: AnalysisResult["dimensionBreakdown"] = [];
   let weightedSum = 0;
   let totalWeight = 0;
@@ -51,10 +62,17 @@ export function computeParallaxScore(
       r.dimensions.filter((d) => d.dimension === dw.dimension)
     );
 
+    const allSentiments = allDimensions.get(dw.dimension) ?? [];
+    const googleSentiment =
+      allSentiments.length > 0
+        ? allSentiments.reduce((a, b) => a + b, 0) / allSentiments.length
+        : 0;
+
     if (claims.length === 0) {
       breakdown.push({
         dimension: dw.dimension,
         averageSentiment: 0,
+        googleSentiment,
         weight: dw.weight,
         reviewCount: 0,
       });
@@ -67,6 +85,7 @@ export function computeParallaxScore(
     breakdown.push({
       dimension: dw.dimension,
       averageSentiment: avgSentiment,
+      googleSentiment,
       weight: dw.weight,
       reviewCount: claims.length,
     });
