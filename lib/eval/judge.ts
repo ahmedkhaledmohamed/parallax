@@ -2,23 +2,33 @@ import OpenAI from "openai";
 import { AnalysisResult } from "../types";
 import { RubricScore } from "./types";
 
-const JUDGE_MODEL = "llama-3.1-8b-instant";
-
-function getJudgeClient(): OpenAI {
-  return new OpenAI({
-    apiKey: process.env.GROQ_API_KEY,
-    baseURL: "https://api.groq.com/openai/v1",
-  });
+function getJudgeClient(): { client: OpenAI; model: string } {
+  if (process.env.TOGETHER_API_KEY) {
+    return {
+      client: new OpenAI({
+        apiKey: process.env.TOGETHER_API_KEY,
+        baseURL: "https://api.together.xyz/v1",
+      }),
+      model: "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
+    };
+  }
+  return {
+    client: new OpenAI({
+      apiKey: process.env.GROQ_API_KEY,
+      baseURL: "https://api.groq.com/openai/v1",
+    }),
+    model: "llama-3.1-8b-instant",
+  };
 }
 
 export async function judgeExplanationQuality(
   intent: string,
   result: AnalysisResult
 ): Promise<RubricScore> {
-  const client = getJudgeClient();
+  const { client, model } = getJudgeClient();
 
   const response = await client.chat.completions.create({
-    model: JUDGE_MODEL,
+    model,
     temperature: 0.1,
     max_tokens: 1024,
     response_format: { type: "json_object" },

@@ -1,0 +1,4082 @@
+{
+  "runId": "eval-1782411628522",
+  "timestamp": "2026-06-25T18:20:28.522Z",
+  "promptHash": "2a18b1a761b2",
+  "results": [
+    {
+      "caseId": "alo-authentic-french",
+      "restaurant": "Alo",
+      "intent": "Authentic French fine dining, classical technique, not fusion or modernist, proper wine pairings",
+      "timestamp": "2026-06-25T18:16:29.337Z",
+      "analysis": {
+        "restaurant": {
+          "name": "Alo",
+          "address": "163 Spadina Ave., Toronto, ON M5V 2L6, Canada",
+          "placeId": "ChIJryijc9s0K4gRG9aU7SDTXdA",
+          "googleRating": 4.6,
+          "totalReviews": 2169,
+          "priceLevel": 4
+        },
+        "parallaxScore": 3.8,
+        "googleScore": 4.6,
+        "relevantReviews": [
+          {
+            "author": "Matteo Farrokhi",
+            "rating": 5,
+            "excerpt": "The tasting menu is outstanding — every dish is beautifully presented and full of flavor, with a perfect balance of French technique and creativity",
+            "whyRelevant": "This review highlights the classical French technique in the food, aligning with the user's intent",
+            "dimensionScores": [
+              {
+                "dimension": "food_quality",
+                "sentiment": 1
+              }
+            ]
+          },
+          {
+            "author": "Zoe",
+            "rating": 4,
+            "excerpt": "The wine pairings, though, were a letdown, most of the reds, whites, and even the champagne were disappointing",
+            "whyRelevant": "This review specifically addresses the wine pairings, a crucial aspect of the user's intent",
+            "dimensionScores": [
+              {
+                "dimension": "drink_quality",
+                "sentiment": -0.8
+              }
+            ]
+          },
+          {
+            "author": "Anthony DiCenzo",
+            "rating": 5,
+            "excerpt": "Service is world-class: gracious, polished, attentive without hovering",
+            "whyRelevant": "This review praises the service, which is important for a fine dining experience focused on classical technique and proper wine pairings",
+            "dimensionScores": [
+              {
+                "dimension": "service",
+                "sentiment": 1
+              }
+            ]
+          }
+        ],
+        "explanation": "For someone looking for authentic French fine dining with classical technique and proper wine pairings, this restaurant scores slightly lower than Google's 4.6 because 4 of 5 reviewers praised the food quality and service, with sentiments indicating excellent execution of French technique and world-class service. However, the dimension of drink quality, specifically wine pairings, received a negative sentiment from 1 reviewer, which directly impacts the user's intent. Google's high rating is driven by scores on ambiance and portion size, which the user deprioritized, highlighting the importance of personalized scoring for specific dining preferences.",
+        "confidence": "high",
+        "sampleSize": 5,
+        "dimensionBreakdown": [
+          {
+            "dimension": "food_quality",
+            "averageSentiment": 0.9,
+            "googleSentiment": 0.9,
+            "weight": 0.4,
+            "reviewCount": 5
+          },
+          {
+            "dimension": "service",
+            "averageSentiment": 0.975,
+            "googleSentiment": 0.975,
+            "weight": 0.3,
+            "reviewCount": 4
+          },
+          {
+            "dimension": "drink_quality",
+            "averageSentiment": -0.8,
+            "googleSentiment": -0.8,
+            "weight": 0.3,
+            "reviewCount": 1
+          }
+        ]
+      },
+      "decomposed": [
+        {
+          "author": "Korey Francis",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "I did not know eggs could taste so deep and rich. I have never had steak so succulent and buttery."
+            },
+            {
+              "dimension": "portion_size",
+              "sentiment": 0.8,
+              "confidence": 0.9,
+              "claim": "I went there famished and I left stuffed"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The service was impeccable. Staff are attentive, knowledgeable and conversational without being overbearing."
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "The experience sitting counterside and watching the chefs prepare the dishes was like getting dinner and a show"
+            }
+          ],
+          "contextSignals": [
+            "celebration",
+            "friends"
+          ],
+          "overallTone": "positive",
+          "text": "The food is so good it gave me two existential crises mid meal. I did not know eggs could taste so deep and rich. I have never had steak so succulent and buttery. The bread is perfect. Even the smaller bites were bursting with unique and complex flavor combinations that I had never imagined.\n\nWe got the tasting menu. I went there famished and I left stuffed. In total I believe we were in the restaurant for about 3 hours.\n\nThe experience sitting counterside and watching the chefs prepare the dishes was like getting dinner and a show. If you're like me and you have an interest in kitchen craft from a childhood watching Food Network then I recommend this option.\n\nThe service was impeccable. Staff are attentive, knowledgeable and conversational without being overbearing.\n\nWeeks later, I am still thinking about this wonderful meal.",
+          "relativeTime": "7 months ago"
+        },
+        {
+          "author": "Matteo Farrokhi",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The tasting menu is outstanding — every dish is beautifully presented and full of flavor, with a perfect balance of French technique and creativity"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "Service is professional, friendly, and very knowledgeable, making the whole experience even more enjoyable"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.8,
+              "confidence": 0.8,
+              "claim": "From the moment you walk in, everything feels refined and perfectly organized"
+            }
+          ],
+          "contextSignals": [
+            "celebration",
+            "tourist"
+          ],
+          "overallTone": "positive",
+          "text": "One of the best dining experiences in Toronto. From the moment you walk in, everything feels refined and perfectly organized.\n\nThe tasting menu is outstanding — every dish is beautifully presented and full of flavor, with a perfect balance of French technique and creativity. The attention to detail in each course truly reflects Michelin-level quality.\n\nService is professional, friendly, and very knowledgeable, making the whole experience even more enjoyable.\n\nHighly recommended for anyone looking for a luxurious and memorable fine dining experience",
+          "relativeTime": "3 months ago"
+        },
+        {
+          "author": "Mark Erdmann",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The best meal I have had easily"
+            },
+            {
+              "dimension": "portion_size",
+              "sentiment": 0.8,
+              "confidence": 0.8,
+              "claim": "We had the 10 course tasting menu and it was the perfect amount of food"
+            }
+          ],
+          "contextSignals": [
+            "celebration",
+            "friends"
+          ],
+          "overallTone": "positive",
+          "text": "The best meal I have had easily. Everything was just about perfect. We had the 10 course tasting menu and it was the perfect amount of food. Mostly seafood focused with just a couple heavier and richer dishes to balance it out. Amazing!",
+          "relativeTime": "2 months ago"
+        },
+        {
+          "author": "Zoe",
+          "rating": 4,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.5,
+              "confidence": 0.8,
+              "claim": "The food was good, but nothing really surprised us"
+            },
+            {
+              "dimension": "drink_quality",
+              "sentiment": -0.8,
+              "confidence": 0.9,
+              "claim": "The wine pairings, though, were a letdown, most of the reds, whites, and even the champagne were disappointing"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "The service was very thoughtful and wonderful overall"
+            }
+          ],
+          "contextSignals": [
+            "celebration"
+          ],
+          "overallTone": "mixed",
+          "text": "Came here to celebrate a birthday, we had the 10 course set menu with wine pairings.\n\nThe food was good, but nothing really surprised us. Each dish was well balanced, just not very memorable. The wine pairings, though, were a letdown, most of the reds, whites, and even the champagne were disappointing. We also felt the sommelier didn’t quite match the level you’d expect from a Michelin star restaurant.\n\nalthough we had some disappointment, the service was very thoughtful and wonderful overall.",
+          "relativeTime": "2 months ago"
+        },
+        {
+          "author": "Anthony DiCenzo",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The execution is flawless, the flavors are balanced yet surprising, and every plate feels like it was composed by people who care about perfection without ever drifting into pretension"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "Service is world-class: gracious, polished, attentive without hovering"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "The room itself feels quietly luxurious — intimate, atmospheric, and perfectly suited to the multi-course format"
+            }
+          ],
+          "contextSignals": [
+            "celebration",
+            "date_night"
+          ],
+          "overallTone": "positive",
+          "text": "An exceptional dining experience — easily deserving its Michelin star (and arguably more).\n\nAlo is one of those rare restaurants where absolutely everything — from the first greeting to the final bite — feels intentional, precise, and quietly extraordinary. Toronto has no shortage of ambitious tasting-menu restaurants, but Alo sits in a class of its own. The execution is flawless, the flavors are balanced yet surprising, and every plate feels like it was composed by people who care about perfection without ever drifting into pretension.\n\nThe tasting menu flows beautifully: thoughtful transitions, impeccable pacing, and dishes that manage to be both technically impressive and genuinely delicious. There’s no “one dish” that steals the show because the entire experience is the show — elevated but warm, sophisticated but deeply satisfying. Even the smallest elements (a broth, a garnish, a sauce) are dialed in with a level of finesse you rarely see.\n\nService is world-class: gracious, polished, attentive without hovering. The kind of hospitality that anticipates needs rather than reacts to them. The team operates with the smoothness of a well-rehearsed ensemble, and yet the energy is relaxed, never stiff.\n\nThe room itself feels quietly luxurious — intimate, atmospheric, and perfectly suited to the multi-course format. It sets the stage rather than competing with the food.\n\nAlo absolutely earns its Michelin star, and honestly, it’s easy to imagine it holding more. It’s a restaurant that makes you feel lucky to be there.\n\n5 out of 5 stars — a standout in Toronto and a must for anyone who loves exceptional dining.",
+          "relativeTime": "6 months ago"
+        }
+      ],
+      "rubricScores": [
+        {
+          "dimension": "confidence_calibration",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No confidence expectation set — skipped"
+        },
+        {
+          "dimension": "dimension_extraction",
+          "score": 1,
+          "maxScore": 2,
+          "passed": false,
+          "details": "Found: food_quality. Missing: authenticity"
+        },
+        {
+          "dimension": "score_range",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No score expectation set — skipped"
+        },
+        {
+          "dimension": "explanation_content",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "Mentioned: french"
+        },
+        {
+          "dimension": "weight_coherence",
+          "score": 2,
+          "maxScore": 3,
+          "passed": false,
+          "details": "Violations: authenticity (0.00) should outweigh food_quality (0.40)"
+        },
+        {
+          "dimension": "intent_alignment",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "Paired cases \"alo-authentic-french\" (3.8) and \"alo-celebration\" (4.9) diverge by 1.1 — intent produces different scores"
+        }
+      ],
+      "overallScore": 7,
+      "overallMax": 9,
+      "passed": false
+    },
+    {
+      "caseId": "alo-celebration",
+      "restaurant": "Alo",
+      "intent": "Special occasion celebration, impressive atmosphere, money is no object, Instagram-worthy",
+      "timestamp": "2026-06-25T18:16:49.500Z",
+      "analysis": {
+        "restaurant": {
+          "name": "Alo",
+          "address": "163 Spadina Ave., Toronto, ON M5V 2L6, Canada",
+          "placeId": "ChIJryijc9s0K4gRG9aU7SDTXdA",
+          "googleRating": 4.6,
+          "totalReviews": 2169,
+          "priceLevel": 4
+        },
+        "parallaxScore": 4.9,
+        "googleScore": 4.6,
+        "relevantReviews": [
+          {
+            "author": "Matteo Farrokhi",
+            "rating": 5,
+            "excerpt": "From the moment you walk in, everything feels refined and perfectly organized.",
+            "whyRelevant": "This review highlights the impressive atmosphere of the restaurant, which aligns with the user's intent of having an Instagram-worthy experience.",
+            "dimensionScores": [
+              {
+                "dimension": "ambiance",
+                "sentiment": 1
+              }
+            ]
+          },
+          {
+            "author": "Anthony DiCenzo",
+            "rating": 5,
+            "excerpt": "The room itself feels quietly luxurious — intimate, atmospheric, and perfectly suited to the multi-course format.",
+            "whyRelevant": "This review emphasizes the luxurious ambiance of the restaurant, which is a key aspect of the user's intent.",
+            "dimensionScores": [
+              {
+                "dimension": "ambiance",
+                "sentiment": 1
+              }
+            ]
+          },
+          {
+            "author": "Korey Francis",
+            "rating": 5,
+            "excerpt": "The experience sitting counterside and watching the chefs prepare the dishes was like getting dinner and a show.",
+            "whyRelevant": "This review showcases the unique and impressive experience offered by the restaurant, which aligns with the user's intent of having a special occasion celebration.",
+            "dimensionScores": [
+              {
+                "dimension": "ambiance",
+                "sentiment": 1
+              }
+            ]
+          }
+        ],
+        "explanation": "For someone looking for a luxurious and Instagram-worthy dining experience for a special occasion celebration, this restaurant scores higher than Google's 4.6 because 4 of 5 reviewers praised the ambiance, citing its refined and luxurious atmosphere. The dimension of ambiance is particularly relevant, with reviewers using words like 'refined', 'perfectly organized', and 'quietly luxurious' to describe it. In contrast, Google's high rating is driven by food quality and service scores, which, while still important, are secondary to the user's primary concern of atmosphere. The Parallax score is approximately 0.2 points higher than Google's rating, reflecting the restaurant's exceptional ambiance and unique dining experience.",
+        "confidence": "high",
+        "sampleSize": 5,
+        "dimensionBreakdown": [
+          {
+            "dimension": "ambiance",
+            "averageSentiment": 1,
+            "googleSentiment": 1,
+            "weight": 0.6,
+            "reviewCount": 3
+          },
+          {
+            "dimension": "food_quality",
+            "averageSentiment": 0.9285714285714286,
+            "googleSentiment": 0.9285714285714286,
+            "weight": 0.3,
+            "reviewCount": 7
+          },
+          {
+            "dimension": "service",
+            "averageSentiment": 0.96,
+            "googleSentiment": 0.96,
+            "weight": 0.1,
+            "reviewCount": 5
+          }
+        ]
+      },
+      "decomposed": [
+        {
+          "author": "Korey Francis",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The food is so good it gave me two existential crises mid meal."
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "I did not know eggs could taste so deep and rich."
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "I have never had steak so succulent and buttery."
+            },
+            {
+              "dimension": "portion_size",
+              "sentiment": 0.8,
+              "confidence": 0.9,
+              "claim": "I went there famished and I left stuffed."
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The experience sitting counterside and watching the chefs prepare the dishes was like getting dinner and a show."
+            },
+            {
+              "dimension": "service",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The service was impeccable."
+            },
+            {
+              "dimension": "service",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "Staff are attentive, knowledgeable and conversational without being overbearing."
+            }
+          ],
+          "contextSignals": [
+            "celebration",
+            "foodie"
+          ],
+          "overallTone": "positive",
+          "text": "The food is so good it gave me two existential crises mid meal. I did not know eggs could taste so deep and rich. I have never had steak so succulent and buttery. The bread is perfect. Even the smaller bites were bursting with unique and complex flavor combinations that I had never imagined.\n\nWe got the tasting menu. I went there famished and I left stuffed. In total I believe we were in the restaurant for about 3 hours.\n\nThe experience sitting counterside and watching the chefs prepare the dishes was like getting dinner and a show. If you're like me and you have an interest in kitchen craft from a childhood watching Food Network then I recommend this option.\n\nThe service was impeccable. Staff are attentive, knowledgeable and conversational without being overbearing.\n\nWeeks later, I am still thinking about this wonderful meal.",
+          "relativeTime": "7 months ago"
+        },
+        {
+          "author": "Matteo Farrokhi",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "ambiance",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "From the moment you walk in, everything feels refined and perfectly organized."
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The tasting menu is outstanding — every dish is beautifully presented and full of flavor, with a perfect balance of French technique and creativity."
+            },
+            {
+              "dimension": "service",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "Service is professional, friendly, and very knowledgeable, making the whole experience even more enjoyable."
+            }
+          ],
+          "contextSignals": [
+            "fine_dining",
+            "special_occasion"
+          ],
+          "overallTone": "positive",
+          "text": "One of the best dining experiences in Toronto. From the moment you walk in, everything feels refined and perfectly organized.\n\nThe tasting menu is outstanding — every dish is beautifully presented and full of flavor, with a perfect balance of French technique and creativity. The attention to detail in each course truly reflects Michelin-level quality.\n\nService is professional, friendly, and very knowledgeable, making the whole experience even more enjoyable.\n\nHighly recommended for anyone looking for a luxurious and memorable fine dining experience",
+          "relativeTime": "3 months ago"
+        },
+        {
+          "author": "Mark Erdmann",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The best meal I have had easily."
+            },
+            {
+              "dimension": "portion_size",
+              "sentiment": 0.8,
+              "confidence": 0.9,
+              "claim": "We had the 10 course tasting menu and it was the perfect amount of food."
+            }
+          ],
+          "contextSignals": [
+            "celebration",
+            "foodie"
+          ],
+          "overallTone": "positive",
+          "text": "The best meal I have had easily. Everything was just about perfect. We had the 10 course tasting menu and it was the perfect amount of food. Mostly seafood focused with just a couple heavier and richer dishes to balance it out. Amazing!",
+          "relativeTime": "2 months ago"
+        },
+        {
+          "author": "Zoe",
+          "rating": 4,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.5,
+              "confidence": 0.8,
+              "claim": "The food was good, but nothing really surprised us."
+            },
+            {
+              "dimension": "drink_quality",
+              "sentiment": -0.8,
+              "confidence": 0.9,
+              "claim": "The wine pairings, though, were a letdown, most of the reds, whites, and even the champagne were disappointing."
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.8,
+              "confidence": 0.9,
+              "claim": "The service was very thoughtful and wonderful overall."
+            }
+          ],
+          "contextSignals": [
+            "celebration"
+          ],
+          "overallTone": "mixed",
+          "text": "Came here to celebrate a birthday, we had the 10 course set menu with wine pairings.\n\nThe food was good, but nothing really surprised us. Each dish was well balanced, just not very memorable. The wine pairings, though, were a letdown, most of the reds, whites, and even the champagne were disappointing. We also felt the sommelier didn’t quite match the level you’d expect from a Michelin star restaurant.\n\nalthough we had some disappointment, the service was very thoughtful and wonderful overall.",
+          "relativeTime": "2 months ago"
+        },
+        {
+          "author": "Anthony DiCenzo",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The execution is flawless, the flavors are balanced yet surprising, and every plate feels like it was composed by people who care about perfection without ever drifting into pretension."
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The room itself feels quietly luxurious — intimate, atmospheric, and perfectly suited to the multi-course format."
+            },
+            {
+              "dimension": "service",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "Service is world-class: gracious, polished, attentive without hovering."
+            }
+          ],
+          "contextSignals": [
+            "fine_dining",
+            "special_occasion"
+          ],
+          "overallTone": "positive",
+          "text": "An exceptional dining experience — easily deserving its Michelin star (and arguably more).\n\nAlo is one of those rare restaurants where absolutely everything — from the first greeting to the final bite — feels intentional, precise, and quietly extraordinary. Toronto has no shortage of ambitious tasting-menu restaurants, but Alo sits in a class of its own. The execution is flawless, the flavors are balanced yet surprising, and every plate feels like it was composed by people who care about perfection without ever drifting into pretension.\n\nThe tasting menu flows beautifully: thoughtful transitions, impeccable pacing, and dishes that manage to be both technically impressive and genuinely delicious. There’s no “one dish” that steals the show because the entire experience is the show — elevated but warm, sophisticated but deeply satisfying. Even the smallest elements (a broth, a garnish, a sauce) are dialed in with a level of finesse you rarely see.\n\nService is world-class: gracious, polished, attentive without hovering. The kind of hospitality that anticipates needs rather than reacts to them. The team operates with the smoothness of a well-rehearsed ensemble, and yet the energy is relaxed, never stiff.\n\nThe room itself feels quietly luxurious — intimate, atmospheric, and perfectly suited to the multi-course format. It sets the stage rather than competing with the food.\n\nAlo absolutely earns its Michelin star, and honestly, it’s easy to imagine it holding more. It’s a restaurant that makes you feel lucky to be there.\n\n5 out of 5 stars — a standout in Toronto and a must for anyone who loves exceptional dining.",
+          "relativeTime": "6 months ago"
+        }
+      ],
+      "rubricScores": [
+        {
+          "dimension": "confidence_calibration",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No confidence expectation set — skipped"
+        },
+        {
+          "dimension": "dimension_extraction",
+          "score": 1,
+          "maxScore": 2,
+          "passed": false,
+          "details": "Found: ambiance. Missing: presentation"
+        },
+        {
+          "dimension": "score_range",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "Score 4.9 within expected range [4, 5]"
+        },
+        {
+          "dimension": "explanation_content",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No explanation expectations set — skipped"
+        },
+        {
+          "dimension": "weight_coherence",
+          "score": 2,
+          "maxScore": 3,
+          "passed": false,
+          "details": "Violations: presentation (0.00) should outweigh food_quality (0.30)"
+        }
+      ],
+      "overallScore": 6,
+      "overallMax": 8,
+      "passed": false
+    },
+    {
+      "caseId": "dishoom-brunch",
+      "restaurant": "Dishoom Covent Garden",
+      "intent": "Vibrant brunch spot, great atmosphere, Bombay-style breakfast, good chai, worth the queue",
+      "timestamp": "2026-06-25T18:17:13.974Z",
+      "analysis": {
+        "restaurant": {
+          "name": "Dishoom Covent Garden",
+          "address": "12 Upper St Martin's Ln, London WC2H 9FB, UK",
+          "placeId": "ChIJxZXYx7cEdkgRdgAOZ6OHOJw",
+          "googleRating": 4.7,
+          "totalReviews": 29117,
+          "priceLevel": 2
+        },
+        "parallaxScore": 4.4,
+        "googleScore": 4.7,
+        "relevantReviews": [
+          {
+            "author": "Thomas Bloom",
+            "rating": 5,
+            "excerpt": "the whole place is very busy but buzzing with good vibes and atmosphere",
+            "whyRelevant": "this review highlights the ambiance of the restaurant, which is a key aspect of the user's intent",
+            "dimensionScores": [
+              {
+                "dimension": "ambiance",
+                "sentiment": 0.9
+              }
+            ]
+          },
+          {
+            "author": "A Luk",
+            "rating": 4,
+            "excerpt": "lineup was considerable but they bring out chai tea to the waiting customers",
+            "whyRelevant": "this review mentions the wait time and the quality of the drinks, both of which are relevant to the user's intent",
+            "dimensionScores": [
+              {
+                "dimension": "wait_time",
+                "sentiment": 0.5
+              },
+              {
+                "dimension": "drink_quality",
+                "sentiment": 0.8
+              }
+            ]
+          },
+          {
+            "author": "KJ L",
+            "rating": 5,
+            "excerpt": "tasty and flavourful indian cuisine",
+            "whyRelevant": "this review praises the food quality, which is a key aspect of the user's intent",
+            "dimensionScores": [
+              {
+                "dimension": "food_quality",
+                "sentiment": 0.8
+              }
+            ]
+          }
+        ],
+        "explanation": "For someone looking for a vibrant brunch spot with great atmosphere, Bombay-style breakfast, good chai, and worth the queue, this restaurant scores slightly higher than Google's 4.7 because 3 of 5 reviewers praised the ambiance, and 2 of 5 reviewers praised the food quality, with sentiments ranging from 0.8 to 0.9. However, Google's high rating is driven by service scores, which you deprioritized. The wait time, although a concern for some reviewers, is mitigated by the complimentary chai tea served to waiting customers, making the overall experience more enjoyable.",
+        "confidence": "high",
+        "sampleSize": 5,
+        "dimensionBreakdown": [
+          {
+            "dimension": "ambiance",
+            "averageSentiment": 0.8,
+            "googleSentiment": 0.8,
+            "weight": 0.3,
+            "reviewCount": 2
+          },
+          {
+            "dimension": "food_quality",
+            "averageSentiment": 0.66,
+            "googleSentiment": 0.66,
+            "weight": 0.4,
+            "reviewCount": 5
+          },
+          {
+            "dimension": "wait_time",
+            "averageSentiment": 0.6333333333333333,
+            "googleSentiment": 0.6333333333333333,
+            "weight": 0.2,
+            "reviewCount": 3
+          },
+          {
+            "dimension": "drink_quality",
+            "averageSentiment": 0.8,
+            "googleSentiment": 0.8,
+            "weight": 0.1,
+            "reviewCount": 1
+          }
+        ]
+      },
+      "decomposed": [
+        {
+          "author": "Thomas Bloom",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "wait_time",
+              "sentiment": 0.5,
+              "confidence": 0.8,
+              "claim": "the wait for the restaurant is 25-30 minutes"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "the whole place is very busy but buzzing with good vibes and atmosphere"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "an army of well organized servers are constantly around cleaning serving and taking orders"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "the food itself was one of the best experiences of Indian food I've ever had"
+            },
+            {
+              "dimension": "cleanliness",
+              "sentiment": 0.9,
+              "confidence": 0.8,
+              "claim": "toilets were very nicely decorated and very clean"
+            },
+            {
+              "dimension": "menu_variety",
+              "sentiment": 0.7,
+              "confidence": 0.7,
+              "claim": "the menu is a moderate size , a good selection of everything"
+            }
+          ],
+          "contextSignals": [
+            "friends",
+            "casual"
+          ],
+          "overallTone": "positive",
+          "text": "Ok the important things , you can book after 6 pm provided the group is 6 people or more.\nAround 7 to 8 pm on a Friday night at least , the wait for the restaurant is 25-30 minutes.\nFree tea is served at random for the queueing customers.\n\nThe restaurant is on 2 floors , each floor is huge . The lower floor seems the more quiet part. The whole place is very busy but buzzing with good vibes and atmosphere. An army of well organized servers are constantly around cleaning serving and taking orders. Indeed our server was a well spoken knowledgeable gentleman.\n\nThe menu is a moderate size , a good selection of everything.\nThe food itself was one of the best experiences of Indian food I've ever had , and I've been to a lot of places in the UK and india .\nThe spice levels are fortunately catered for the Indian palate . So westerners beware lol\nToilets were very nicely decorated and very clean , a bit oldly worldy in design\n\nYou must at least try this restaurant once in your life! I'll definitely come back here.",
+          "relativeTime": "2 weeks ago"
+        },
+        {
+          "author": "KJ L",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.8,
+              "confidence": 0.8,
+              "claim": "tasty and flavourful indian cuisine"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "great service as well"
+            },
+            {
+              "dimension": "menu_variety",
+              "sentiment": 0.7,
+              "confidence": 0.7,
+              "claim": "a great selection of vegetarian options available"
+            },
+            {
+              "dimension": "drink_quality",
+              "sentiment": 0.8,
+              "confidence": 0.7,
+              "claim": "complimentary molten chocolate cake"
+            }
+          ],
+          "contextSignals": [
+            "celebration"
+          ],
+          "overallTone": "positive",
+          "text": "Recommended to try at least once on your trip! Tasty and flavourful indian cuisine - different from the usual. We were on a vegetarian diet that evening and there's a great selection of vegetarian options available. Although it may lean towards the saltier side. For people who prefer less sodium in your diets, yoy may wish to try requesting for less salt and see if it could be accommodated.\nGreat service as well! The server presented us with a complimentary molten chocolate cake as it was my birthday. Thankful for the kind gesture!",
+          "relativeTime": "a week ago"
+        },
+        {
+          "author": "A Luk",
+          "rating": 4,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.6,
+              "confidence": 0.7,
+              "claim": "overall i think the food is good and tasty"
+            },
+            {
+              "dimension": "portion_size",
+              "sentiment": -0.6,
+              "confidence": 0.8,
+              "claim": "the portions are small"
+            },
+            {
+              "dimension": "price_value",
+              "sentiment": -0.6,
+              "confidence": 0.8,
+              "claim": "i’m not entirely convinced the price tag is worth it"
+            },
+            {
+              "dimension": "wait_time",
+              "sentiment": 0.5,
+              "confidence": 0.7,
+              "claim": "lineup was considerable"
+            }
+          ],
+          "contextSignals": [
+            "casual",
+            "solo"
+          ],
+          "overallTone": "mixed",
+          "text": "Overall I think the food is good and tasty, though I’m not entirely convinced the price tag is worth it as the portions are small. Lineup was considerable but they bring out chai tea to the waiting customers. As I don’t recall the specific dish names, it’ll be a bit generic. Shrimp: dry but flavourful. Okra fries: well seasoned, crispy. Baked rice: average. Chicken curry: rich, recommended. Salad: not very impressive.",
+          "relativeTime": "7 months ago"
+        },
+        {
+          "author": "Saleh Alajlan",
+          "rating": 4,
+          "dimensions": [
+            {
+              "dimension": "service",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "the service was exceptional"
+            },
+            {
+              "dimension": "wait_time",
+              "sentiment": 0.9,
+              "confidence": 0.8,
+              "claim": "no waiting at all"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.5,
+              "confidence": 0.7,
+              "claim": "the food was generally average"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.7,
+              "confidence": 0.7,
+              "claim": "a relaxed dining experience"
+            }
+          ],
+          "contextSignals": [
+            "casual",
+            "solo"
+          ],
+          "overallTone": "mixed",
+          "text": "I visited Dishoom around 16:00 and was pleasantly surprised by how smooth the experience was, no booking required and no waiting at all, which was a big plus.\n\nThe service was exceptional. Staff were attentive, friendly, and efficient throughout the meal, which really elevated the overall experience.\n\nAs for the food, it was generally average. Some dishes were enjoyable, but nothing particularly stood out as memorable. Unfortunately, the salad was disappointing and didn’t match the quality or flavour of the other items on the table.\n\nOverall, Dishoom delivered excellent service and a relaxed dining experience, but the food itself felt hit-or-miss. Worth visiting for the service and convenience, though the menu could be more consistent.",
+          "relativeTime": "5 months ago"
+        },
+        {
+          "author": "Don Eatsalot",
+          "rating": 4,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.5,
+              "confidence": 0.7,
+              "claim": "i had higher hopes for liking this place"
+            },
+            {
+              "dimension": "price_value",
+              "sentiment": -0.6,
+              "confidence": 0.8,
+              "claim": "didn't feel worth the high price point"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.8,
+              "confidence": 0.8,
+              "claim": "service was very good"
+            },
+            {
+              "dimension": "kid_friendliness",
+              "sentiment": 0.7,
+              "confidence": 0.7,
+              "claim": "they have two kids meals"
+            }
+          ],
+          "contextSignals": [
+            "family",
+            "casual"
+          ],
+          "overallTone": "mixed",
+          "text": "I had higher hopes for liking this place but may have ordered poorly - going for their most popular dishes rather than things I knew I liked. They have two kids meals and we tried both. The chicken was excellent and the paneer was disappointing. The fried okra, gunpowder potatoes and pau bhaji were good. The chicken Ruby was decent and if you like butter chicken will probably be a hit. The black daal, I didn't like but I don't usually like black daal so I can't fault the restaurant here. The naan and roti were good but didn't feel worth the high price point. We had a mezcal margarita that tasted more sweet than smokey and a glass of wine that was fine. Overall, I was underwhelmed but nothing was bad. I'm tempted to go back and try some different items. A service fee is automatically added (service was very good). Food came out quickly. We didn't have a reservation but showed up a little before 5 on a Saturday and were seated within 20 minutes.",
+          "relativeTime": "2 months ago"
+        }
+      ],
+      "rubricScores": [
+        {
+          "dimension": "confidence_calibration",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No confidence expectation set — skipped"
+        },
+        {
+          "dimension": "dimension_extraction",
+          "score": 2,
+          "maxScore": 2,
+          "passed": true,
+          "details": "Found: food_quality, ambiance"
+        },
+        {
+          "dimension": "score_range",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No score expectation set — skipped"
+        },
+        {
+          "dimension": "explanation_content",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No explanation expectations set — skipped"
+        },
+        {
+          "dimension": "weight_coherence",
+          "score": 0,
+          "maxScore": 1,
+          "passed": false,
+          "details": "Violations: ambiance (0.30) should outweigh food_quality (0.40)"
+        }
+      ],
+      "overallScore": 5,
+      "overallMax": 6,
+      "passed": false
+    },
+    {
+      "caseId": "ethiopian-authentic",
+      "restaurant": "The Spicy Ethiopian",
+      "intent": "Authentic Ethiopian food, traditional injera, real spice blends, communal eating, not westernized",
+      "timestamp": "2026-06-25T18:17:37.471Z",
+      "analysis": {
+        "restaurant": {
+          "name": "The Spicy Ethiopian",
+          "address": "175 Queen St E, Toronto, ON M5A 1S2, Canada",
+          "placeId": "ChIJt0qbE2jL1IkRYg9NBBiuJ4w",
+          "googleRating": 4.9,
+          "totalReviews": 589
+        },
+        "parallaxScore": 4.5,
+        "googleScore": 4.9,
+        "relevantReviews": [
+          {
+            "author": "Simarjot Sidhu",
+            "rating": 5,
+            "excerpt": "The menu has an amazing selection, and everything we tried was outstanding. The injera and lentils were absolutely amazing, pairs perfectly together.",
+            "whyRelevant": "This review is relevant because it mentions the authenticity and quality of the Ethiopian food, specifically the injera and lentils.",
+            "dimensionScores": [
+              {
+                "dimension": "food_quality",
+                "sentiment": 1
+              },
+              {
+                "dimension": "authenticity",
+                "sentiment": 1
+              }
+            ]
+          },
+          {
+            "author": "M. N.",
+            "rating": 5,
+            "excerpt": "The food at this restaurant is top of the list for among the best I've ever eaten. It is quite spicy, as the name implies, but not overbearing.",
+            "whyRelevant": "This review is relevant because it mentions the quality and authenticity of the Ethiopian food, specifically the spice level.",
+            "dimensionScores": [
+              {
+                "dimension": "food_quality",
+                "sentiment": 1
+              },
+              {
+                "dimension": "authenticity",
+                "sentiment": 1
+              }
+            ]
+          },
+          {
+            "author": "Shelby Young",
+            "rating": 5,
+            "excerpt": "The food was insane!!! This is my first experience with Ethiopian food, we drove from Niagara... and were not disappointed.",
+            "whyRelevant": "This review is relevant because it mentions the quality and authenticity of the Ethiopian food, specifically the reviewer's first experience with it.",
+            "dimensionScores": [
+              {
+                "dimension": "food_quality",
+                "sentiment": 1
+              },
+              {
+                "dimension": "authenticity",
+                "sentiment": 1
+              }
+            ]
+          }
+        ],
+        "explanation": "For someone looking for authentic Ethiopian food with traditional injera and real spice blends, this restaurant scores higher than Google's 4.9 because 3 of 5 reviewers praised the food quality and authenticity, with specific mentions of the injera and spice level. However, Google's high rating is also driven by service and ambiance scores, which this user deprioritized. The Parallax score is 0.2 higher than Google's due to the emphasis on food quality and authenticity.",
+        "confidence": "high",
+        "sampleSize": 5,
+        "dimensionBreakdown": [
+          {
+            "dimension": "food_quality",
+            "averageSentiment": 0.7,
+            "googleSentiment": 0.7,
+            "weight": 0.4,
+            "reviewCount": 5
+          },
+          {
+            "dimension": "authenticity",
+            "averageSentiment": 0,
+            "googleSentiment": 0,
+            "weight": 0.3,
+            "reviewCount": 0
+          },
+          {
+            "dimension": "ambiance",
+            "averageSentiment": 0.9,
+            "googleSentiment": 0.9,
+            "weight": 0.2,
+            "reviewCount": 5
+          },
+          {
+            "dimension": "communal_eating",
+            "averageSentiment": 0,
+            "googleSentiment": 0,
+            "weight": 0.1,
+            "reviewCount": 0
+          }
+        ]
+      },
+      "decomposed": [
+        {
+          "author": "Shelby Young",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "ambiance",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "This restaurant is beautiful!!! So much care into the design"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "Our server was so kind and warm. The owner made us feel so welcomed and loved"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The food was insane!!! ... the taste was incredible"
+            },
+            {
+              "dimension": "drink_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "And the coffee has ruined me for all other coffee. It was the best I have ever had!"
+            }
+          ],
+          "contextSignals": [
+            "casual",
+            "tourist"
+          ],
+          "overallTone": "positive",
+          "text": "This restaurant is beautiful!!! So much care into the design and food. You can feel the love and intent as soon as you walk in. We were greeted as soon as we walked in, had everything explained to us and given recommendations. Our server was so kind and warm. The owner made us feel so welcomed and loved.\nThe food was insane!!! This is my first experience with Ethiopian food, we drove from Niagara... and were not disappointed.  Beautifully played and lovingly made... the taste was incredible.\nAnd the coffee has ruined me for all other coffee. It was the best I have ever had! Planning another trip ASAP",
+          "relativeTime": "3 weeks ago"
+        },
+        {
+          "author": "M. N.",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "ambiance",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The restaurant has a beautiful ambience, very nice, warm decor"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "the food at this restaurant is top of the list for among the best I've ever eaten"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "Excellent, very kind and attentive service"
+            },
+            {
+              "dimension": "presentation",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "Excellent presentation"
+            }
+          ],
+          "contextSignals": [
+            "date_night"
+          ],
+          "overallTone": "positive",
+          "text": "Wonderful restaurant. I've had Ethiopian food many, many times and the food at this restaurant is top of the list for among the best I've ever eaten. The restaurant has a beautiful ambience, very nice, warm decor. Excellent presentation, and incredibly delicious. It is quite spicy, as the name implies, but not overbearing. Excellent, very kind and attentive service. It's been a long time since I've even felt compelled to write a restaurant review, but this place is quite special. A lovely place that's perfect for a date. I'll be returning for sure.",
+          "relativeTime": "3 months ago"
+        },
+        {
+          "author": "Simarjot Sidhu",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "ambiance",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The ambiance is beautiful and warm"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The staff were wonderful! So welcoming, helpful, and genuinely kind"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The menu has an amazing selection, and everything we tried was outstanding"
+            },
+            {
+              "dimension": "menu_variety",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The menu has an amazing selection"
+            }
+          ],
+          "contextSignals": [
+            "casual",
+            "friends"
+          ],
+          "overallTone": "positive",
+          "text": "A fantastic new Ethiopian restaurant, full of charm and soul! The staff were wonderful! So welcoming, helpful, and genuinely kind.\n\nThe menu has an amazing selection, and everything we tried was outstanding. The vegan platter was excellent, and the meat platter and doro tibs were incredible, we keep wanting to come back for more!\nThe injera and lentils were absolutely amazing, pairs perfectly together. And we were welcomed with crispy injera bread and house-made hot sauces to start, as well as extra injira during our meal. We also tried some traditional drinks (can’t remember the names!). One made with sunflower seeds and another with flaxseed, both unique and delicious.\n\nThe ambiance is beautiful and warm. I truly hope to see this restaurant thrive. Highly recommend!",
+          "relativeTime": "4 months ago"
+        },
+        {
+          "author": "Israa",
+          "rating": 1,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": -0.5,
+              "confidence": 0.8,
+              "claim": "Food was below to on par with average taste"
+            },
+            {
+              "dimension": "portion_size",
+              "sentiment": -0.5,
+              "confidence": 0.8,
+              "claim": "portion size"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.5,
+              "confidence": 0.6,
+              "claim": "Good ambience"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.5,
+              "confidence": 0.6,
+              "claim": "Attentive service"
+            }
+          ],
+          "contextSignals": [
+            "family",
+            "casual"
+          ],
+          "overallTone": "negative",
+          "text": "Food was below to on par with average taste and portion size. Meat done better than vegetarian dishes. Good ambience. Attentive service. Location more accessible than alternatives. If you have time, consider wandering up the road to Ethiopian House.\n\n——-\nRegarding the frankly disrespectful and unprofessional response below by an erratic owner lacking fundamental language comprehension: portion sizes are objective and irrespective of group sizes. I have been to several Ethiopian restaurants across different cities, and reflect only objectively on my experiences. If you must know, in the middle of the downpour in Toronto, I made the mistake of encouraging my family to try Ethiopian food for the first time at this establishment since it was a 10 minute walk compared to the 20 to Ethiopian House from Eaton, and we got samplers with the intention of continuing our meal with which dishes resonated the most with them, but found that the taste was unimpressive and thus continued our meal elsewhere. Also, below to average taste does not mean inedible, especially not with a downpour outside. I even told your server the food was “ok” and she was content with this answer. Stars reduced because of disappointing response. How bizarre!",
+          "relativeTime": "a month ago"
+        },
+        {
+          "author": "Kevin Johar",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "ambiance",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "Such a warm welcoming environment"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The owner, Gelila is incredibly hospitable"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "it was incredible"
+            },
+            {
+              "dimension": "menu_variety",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "We got the Vegan and Meat Sampler plates, which is a great way to try all the different dishes"
+            }
+          ],
+          "contextSignals": [
+            "celebration",
+            "family"
+          ],
+          "overallTone": "positive",
+          "text": "Went with my mom for Mother's Day yesterday. This is a local staple for me now. The owner, Gelila is incredibly hospitable. Such a warm welcoming environment. When it comes to food, it was incredible. My mom had it for the first time and LOVED it. We got the Vegan and Meat Sampler plates, which is a great way to try all the different dishes. Hidden gem in the core of downtown!",
+          "relativeTime": "a month ago"
+        }
+      ],
+      "rubricScores": [
+        {
+          "dimension": "confidence_calibration",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No confidence expectation set — skipped"
+        },
+        {
+          "dimension": "dimension_extraction",
+          "score": 1,
+          "maxScore": 2,
+          "passed": false,
+          "details": "Found: food_quality. Missing: authenticity"
+        },
+        {
+          "dimension": "score_range",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No score expectation set — skipped"
+        },
+        {
+          "dimension": "explanation_content",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No explanation expectations set — skipped"
+        },
+        {
+          "dimension": "weight_coherence",
+          "score": 0,
+          "maxScore": 1,
+          "passed": false,
+          "details": "Violations: authenticity (0.30) should outweigh food_quality (0.40)"
+        }
+      ],
+      "overallScore": 4,
+      "overallMax": 6,
+      "passed": false
+    },
+    {
+      "caseId": "joes-classic-slice",
+      "restaurant": "Joe's Pizza Broadway",
+      "intent": "Classic New York slice, thin crust, good fold, no fancy toppings, quick and cheap",
+      "timestamp": "2026-06-25T18:17:57.821Z",
+      "analysis": {
+        "restaurant": {
+          "name": "Joe's Pizza Broadway",
+          "address": "1435 Broadway, New York, NY 10018, USA",
+          "placeId": "ChIJifIePKtZwokRVZ-UdRGkZzs",
+          "googleRating": 4.4,
+          "totalReviews": 25918,
+          "priceLevel": 1
+        },
+        "parallaxScore": 4.2,
+        "googleScore": 4.4,
+        "relevantReviews": [
+          {
+            "author": "SL Wong",
+            "rating": 5,
+            "excerpt": "The pizzas were absolutely delicious.  I would highly recommend getting the classic cheese. It was probably one of the best pizzas I've tasted.  The crust was thin and doesnt gets soft.",
+            "whyRelevant": "This review is relevant because it specifically mentions the quality of the pizza and the crust, which aligns with the user's intent of looking for a classic New York slice with thin crust.",
+            "dimensionScores": [
+              {
+                "dimension": "food_quality",
+                "sentiment": 0.9
+              }
+            ]
+          },
+          {
+            "author": "Highway Video",
+            "rating": 4,
+            "excerpt": "Simple, classic and full of that authentic New York pizza vibe. The slices were fresh, cheesy and so good — exactly the kind of pizza you imagine having in NYC.",
+            "whyRelevant": "This review is relevant because it mentions the authenticity and classic nature of the pizza, which aligns with the user's intent.",
+            "dimensionScores": [
+              {
+                "dimension": "authenticity",
+                "sentiment": 0.7
+              }
+            ]
+          },
+          {
+            "author": "Girish Wangikar",
+            "rating": 4,
+            "excerpt": "The prices are reasonable, service is super fast.",
+            "whyRelevant": "This review is relevant because it mentions the price value and wait time, which are also important to the user.",
+            "dimensionScores": [
+              {
+                "dimension": "price_value",
+                "sentiment": 0.7
+              },
+              {
+                "dimension": "wait_time",
+                "sentiment": 0.8
+              }
+            ]
+          }
+        ],
+        "explanation": "For someone looking for a classic New York slice with thin crust, good fold, and no fancy toppings, this restaurant scores slightly higher than Google's 4.4 because 3 out of 5 reviewers praised the food quality, with sentiments ranging from 0.8 to 0.9, and 2 reviewers mentioned the authenticity of the pizza, with sentiments of 0.6 and 0.7. Additionally, reviewers mentioned reasonable prices and quick service, which align with the user's intent. Google's high rating is driven by service and ambiance scores, which the user deprioritized, but the dimensions that matter most to this user are well-represented in the reviews, resulting in a slightly higher Parallax score.",
+        "confidence": "medium",
+        "sampleSize": 5,
+        "dimensionBreakdown": [
+          {
+            "dimension": "food_quality",
+            "averageSentiment": 0.78,
+            "googleSentiment": 0.78,
+            "weight": 0.4,
+            "reviewCount": 5
+          },
+          {
+            "dimension": "price_value",
+            "averageSentiment": 0.7,
+            "googleSentiment": 0.7,
+            "weight": 0.3,
+            "reviewCount": 1
+          },
+          {
+            "dimension": "authenticity",
+            "averageSentiment": 0.6499999999999999,
+            "googleSentiment": 0.6499999999999999,
+            "weight": 0.2,
+            "reviewCount": 2
+          },
+          {
+            "dimension": "wait_time",
+            "averageSentiment": -0.55,
+            "googleSentiment": -0.55,
+            "weight": 0.1,
+            "reviewCount": 2
+          }
+        ]
+      },
+      "decomposed": [
+        {
+          "author": "Girish Wangikar",
+          "rating": 4,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.8,
+              "claim": "everything was amazing"
+            },
+            {
+              "dimension": "price_value",
+              "sentiment": 0.7,
+              "confidence": 0.6,
+              "claim": "The prices are reasonable"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.8,
+              "confidence": 0.7,
+              "claim": "service is super fast"
+            },
+            {
+              "dimension": "location",
+              "sentiment": 0.6,
+              "confidence": 0.5,
+              "claim": "Locations are spread across the city"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": -0.4,
+              "confidence": 0.6,
+              "claim": "You might not get place to sit inside"
+            }
+          ],
+          "contextSignals": [
+            "tourist",
+            "casual"
+          ],
+          "overallTone": "positive",
+          "text": "As a tourists visited the highly recommended Joe’s pizza and it didn’t let me down. Had multiple slices across three days and everything was amazing. The prices are reasonable, service is super fast. Locations are spread across the city. You might not get place to sit inside so better to carry to nearby parks where you can eat it in peace. I went early in the morning when the crowd was manageable but later on people started pouring in and it wad nonstop.",
+          "relativeTime": "3 weeks ago"
+        },
+        {
+          "author": "SL Wong",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "The pizzas were absolutely delicious"
+            },
+            {
+              "dimension": "wait_time",
+              "sentiment": -0.6,
+              "confidence": 0.8,
+              "claim": "the queues get really longer after that"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.5,
+              "confidence": 0.4,
+              "claim": "They will heat up your slices after you've ordered"
+            }
+          ],
+          "contextSignals": [
+            "casual",
+            "solo"
+          ],
+          "overallTone": "positive",
+          "text": "This is the main outlet of Joe's pizza.  If you don't want to queue, come before dinner as the queues get really longer after that. Even at 9 pm the queue gets even longer.\n\nThe left shop sells pizza by the slice and the right shop(also Joe's pizza) sells them by pie (whole pizza).\n\nThe pizzas were absolutely delicious.  I would highly recommend getting the classic cheese. It was probably one of the best pizzas I've tasted.  The crust was thin and doesnt gets soft.\n\nThey will heat up your slices after you've ordered.",
+          "relativeTime": "3 weeks ago"
+        },
+        {
+          "author": "Highway Video",
+          "rating": 4,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.8,
+              "confidence": 0.7,
+              "claim": "The slices were fresh, cheesy and so good"
+            },
+            {
+              "dimension": "authenticity",
+              "sentiment": 0.7,
+              "confidence": 0.6,
+              "claim": "Simple, classic and full of that authentic New York pizza vibe"
+            },
+            {
+              "dimension": "wait_time",
+              "sentiment": -0.5,
+              "confidence": 0.7,
+              "claim": "Be prepared for a queue though"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.6,
+              "confidence": 0.5,
+              "claim": "Quick service once inside"
+            }
+          ],
+          "contextSignals": [
+            "tourist",
+            "casual"
+          ],
+          "overallTone": "positive",
+          "text": "A must-visit if you’re in New York.\nSimple, classic and full of that authentic New York pizza vibe. The slices were fresh, cheesy and so good — exactly the kind of pizza you imagine having in NYC.\nBe prepared for a queue though. There’s almost always a line and the wait can easily be around 30–45 minutes, but the pizza is definitely worth it.\nQuick service once inside and perfect for grabbing a slice while exploring the city. Definitely lived up to the hype.",
+          "relativeTime": "a month ago"
+        },
+        {
+          "author": "Bruno g",
+          "rating": 4,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.4,
+              "confidence": 0.6,
+              "claim": "The pizza was good, but not outstanding for me"
+            },
+            {
+              "dimension": "service",
+              "sentiment": -0.5,
+              "confidence": 0.7,
+              "claim": "the service felt very fast-paced and almost “assembly line” style"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.3,
+              "confidence": 0.5,
+              "claim": "it doesn’t really allow you to take your time to enjoy the experience if you’re eating on site"
+            },
+            {
+              "dimension": "authenticity",
+              "sentiment": 0.6,
+              "confidence": 0.5,
+              "claim": "adds to the “iconic New York spot” feeling"
+            }
+          ],
+          "contextSignals": [
+            "tourist",
+            "casual"
+          ],
+          "overallTone": "mixed",
+          "text": "My experience at Joe’s Pizza on Broadway was a bit mixed.\n\nFirst of all, the service felt very fast-paced and almost “assembly line” style. Everything is designed to move quickly, which makes sense given how popular the place is, but it doesn’t really allow you to take your time to enjoy the experience if you’re eating on site. You order, receive your slice, and things move on immediately.\n\nIn terms of taste, I honestly expected something more exceptional given the reputation. The pizza was good, but not outstanding for me. It didn’t quite match the level of hype I had built up before coming here.\n\nI also get the impression that a big part of its popularity comes from its appearance in Spider-Man and the celebrity photos on the walls, which definitely adds to the “iconic New York spot” feeling.\n\nTo be clear, it wasn’t bad at all — just not as memorable as I expected considering all the reputation around it. I was simply expecting a bit more in terms of flavor and overall experience.\n\nStill, it’s an iconic place worth trying once if you’re in New York, especially for the history and pop culture aspect.",
+          "relativeTime": "2 weeks ago"
+        },
+        {
+          "author": "Salman Idrees",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "The crust was perfectly crisp on the outside while staying soft and chewy inside"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.8,
+              "confidence": 0.8,
+              "claim": "the atmosphere was warm, lively, and welcoming"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "The staff greeted me with genuine smiles and were incredibly friendly and attentive throughout my visit"
+            }
+          ],
+          "contextSignals": [
+            "casual",
+            "solo"
+          ],
+          "overallTone": "positive",
+          "text": "I just had to share my amazing experience at Joe’s Pizza — it truly exceeded all my expectations!\n\nFrom the moment I walked in, the atmosphere was warm, lively, and welcoming. The staff greeted me with genuine smiles and were incredibly friendly and attentive throughout my visit. It’s clear they take pride not just in their food but in making customers feel valued and comfortable.\n\nNow let’s talk about the pizza — absolutely phenomenal. The crust was perfectly crisp on the outside while staying soft and chewy inside. The sauce had that rich, balanced flavor that tastes fresh and homemade, and the cheese was melted to perfection with just the right stretch in every bite. Every slice was packed with flavor, and you can really tell they use high-quality ingredients.\n\nService was fast and efficient even though the place was busy, which says a lot about how well the team works together. The staff were patient, helpful with recommendations, and made the whole experience even better.\n\nIf you’re looking for authentic, delicious pizza served by a team that genuinely cares, Joe’s Pizza is a must-visit. I’ll definitely be coming back for more!\n\n⭐️⭐️⭐️⭐️⭐️ Highly recommend",
+          "relativeTime": "4 months ago"
+        }
+      ],
+      "rubricScores": [
+        {
+          "dimension": "confidence_calibration",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No confidence expectation set — skipped"
+        },
+        {
+          "dimension": "dimension_extraction",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "Found: food_quality"
+        },
+        {
+          "dimension": "score_range",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No score expectation set — skipped"
+        },
+        {
+          "dimension": "explanation_content",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No explanation expectations set — skipped"
+        },
+        {
+          "dimension": "weight_coherence",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "Weight ordering matches expected: food_quality > price_value"
+        }
+      ],
+      "overallScore": 5,
+      "overallMax": 5,
+      "passed": true
+    },
+    {
+      "caseId": "keg-family-dinner",
+      "restaurant": "The Keg Steakhouse + Bar - Leslie Street",
+      "intent": "Family dinner with kids, reliable food, not too loud, good kids menu, easy parking",
+      "timestamp": "2026-06-25T18:18:24.669Z",
+      "analysis": {
+        "restaurant": {
+          "name": "The Keg Steakhouse + Bar - Leslie Street",
+          "address": "1977 Leslie St, North York, ON M3B 2M3, Canada",
+          "placeId": "ChIJJxsUTKLS1IkRRVSoeMEIsW0",
+          "googleRating": 4.5,
+          "totalReviews": 4409,
+          "priceLevel": 3
+        },
+        "parallaxScore": 3.6,
+        "googleScore": 4.5,
+        "relevantReviews": [
+          {
+            "author": "Micheal",
+            "rating": 5,
+            "excerpt": "the noise level, Some guests were incredibly loud",
+            "whyRelevant": "this review mentions noise level, which is important for a family dinner",
+            "dimensionScores": [
+              {
+                "dimension": "noise_level",
+                "sentiment": -0.7
+              }
+            ]
+          },
+          {
+            "author": "Dina Bakhit",
+            "rating": 5,
+            "excerpt": "Their customer service is truly top-notch",
+            "whyRelevant": "this review mentions service, which is important for a family dinner",
+            "dimensionScores": [
+              {
+                "dimension": "service",
+                "sentiment": 0.95
+              }
+            ]
+          },
+          {
+            "author": "Ann",
+            "rating": 5,
+            "excerpt": "The atmosphere of the restaurant is beautiful and very welcoming",
+            "whyRelevant": "this review mentions ambiance, which is important for a family dinner",
+            "dimensionScores": [
+              {
+                "dimension": "ambiance",
+                "sentiment": 0.9
+              }
+            ]
+          }
+        ],
+        "explanation": "For someone looking for a family dinner with kids, reliable food, not too loud, good kids menu, and easy parking, this restaurant scores slightly lower than Google's 4.5 because 1 of 5 reviewers mentioned noise level negatively, while 3 of 5 reviewers praised the service and ambiance. However, Google's high rating is driven by food quality and presentation scores, which you deprioritized. The Parallax score is 4.1, 0.4 lower than Google's, due to the noise level concerns and lack of mentions about kids menu.",
+        "confidence": "high",
+        "sampleSize": 5,
+        "dimensionBreakdown": [
+          {
+            "dimension": "noise_level",
+            "averageSentiment": -0.7,
+            "googleSentiment": -0.7,
+            "weight": 0.3,
+            "reviewCount": 1
+          },
+          {
+            "dimension": "food_quality",
+            "averageSentiment": 0.6571428571428571,
+            "googleSentiment": 0.6571428571428571,
+            "weight": 0.25,
+            "reviewCount": 7
+          },
+          {
+            "dimension": "ambiance",
+            "averageSentiment": 0.8500000000000001,
+            "googleSentiment": 0.8500000000000001,
+            "weight": 0.2,
+            "reviewCount": 2
+          },
+          {
+            "dimension": "service",
+            "averageSentiment": 0.9166666666666666,
+            "googleSentiment": 0.9166666666666666,
+            "weight": 0.15,
+            "reviewCount": 6
+          },
+          {
+            "dimension": "kids_menu",
+            "averageSentiment": 0,
+            "googleSentiment": 0,
+            "weight": 0.1,
+            "reviewCount": 0
+          }
+        ]
+      },
+      "decomposed": [
+        {
+          "author": "Micheal",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.95,
+              "claim": "everything arrived warm and well-prepared"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.95,
+              "confidence": 0.99,
+              "claim": "Our server Renee was excellent, attentive, professional, and on top of everything throughout the meal"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.8,
+              "confidence": 0.9,
+              "claim": "The greeters were equally welcoming and accommodated our booth request without any hassle"
+            },
+            {
+              "dimension": "noise_level",
+              "sentiment": -0.7,
+              "confidence": 0.8,
+              "claim": "the noise level, Some guests were incredibly loud"
+            },
+            {
+              "dimension": "cleanliness",
+              "sentiment": 0.9,
+              "confidence": 0.95,
+              "claim": "Washrooms were clean as well"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.95,
+              "claim": "The complimentary ice cream cake was a great surprise and much appreciated"
+            }
+          ],
+          "contextSignals": [
+            "celebration"
+          ],
+          "overallTone": "positive",
+          "text": "Came here for a birthday dinner and had a great experience overall, much better than my visit to the King Street location a few days prior, where the food came out cold. Here, everything arrived warm and well-prepared.\n\nOur server Renee was excellent, attentive, professional, and on top of everything throughout the meal. The greeters were equally welcoming and accommodated our booth request without any hassle. When I asked the greeter who seated us to take some photos, she was happy to help, which was a nice touch for a birthday occasion.\n\nThe complimentary ice cream cake was a great surprise and much appreciated. Washrooms were clean as well, which always matters.\n\nThe only thing worth mentioning is the noise level. Some guests were incredibly loud, the kind where you feel like you’re sitting next to a theme park ride rather than a dinner table. That said, it has nothing to do with the staff or the restaurant itself, so it doesn’t take away from the 5 stars. Everything within their control was handled really well.\n\nWould definitely return.",
+          "relativeTime": "2 weeks ago"
+        },
+        {
+          "author": "Ann",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "wait_time",
+              "sentiment": 0.9,
+              "confidence": 0.95,
+              "claim": "Our food arrived very quickly within about 10 minutes"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.95,
+              "confidence": 0.99,
+              "claim": "Everything was incredibly fresh and very tasty"
+            },
+            {
+              "dimension": "drink_quality",
+              "sentiment": 0.9,
+              "confidence": 0.95,
+              "claim": "I also had a cocktail that was perfectly made and complemented the meal nicely"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.9,
+              "confidence": 0.95,
+              "claim": "The atmosphere of the restaurant is beautiful and very welcoming"
+            }
+          ],
+          "contextSignals": [
+            "friends",
+            "casual"
+          ],
+          "overallTone": "positive",
+          "text": "I visited Keg Restaurant for lunch with a friend and had a wonderful experience. Our food arrived very quickly  within about 10 minutes  which was impressive.\nWe ordered a few appetizers, including the tartare, and also tried the grilled seafood. Everything was incredibly fresh and very tasty. I also had a cocktail that was perfectly made and complemented the meal nicely.\nThe atmosphere of the restaurant is beautiful and very welcoming. Overall, it was a lovely lunch, and I truly enjoyed my time there. I would definitely come back again.",
+          "relativeTime": "3 months ago"
+        },
+        {
+          "author": "TheTkhan",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "service",
+              "sentiment": 0.95,
+              "confidence": 0.99,
+              "claim": "we had the same waiter as last time probably one of the best waiters ever gave us top notch service"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.95,
+              "claim": "I ordered the calamari appetizer delicious as always, crispy and tender on the inside"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.95,
+              "confidence": 0.99,
+              "claim": "The prime rib was cooked to perfection, and massive"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.95,
+              "confidence": 0.99,
+              "claim": "the waiter who served us before recognized us and even gave us a free billy miner pie as it was me and wife's anniversary"
+            }
+          ],
+          "contextSignals": [
+            "celebration",
+            "regular"
+          ],
+          "overallTone": "positive",
+          "text": "I managed to get a a reservation for Valentine's Day, and we had the same waiter as last time probably one of the best waiters ever gave us top notch service and my daughter was smiling at him as well.\n\nI ordered the calamari appetizer delicious as always, crispy and tender on the inside.\n\nI ordered the 18 oz prime rib with mash potatoes , with the red wine jus and fried onions and horseradish.\n\nThe prime rib was cooked to perfection, and massive and the waiter who served us before recognized us and even gave us a free billy miner pie as it was me and wife's anniversary.\n\nThe horseradish is strong eat with caution but the prime rib was fantastic really heavy I don't think I have to eat for a week honestly. Keg always been a staple and consistent",
+          "relativeTime": "4 months ago"
+        },
+        {
+          "author": "Doni",
+          "rating": 3,
+          "dimensions": [
+            {
+              "dimension": "service",
+              "sentiment": 0.8,
+              "confidence": 0.9,
+              "claim": "I really enjoyed the service. Our server was very polite"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.7,
+              "confidence": 0.8,
+              "claim": "The nachos with beef on top were amazing — the toppings matched perfectly, and the portion size was great for 2–3 people"
+            },
+            {
+              "dimension": "drink_quality",
+              "sentiment": 0.8,
+              "confidence": 0.9,
+              "claim": "Their pitcher of sangria also tasted really good and came in a generous portion"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": -0.7,
+              "confidence": 0.8,
+              "claim": "I was disappointed with the steak. I ordered the prime rib, and it had a lot of fat on the sides"
+            }
+          ],
+          "contextSignals": [
+            "solo",
+            "casual"
+          ],
+          "overallTone": "mixed",
+          "text": "It was actually my first time visiting The Keg Steakhouse. I usually go to all-you-can-eat steakhouses, so I always wondered why people would pay for just a single steak. I really enjoyed the service. Our server was very polite, and I also liked how the chef personally brought out the dishes. The nachos with beef on top were amazing — the toppings matched perfectly, and the portion size was great for 2–3 people. Their pitcher of sangria also tasted really good and came in a generous portion.\nHowever, I was disappointed with the steak. I ordered the prime rib, and it had a lot of fat on the sides. Maybe because of that, it didn’t taste as good as people usually say about this restaurant. I’ve honestly never seen a steak with that much fat before. I asked for medium rare, it leaned more toward rare, it was juicy enough tho.  Maybe their other steak options are better, but if I had known, I probably wouldn’t have ordered the prime rib.",
+          "relativeTime": "a month ago"
+        },
+        {
+          "author": "Dina Bakhit",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "service",
+              "sentiment": 0.95,
+              "confidence": 0.99,
+              "claim": "Their customer service is truly top-notch. They went above and beyond to make sure every detail of our evening was perfect"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.9,
+              "confidence": 0.95,
+              "claim": "Marline and Will, constantly checking in and making sure we were enjoying our dinner"
+            }
+          ],
+          "contextSignals": [
+            "family",
+            "regular"
+          ],
+          "overallTone": "positive",
+          "text": "The Keg Steakhouse Leslie location.  We keep coming back, and a big part of that is thanks to Marline and Will. Their customer service is truly top-notch. They went above and beyond to make sure every detail of our evening was perfect, constantly checking in and making sure we were enjoying our dinner. Their attentiveness and genuine care made the whole experience feel extra special. Service like that is hard to find, and it’s what makes this place stand out every time we visit. Keep up the amazing work and thank you from my family for always welcoming us with a smile.",
+          "relativeTime": "2 months ago"
+        }
+      ],
+      "rubricScores": [
+        {
+          "dimension": "confidence_calibration",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No confidence expectation set — skipped"
+        },
+        {
+          "dimension": "dimension_extraction",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "Found: service"
+        },
+        {
+          "dimension": "score_range",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No score expectation set — skipped"
+        },
+        {
+          "dimension": "explanation_content",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No explanation expectations set — skipped"
+        },
+        {
+          "dimension": "weight_coherence",
+          "score": 1,
+          "maxScore": 3,
+          "passed": false,
+          "details": "Violations: kid_friendliness (0.00) should outweigh noise_level (0.30); kid_friendliness (0.00) should outweigh service (0.15)"
+        },
+        {
+          "dimension": "intent_alignment",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "Paired cases \"keg-family-dinner\" (3.6) and \"keg-steak-quality\" (4.4) diverge by 0.8 — intent produces different scores"
+        }
+      ],
+      "overallScore": 6,
+      "overallMax": 8,
+      "passed": false
+    },
+    {
+      "caseId": "keg-steak-quality",
+      "restaurant": "The Keg Steakhouse + Bar - Leslie Street",
+      "intent": "Best steak quality, proper aging, excellent cuts, serious steakhouse experience",
+      "timestamp": "2026-06-25T18:18:43.285Z",
+      "analysis": {
+        "restaurant": {
+          "name": "The Keg Steakhouse + Bar - Leslie Street",
+          "address": "1977 Leslie St, North York, ON M3B 2M3, Canada",
+          "placeId": "ChIJJxsUTKLS1IkRRVSoeMEIsW0",
+          "googleRating": 4.5,
+          "totalReviews": 4409,
+          "priceLevel": 3
+        },
+        "parallaxScore": 4.4,
+        "googleScore": 4.5,
+        "relevantReviews": [
+          {
+            "author": "TheTkhan",
+            "rating": 5,
+            "excerpt": "The prime rib was cooked to perfection, and massive",
+            "whyRelevant": "this review mentions the quality of the steak, which is a key aspect of the user's intent",
+            "dimensionScores": [
+              {
+                "dimension": "food_quality",
+                "sentiment": 0.9
+              }
+            ]
+          },
+          {
+            "author": "Doni",
+            "rating": 3,
+            "excerpt": "I was disappointed with the steak. I ordered the prime rib, and it had a lot of fat on the sides",
+            "whyRelevant": "this review mentions a negative aspect of the steak quality, which is relevant to the user's intent",
+            "dimensionScores": [
+              {
+                "dimension": "food_quality",
+                "sentiment": -0.7
+              }
+            ]
+          },
+          {
+            "author": "Micheal",
+            "rating": 5,
+            "excerpt": "everything arrived warm and well-prepared",
+            "whyRelevant": "this review mentions the quality of the food and service, which are relevant to the user's intent",
+            "dimensionScores": [
+              {
+                "dimension": "food_quality",
+                "sentiment": 0.9
+              },
+              {
+                "dimension": "service",
+                "sentiment": 0.9
+              }
+            ]
+          }
+        ],
+        "explanation": "For someone looking for a high-quality steakhouse experience with excellent cuts and proper aging, this restaurant scores similar to Google's 4.5 because 3 of 5 reviewers praised the food quality, with sentiments ranging from 0.7 to 0.9, and 2 reviewers mentioned excellent service. However, 1 reviewer was disappointed with the steak quality, citing excessive fat. Google's high rating is driven by presentation and ambiance scores, which you deprioritized, as well as service scores from reviewers who cared about aspects like wait time and drink quality, which are not as relevant to your intent.",
+        "confidence": "high",
+        "sampleSize": 5,
+        "dimensionBreakdown": [
+          {
+            "dimension": "food_quality",
+            "averageSentiment": 0.6428571428571429,
+            "googleSentiment": 0.6428571428571429,
+            "weight": 0.6,
+            "reviewCount": 7
+          },
+          {
+            "dimension": "service",
+            "averageSentiment": 0.8833333333333334,
+            "googleSentiment": 0.8833333333333334,
+            "weight": 0.2,
+            "reviewCount": 6
+          },
+          {
+            "dimension": "ambiance",
+            "averageSentiment": 0.8,
+            "googleSentiment": 0.8,
+            "weight": 0.2,
+            "reviewCount": 2
+          }
+        ]
+      },
+      "decomposed": [
+        {
+          "author": "Micheal",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.8,
+              "claim": "everything arrived warm and well-prepared"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "Our server Renee was excellent, attentive, professional, and on top of everything throughout the meal"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.7,
+              "confidence": 0.7,
+              "claim": "The greeters were equally welcoming and accommodated our booth request without any hassle"
+            },
+            {
+              "dimension": "noise_level",
+              "sentiment": -0.8,
+              "confidence": 0.8,
+              "claim": "the noise level. Some guests were incredibly loud"
+            },
+            {
+              "dimension": "cleanliness",
+              "sentiment": 0.8,
+              "confidence": 0.7,
+              "claim": "Washrooms were clean as well"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.8,
+              "claim": "The complimentary ice cream cake was a great surprise and much appreciated"
+            }
+          ],
+          "contextSignals": [
+            "celebration"
+          ],
+          "overallTone": "positive",
+          "text": "Came here for a birthday dinner and had a great experience overall, much better than my visit to the King Street location a few days prior, where the food came out cold. Here, everything arrived warm and well-prepared.\n\nOur server Renee was excellent, attentive, professional, and on top of everything throughout the meal. The greeters were equally welcoming and accommodated our booth request without any hassle. When I asked the greeter who seated us to take some photos, she was happy to help, which was a nice touch for a birthday occasion.\n\nThe complimentary ice cream cake was a great surprise and much appreciated. Washrooms were clean as well, which always matters.\n\nThe only thing worth mentioning is the noise level. Some guests were incredibly loud, the kind where you feel like you’re sitting next to a theme park ride rather than a dinner table. That said, it has nothing to do with the staff or the restaurant itself, so it doesn’t take away from the 5 stars. Everything within their control was handled really well.\n\nWould definitely return.",
+          "relativeTime": "2 weeks ago"
+        },
+        {
+          "author": "Ann",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "wait_time",
+              "sentiment": 0.9,
+              "confidence": 0.8,
+              "claim": "Our food arrived very quickly within about 10 minutes"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "Everything was incredibly fresh and very tasty"
+            },
+            {
+              "dimension": "drink_quality",
+              "sentiment": 0.8,
+              "confidence": 0.7,
+              "claim": "I also had a cocktail that was perfectly made and complemented the meal nicely"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.9,
+              "confidence": 0.8,
+              "claim": "The atmosphere of the restaurant is beautiful and very welcoming"
+            }
+          ],
+          "contextSignals": [
+            "friends",
+            "casual"
+          ],
+          "overallTone": "positive",
+          "text": "I visited Keg Restaurant for lunch with a friend and had a wonderful experience. Our food arrived very quickly  within about 10 minutes  which was impressive.\nWe ordered a few appetizers, including the tartare, and also tried the grilled seafood. Everything was incredibly fresh and very tasty. I also had a cocktail that was perfectly made and complemented the meal nicely.\nThe atmosphere of the restaurant is beautiful and very welcoming. Overall, it was a lovely lunch, and I truly enjoyed my time there. I would definitely come back again.",
+          "relativeTime": "3 months ago"
+        },
+        {
+          "author": "TheTkhan",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "service",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "probably one of the best waiters ever gave us top notch service"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "I ordered the calamari appetizer delicious as always, crispy and tender on the inside"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "The prime rib was cooked to perfection, and massive"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.9,
+              "confidence": 0.8,
+              "claim": "The waiter who served us before recognized us and even gave us a free billy miner pie as it was me and wife's anniversary"
+            }
+          ],
+          "contextSignals": [
+            "celebration"
+          ],
+          "overallTone": "positive",
+          "text": "I managed to get a a reservation for Valentine's Day, and we had the same waiter as last time probably one of the best waiters ever gave us top notch service and my daughter was smiling at him as well.\n\nI ordered the calamari appetizer delicious as always, crispy and tender on the inside.\n\nI ordered the 18 oz prime rib with mash potatoes , with the red wine jus and fried onions and horseradish.\n\nThe prime rib was cooked to perfection, and massive and the waiter who served us before recognized us and even gave us a free billy miner pie as it was me and wife's anniversary.\n\nThe horseradish is strong eat with caution but the prime rib was fantastic really heavy I don't think I have to eat for a week honestly. Keg always been a staple and consistent",
+          "relativeTime": "4 months ago"
+        },
+        {
+          "author": "Doni",
+          "rating": 3,
+          "dimensions": [
+            {
+              "dimension": "service",
+              "sentiment": 0.8,
+              "confidence": 0.7,
+              "claim": "I really enjoyed the service. Our server was very polite"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.7,
+              "confidence": 0.7,
+              "claim": "The nachos with beef on top were amazing — the toppings matched perfectly, and the portion size was great for 2–3 people"
+            },
+            {
+              "dimension": "drink_quality",
+              "sentiment": 0.7,
+              "confidence": 0.6,
+              "claim": "Their pitcher of sangria also tasted really good and came in a generous portion"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": -0.7,
+              "confidence": 0.8,
+              "claim": "I was disappointed with the steak. I ordered the prime rib, and it had a lot of fat on the sides"
+            }
+          ],
+          "contextSignals": [
+            "solo",
+            "casual"
+          ],
+          "overallTone": "mixed",
+          "text": "It was actually my first time visiting The Keg Steakhouse. I usually go to all-you-can-eat steakhouses, so I always wondered why people would pay for just a single steak. I really enjoyed the service. Our server was very polite, and I also liked how the chef personally brought out the dishes. The nachos with beef on top were amazing — the toppings matched perfectly, and the portion size was great for 2–3 people. Their pitcher of sangria also tasted really good and came in a generous portion.\nHowever, I was disappointed with the steak. I ordered the prime rib, and it had a lot of fat on the sides. Maybe because of that, it didn’t taste as good as people usually say about this restaurant. I’ve honestly never seen a steak with that much fat before. I asked for medium rare, it leaned more toward rare, it was juicy enough tho.  Maybe their other steak options are better, but if I had known, I probably wouldn’t have ordered the prime rib.",
+          "relativeTime": "a month ago"
+        },
+        {
+          "author": "Dina Bakhit",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "service",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "Their customer service is truly top-notch"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.9,
+              "confidence": 0.8,
+              "claim": "They went above and beyond to make sure every detail of our evening was perfect"
+            }
+          ],
+          "contextSignals": [
+            "family",
+            "regular"
+          ],
+          "overallTone": "positive",
+          "text": "The Keg Steakhouse Leslie location.  We keep coming back, and a big part of that is thanks to Marline and Will. Their customer service is truly top-notch. They went above and beyond to make sure every detail of our evening was perfect, constantly checking in and making sure we were enjoying our dinner. Their attentiveness and genuine care made the whole experience feel extra special. Service like that is hard to find, and it’s what makes this place stand out every time we visit. Keep up the amazing work and thank you from my family for always welcoming us with a smile.",
+          "relativeTime": "2 months ago"
+        }
+      ],
+      "rubricScores": [
+        {
+          "dimension": "confidence_calibration",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No confidence expectation set — skipped"
+        },
+        {
+          "dimension": "dimension_extraction",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "Found: food_quality"
+        },
+        {
+          "dimension": "score_range",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No score expectation set — skipped"
+        },
+        {
+          "dimension": "explanation_content",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No explanation expectations set — skipped"
+        },
+        {
+          "dimension": "weight_coherence",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "Weight ordering matches expected: food_quality > authenticity"
+        }
+      ],
+      "overallScore": 5,
+      "overallMax": 5,
+      "passed": true
+    },
+    {
+      "caseId": "lahore-spice-value",
+      "restaurant": "Lahore Tikka House",
+      "intent": "Authentic Pakistani food, real spice levels, generous portions, good value, not a fancy place",
+      "timestamp": "2026-06-25T18:19:01.392Z",
+      "analysis": {
+        "restaurant": {
+          "name": "Lahore Tikka House",
+          "address": "1365 Gerrard St E, Toronto, ON M4L 1Z3, Canada",
+          "placeId": "ChIJSxC05IfL1IkR8ljOgpwnOIg",
+          "googleRating": 4.3,
+          "totalReviews": 10002,
+          "priceLevel": 2
+        },
+        "parallaxScore": 4.6,
+        "googleScore": 4.3,
+        "relevantReviews": [
+          {
+            "author": "Aadil Siddique",
+            "rating": 5,
+            "excerpt": "Excellent meal and service despite how busy it was. Everything was really good.",
+            "whyRelevant": "This review is relevant because it mentions the quality of the food, which is a key aspect of the user's intent.",
+            "dimensionScores": [
+              {
+                "dimension": "food_quality",
+                "sentiment": 0.9
+              }
+            ]
+          },
+          {
+            "author": "Shay Gray",
+            "rating": 5,
+            "excerpt": "The portion size was also pretty good",
+            "whyRelevant": "This review is relevant because it mentions the portion size, which is another key aspect of the user's intent.",
+            "dimensionScores": [
+              {
+                "dimension": "portion_size",
+                "sentiment": 0.7
+              }
+            ]
+          },
+          {
+            "author": "Ahmed Sachwani",
+            "rating": 5,
+            "excerpt": "Just the right balance of spice.",
+            "whyRelevant": "This review is relevant because it mentions the spice level, which is an important aspect of the user's intent.",
+            "dimensionScores": [
+              {
+                "dimension": "spice_level",
+                "sentiment": 0.9
+              }
+            ]
+          }
+        ],
+        "explanation": "For someone looking for authentic Pakistani food with real spice levels, generous portions, and good value in a casual setting, this restaurant scores similar to Google's 4.3 because 4 of 5 reviewers praised the food quality, 2 mentioned generous portion sizes, and 1 highlighted the right balance of spice. However, Google's high rating is also driven by excellent service and ambiance scores, which this user deprioritized. The user's focus on specific aspects of the food and value means that the Parallax score is not significantly higher or lower than Google's, but rather a more targeted reflection of what matters most to this user.",
+        "confidence": "medium",
+        "sampleSize": 5,
+        "dimensionBreakdown": [
+          {
+            "dimension": "food_quality",
+            "averageSentiment": 0.8714285714285716,
+            "googleSentiment": 0.8714285714285716,
+            "weight": 0.4,
+            "reviewCount": 7
+          },
+          {
+            "dimension": "portion_size",
+            "averageSentiment": 0.7,
+            "googleSentiment": 0.7,
+            "weight": 0.3,
+            "reviewCount": 1
+          },
+          {
+            "dimension": "value",
+            "averageSentiment": 0,
+            "googleSentiment": 0,
+            "weight": 0.2,
+            "reviewCount": 0
+          },
+          {
+            "dimension": "spice_level",
+            "averageSentiment": 0,
+            "googleSentiment": 0,
+            "weight": 0.1,
+            "reviewCount": 0
+          }
+        ]
+      },
+      "decomposed": [
+        {
+          "author": "Wendy",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.9,
+              "confidence": 0.8,
+              "claim": "Lovely decor with painting of Taj Mahal and actual tuk-tuks. Very festive with lights at night time in Indiatown."
+            },
+            {
+              "dimension": "wait_time",
+              "sentiment": -0.7,
+              "confidence": 0.9,
+              "claim": "Takes a long time for food to come for dine-on as well as long wait for take-out."
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.8,
+              "claim": "Delicious food. Tried the chicken and lamb biryani."
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.8,
+              "confidence": 0.7,
+              "claim": "Patient staff"
+            },
+            {
+              "dimension": "kid_friendliness",
+              "sentiment": 0.8,
+              "confidence": 0.7,
+              "claim": "kid-friendly"
+            }
+          ],
+          "contextSignals": [
+            "family",
+            "casual"
+          ],
+          "overallTone": "positive",
+          "text": "Lovely decor with painting of Taj Mahal and actual tuk-tuks. Very festive with lights at night time in Indiatown.\n\nIt is a busy and popular spot. Takes a long time for food to come for dine-on as well as long wait for take-out.\n\nDelicious food. Tried the chicken and lamb biryani.\n\nPatient staff and kid-friendly.",
+          "relativeTime": "a month ago"
+        },
+        {
+          "author": "Aadil Siddique",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "Excellent meal"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.9,
+              "confidence": 0.8,
+              "claim": "Excellent service"
+            },
+            {
+              "dimension": "menu_variety",
+              "sentiment": 0.7,
+              "confidence": 0.6,
+              "claim": "We ordered the chicken karahi, chana masala, seekh kabob, chicken tikka, daal and fried fish."
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.8,
+              "claim": "Standouts were definitley the daal, chana and karahi."
+            },
+            {
+              "dimension": "drink_quality",
+              "sentiment": -0.4,
+              "confidence": 0.7,
+              "claim": "The chai however could be stronger, it is very milky and doesnt have much tea flavour."
+            }
+          ],
+          "contextSignals": [
+            "friends",
+            "casual"
+          ],
+          "overallTone": "positive",
+          "text": "Excellent meal and service despite how busy it was. Everything was really good. We ordered the chicken karahi, chana masala, seekh kabob, chicken tikka, daal and fried fish. Standouts were definitley the daal, chana and karahi. Unfortunately they were out of the ribs and goat chops but I will make sure to get it next time. The kulfi was also really good! The chai however could be stronger, it is very milky and doesnt have much tea flavour.",
+          "relativeTime": "3 months ago"
+        },
+        {
+          "author": "Shay Gray",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.8,
+              "confidence": 0.7,
+              "claim": "the taste remained the same"
+            },
+            {
+              "dimension": "portion_size",
+              "sentiment": 0.7,
+              "confidence": 0.6,
+              "claim": "The portion size was also pretty good"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.8,
+              "confidence": 0.7,
+              "claim": "the loveliest aroma"
+            }
+          ],
+          "contextSignals": [
+            "solo",
+            "casual"
+          ],
+          "overallTone": "positive",
+          "text": "I have been here a few times and I can’t say I have any complaints. I actually ordered through Uber Eats this time and can say the taste remained the same! In fact, as soon as I opened the container it had the loveliest aroma. The portion size was also pretty good, though the salad was layered on the rice lol which was actually fine. Also, a solid choice eating and ordering from here.",
+          "relativeTime": "3 months ago"
+        },
+        {
+          "author": "Ahmed Sachwani",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.8,
+              "claim": "The food was absolutely delicious."
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.8,
+              "confidence": 0.7,
+              "claim": "The staff was friendly and very attentive."
+            }
+          ],
+          "contextSignals": [
+            "family",
+            "casual"
+          ],
+          "overallTone": "positive",
+          "text": "It was our first visit and we're so glad we came. The food was absolutely delicious. Just the right balance of spice. The staff was friendly and very attentive. I would definitely come back for the nihari and kababs.",
+          "relativeTime": "3 months ago"
+        },
+        {
+          "author": "Family Room",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "the food is swimming in flavour."
+            },
+            {
+              "dimension": "cleanliness",
+              "sentiment": 0.8,
+              "confidence": 0.7,
+              "claim": "the restaurant is clean"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.8,
+              "confidence": 0.7,
+              "claim": "the service is prompt and friendly"
+            }
+          ],
+          "contextSignals": [
+            "family",
+            "casual"
+          ],
+          "overallTone": "positive",
+          "text": "Possibly the best Pakistani restaurant in Ontario! Bold statement, but true. First and foremost - the food is swimming in flavour. Doesn’t matter what you get, I guarantee it will be delicious 😋 Secondly, the restaurant is clean and the service is prompt and friendly. We don’t live in the area but whenever we’re passing by, we make time for lunch or dinner here. We’re never disappointed and neither will you.",
+          "relativeTime": "8 months ago"
+        }
+      ],
+      "rubricScores": [
+        {
+          "dimension": "confidence_calibration",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No confidence expectation set — skipped"
+        },
+        {
+          "dimension": "dimension_extraction",
+          "score": 2,
+          "maxScore": 3,
+          "passed": false,
+          "details": "Found: food_quality, portion_size. Missing: authenticity"
+        },
+        {
+          "dimension": "score_range",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No score expectation set — skipped"
+        },
+        {
+          "dimension": "explanation_content",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No explanation expectations set — skipped"
+        },
+        {
+          "dimension": "weight_coherence",
+          "score": 2,
+          "maxScore": 3,
+          "passed": false,
+          "details": "Violations: authenticity (0.00) should outweigh food_quality (0.40)"
+        }
+      ],
+      "overallScore": 7,
+      "overallMax": 9,
+      "passed": false
+    },
+    {
+      "caseId": "mcdonalds-late-night",
+      "restaurant": "McDonald's",
+      "intent": "Late night food, open 24 hours, fast service, cheap, don't care about quality",
+      "timestamp": "2026-06-25T18:19:21.331Z",
+      "analysis": {
+        "restaurant": {
+          "name": "McDonald's",
+          "address": "1528 Broadway Times Square, New York, NY 10036, USA",
+          "placeId": "ChIJQXY5d3dZwokROz4N4S6oh0M",
+          "googleRating": 3.7,
+          "totalReviews": 1659,
+          "priceLevel": 1
+        },
+        "parallaxScore": 3.6,
+        "googleScore": 3.7,
+        "relevantReviews": [
+          {
+            "author": "Elvis Jimenez",
+            "rating": 5,
+            "excerpt": "very fast service",
+            "whyRelevant": "this review mentions fast service, which is important for late night food",
+            "dimensionScores": [
+              {
+                "dimension": "service",
+                "sentiment": 0.9
+              }
+            ]
+          },
+          {
+            "author": "Dharven Panchal",
+            "rating": 3,
+            "excerpt": "It is located on the prime location nearby to Times Square",
+            "whyRelevant": "this review mentions the location, which is important for convenience",
+            "dimensionScores": [
+              {
+                "dimension": "location",
+                "sentiment": 0.8
+              }
+            ]
+          },
+          {
+            "author": "GHD_1109",
+            "rating": 4,
+            "excerpt": "McDonald’s Times Square is a good stop if you’re near Times Square",
+            "whyRelevant": "this review mentions the location and implies it's a good option for a quick stop",
+            "dimensionScores": [
+              {
+                "dimension": "location",
+                "sentiment": 0.8
+              }
+            ]
+          }
+        ],
+        "explanation": "For someone looking for a late night food option with fast service and a convenient location, this restaurant scores slightly higher than Google's 3.7 because 2 of 5 reviewers praised the service and location, with sentiments ranging from 0.8 to 0.9. The dimension of service is particularly important, as Elvis Jimenez mentioned 'very fast service'. In contrast, Google's rating is driven by food quality scores, which this user deprioritized. While some reviewers criticized the food quality, the aspects that matter most to this user, such as service and location, receive positive mentions.",
+        "confidence": "low",
+        "sampleSize": 5,
+        "dimensionBreakdown": [
+          {
+            "dimension": "service",
+            "averageSentiment": 0.9,
+            "googleSentiment": 0.9,
+            "weight": 0.4,
+            "reviewCount": 1
+          },
+          {
+            "dimension": "price_value",
+            "averageSentiment": -0.8,
+            "googleSentiment": -0.8,
+            "weight": 0.3,
+            "reviewCount": 1
+          },
+          {
+            "dimension": "location",
+            "averageSentiment": 0.8,
+            "googleSentiment": 0.8,
+            "weight": 0.2,
+            "reviewCount": 2
+          },
+          {
+            "dimension": "hours_of_operation",
+            "averageSentiment": 0,
+            "googleSentiment": 0,
+            "weight": 0.1,
+            "reviewCount": 0
+          }
+        ]
+      },
+      "decomposed": [
+        {
+          "author": "Jaidyn Fantastic Beasts (HARRY POTTER)",
+          "rating": 3,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": -0.8,
+              "confidence": 0.9,
+              "claim": "Our coffees were awful! Way too hot, burnt and un-drinkable."
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": -0.6,
+              "confidence": 0.8,
+              "claim": "The bacon, egg and cheese biscuit was undercooked and doughy and the egg tasted old and chewy"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "the bacon and cheese were tasty though"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "The sausage and egg bagel was delicious!"
+            }
+          ],
+          "contextSignals": [
+            "casual",
+            "tourist"
+          ],
+          "overallTone": "mixed",
+          "text": "Our coffees were awful! Way too hot, burnt and un-drinkable. We threw them out.\n\nThe bacon, egg and cheese biscuit was undercooked and doughy and the egg tasted old and chewy - the bacon and cheese were tasty though.\n\nThe sausage and egg bagel was delicious!",
+          "relativeTime": "a month ago"
+        },
+        {
+          "author": "Dharven Panchal",
+          "rating": 3,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.2,
+              "confidence": 0.5,
+              "claim": "That is average McDonald's store and outlet for you"
+            },
+            {
+              "dimension": "location",
+              "sentiment": 0.8,
+              "confidence": 0.9,
+              "claim": "It is located on the prime location nearby to Times Square"
+            },
+            {
+              "dimension": "menu_variety",
+              "sentiment": -0.6,
+              "confidence": 0.8,
+              "claim": "Only one burger is there for vegeterian people that only you have to do customisation"
+            },
+            {
+              "dimension": "parking",
+              "sentiment": -1,
+              "confidence": 0.9,
+              "claim": "No parking area available"
+            }
+          ],
+          "contextSignals": [
+            "tourist",
+            "casual"
+          ],
+          "overallTone": "neutral",
+          "text": "That is average McDonald's store and outlet for you. You can only go for if you want some quick bite. It is located on the prime location nearby to Times Square. They have both done in and take away options available. You can order on the kiosk and wait for your order. The first floor is for dine in area. Only one burger is there for vegeterian people that only you have to do customisation. No parking area available. Rush hours will have much traffic here.",
+          "relativeTime": "3 months ago"
+        },
+        {
+          "author": "Elvis Jimenez",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "cleanliness",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "One of the cleanest mc'D in NYC"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "very fast service"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "hot food and hot coffee"
+            }
+          ],
+          "contextSignals": [
+            "casual",
+            "tourist"
+          ],
+          "overallTone": "positive",
+          "text": "One of the cleanest mc'D in NYC very fast service hot food and hot coffee. Worth the trip",
+          "relativeTime": "6 months ago"
+        },
+        {
+          "author": "VinVin C",
+          "rating": 3,
+          "dimensions": [
+            {
+              "dimension": "drink_quality",
+              "sentiment": -0.9,
+              "confidence": 0.9,
+              "claim": "Every time I order an iced coffee, it never consistent"
+            },
+            {
+              "dimension": "price_value",
+              "sentiment": -0.8,
+              "confidence": 0.8,
+              "claim": "I really don't understand why this times square location is so bad at this and almost never adds sugar"
+            },
+            {
+              "dimension": "kid_friendliness",
+              "sentiment": -0.6,
+              "confidence": 0.7,
+              "claim": "If it's for kids or young people, they usually prefer sweeter drinks"
+            }
+          ],
+          "contextSignals": [
+            "regular",
+            "casual"
+          ],
+          "overallTone": "negative",
+          "text": "I have a complaint. Every time I order an iced coffee, it never consistent. Sometimes there's syrup added, but most of the time there's no sugar at all. If it's for kids or young people, they usually prefer sweeter drinks, and iced coffee is supposed to be a sweet beverage. So I really don't understand why this times square location is so bad at this and almost never adds sugar. It feels like I am wasting my money on a coffee that isn't made properly. If I didn't want sugar, I would have ordered a hot coffee instead.",
+          "relativeTime": "4 weeks ago"
+        },
+        {
+          "author": "GHD_1109",
+          "rating": 4,
+          "dimensions": [
+            {
+              "dimension": "location",
+              "sentiment": 0.8,
+              "confidence": 0.9,
+              "claim": "McDonald’s Times Square is a good stop if you’re near Times Square"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.6,
+              "confidence": 0.8,
+              "claim": "The upstairs seating is nice"
+            }
+          ],
+          "contextSignals": [
+            "tourist",
+            "casual"
+          ],
+          "overallTone": "positive",
+          "text": "McDonald’s Times Square is a good stop if you’re near Times Square. The upstairs seating is nice, but you have to buy something to go up there.",
+          "relativeTime": "3 months ago"
+        }
+      ],
+      "rubricScores": [
+        {
+          "dimension": "confidence_calibration",
+          "score": 0,
+          "maxScore": 1,
+          "passed": false,
+          "details": "Expected \"medium\" but got \"low\""
+        },
+        {
+          "dimension": "dimension_extraction",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No dimension expectations set — skipped"
+        },
+        {
+          "dimension": "score_range",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No score expectation set — skipped"
+        },
+        {
+          "dimension": "explanation_content",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No explanation expectations set — skipped"
+        },
+        {
+          "dimension": "weight_coherence",
+          "score": 0,
+          "maxScore": 1,
+          "passed": false,
+          "details": "Violations: wait_time (0.00) should outweigh price_value (0.30)"
+        }
+      ],
+      "overallScore": 3,
+      "overallMax": 5,
+      "passed": false
+    },
+    {
+      "caseId": "pai-thai-datenight",
+      "restaurant": "PAI Northern Thai Kitchen",
+      "intent": "Romantic date night, beautiful atmosphere, great cocktails, Instagram-worthy presentation",
+      "timestamp": "2026-06-25T18:19:39.460Z",
+      "analysis": {
+        "restaurant": {
+          "name": "PAI",
+          "address": "18 Duncan St, Toronto, ON M5H 3G8, Canada",
+          "placeId": "ChIJE9on3F3L1IkRyitHxPYqn6k",
+          "googleRating": 4.6,
+          "totalReviews": 14864,
+          "priceLevel": 2
+        },
+        "parallaxScore": 4.9,
+        "googleScore": 4.6,
+        "relevantReviews": [
+          {
+            "author": "David Chen",
+            "rating": 3,
+            "excerpt": "Decor is Instagram-worthy though",
+            "whyRelevant": "Mentions Instagram-worthy decor, relevant to user's desire for Instagram-worthy presentation",
+            "dimensionScores": [
+              {
+                "dimension": "presentation",
+                "sentiment": 0.8
+              }
+            ]
+          },
+          {
+            "author": "Sarah M",
+            "rating": 5,
+            "excerpt": "Beautiful restaurant with amazing food presentation. The cocktails were incredible",
+            "whyRelevant": "Mentions beautiful ambiance, amazing food presentation, and great cocktails, all relevant to user's intent",
+            "dimensionScores": [
+              {
+                "dimension": "ambiance",
+                "sentiment": 1
+              },
+              {
+                "dimension": "presentation",
+                "sentiment": 1
+              },
+              {
+                "dimension": "drink_quality",
+                "sentiment": 1
+              }
+            ]
+          },
+          {
+            "author": "Angie R",
+            "rating": 5,
+            "excerpt": "The mango salad had flavors that tickled all the senses",
+            "whyRelevant": "Mentions great food quality, relevant to user's desire for great food",
+            "dimensionScores": [
+              {
+                "dimension": "food_quality",
+                "sentiment": 1
+              }
+            ]
+          }
+        ],
+        "explanation": "For someone looking for a romantic date night with beautiful atmosphere, great cocktails, and Instagram-worthy presentation, this restaurant scores slightly higher than Google's 4.6 because 2 of 5 reviewers praised the ambiance and presentation, and 1 reviewer specifically mentioned great cocktails. The dimension of ambiance is particularly relevant, with 2 reviewers mentioning it positively. In contrast, Google's high rating is driven by food quality and service scores, which this user deprioritized. The Parallax score is around 4.8, 0.2 points higher than Google's, due to the strong emphasis on ambiance, presentation, and drink quality.",
+        "confidence": "low",
+        "sampleSize": 5,
+        "dimensionBreakdown": [
+          {
+            "dimension": "ambiance",
+            "averageSentiment": 0.9,
+            "googleSentiment": 0.9,
+            "weight": 0.3,
+            "reviewCount": 2
+          },
+          {
+            "dimension": "drink_quality",
+            "averageSentiment": 1,
+            "googleSentiment": 1,
+            "weight": 0.25,
+            "reviewCount": 1
+          },
+          {
+            "dimension": "presentation",
+            "averageSentiment": 1,
+            "googleSentiment": 1,
+            "weight": 0.2,
+            "reviewCount": 1
+          },
+          {
+            "dimension": "food_quality",
+            "averageSentiment": 0.8,
+            "googleSentiment": 0.8,
+            "weight": 0.15,
+            "reviewCount": 5
+          },
+          {
+            "dimension": "service",
+            "averageSentiment": 0.9333333333333332,
+            "googleSentiment": 0.9333333333333332,
+            "weight": 0.1,
+            "reviewCount": 3
+          }
+        ]
+      },
+      "decomposed": [
+        {
+          "author": "JAY KAY",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 0.9,
+              "claim": "The food was very delicious! Fresh and full of flavours"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 1,
+              "confidence": 0.9,
+              "claim": "The staff was very friendly and attentive"
+            },
+            {
+              "dimension": "cleanliness",
+              "sentiment": 1,
+              "confidence": 0.9,
+              "claim": "The restaurant was clean and well-maintained"
+            }
+          ],
+          "contextSignals": [
+            "casual"
+          ],
+          "overallTone": "positive",
+          "text": "The food was very delicious! Fresh and full of flavours. The staff was very friendly and attentive. The restaurant was clean and well-maintained. I would definitely recommend this restaurant to anyone looking for a great dining experience.",
+          "relativeTime": "2 months ago"
+        },
+        {
+          "author": "Mika Kim",
+          "rating": 4,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.8,
+              "confidence": 0.8,
+              "claim": "Delicious Thai food"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.8,
+              "confidence": 0.8,
+              "claim": "warm and attentive staff"
+            },
+            {
+              "dimension": "portion_size",
+              "sentiment": 0.8,
+              "confidence": 0.8,
+              "claim": "The portions were generous"
+            },
+            {
+              "dimension": "price_value",
+              "sentiment": 0.8,
+              "confidence": 0.8,
+              "claim": "the prices were reasonable for the quality"
+            },
+            {
+              "dimension": "wait_time",
+              "sentiment": -0.8,
+              "confidence": 0.8,
+              "claim": "Only downside was the wait time on a Friday evening"
+            }
+          ],
+          "contextSignals": [
+            "friends",
+            "casual"
+          ],
+          "overallTone": "positive",
+          "text": "Delicious Thai food, made even better by the warm and attentive staff. The portions were generous and the prices were reasonable for the quality. Only downside was the wait time on a Friday evening.",
+          "relativeTime": "3 months ago"
+        },
+        {
+          "author": "Angie R",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 0.9,
+              "claim": "The mango salad had flavors that tickled all the senses"
+            },
+            {
+              "dimension": "authenticity",
+              "sentiment": 1,
+              "confidence": 0.9,
+              "claim": "Authentic northern Thai comfort food at its best"
+            }
+          ],
+          "contextSignals": [
+            "casual",
+            "foodie"
+          ],
+          "overallTone": "positive",
+          "text": "The mango salad had flavors that tickled all the senses. Yum! I'm going to crave this one forever and ever. The khao soi was rich and creamy with just the right amount of spice. Authentic northern Thai comfort food at its best.",
+          "relativeTime": "1 month ago"
+        },
+        {
+          "author": "David Chen",
+          "rating": 3,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.2,
+              "confidence": 0.7,
+              "claim": "The food is good but not exceptional"
+            },
+            {
+              "dimension": "authenticity",
+              "sentiment": -0.8,
+              "confidence": 0.7,
+              "claim": "The spice level seems toned down compared to actual Thai street food"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.8,
+              "confidence": 0.7,
+              "claim": "Decor is Instagram-worthy though"
+            }
+          ],
+          "contextSignals": [
+            "casual",
+            "foodie"
+          ],
+          "overallTone": "mixed",
+          "text": "Overhyped. The food is good but not exceptional. The spice level seems toned down compared to actual Thai street food. The pad thai was sweet, not the tangy version you'd get in Bangkok. Decor is Instagram-worthy though.",
+          "relativeTime": "2 weeks ago"
+        },
+        {
+          "author": "Sarah M",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "ambiance",
+              "sentiment": 1,
+              "confidence": 0.9,
+              "claim": "Beautiful restaurant"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 0.9,
+              "claim": "amazing food presentation"
+            },
+            {
+              "dimension": "drink_quality",
+              "sentiment": 1,
+              "confidence": 0.9,
+              "claim": "The cocktails were incredible"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 1,
+              "confidence": 0.9,
+              "claim": "the service was top notch"
+            },
+            {
+              "dimension": "presentation",
+              "sentiment": 1,
+              "confidence": 0.9,
+              "claim": "Everything was beautifully plated"
+            }
+          ],
+          "contextSignals": [
+            "date_night",
+            "celebration"
+          ],
+          "overallTone": "positive",
+          "text": "Beautiful restaurant with amazing food presentation. The cocktails were incredible and the atmosphere was perfect for our anniversary dinner. Everything was beautifully plated and the service was top notch.",
+          "relativeTime": "1 month ago"
+        }
+      ],
+      "rubricScores": [
+        {
+          "dimension": "confidence_calibration",
+          "score": 0,
+          "maxScore": 1,
+          "passed": false,
+          "details": "Expected \"high\" but got \"low\""
+        },
+        {
+          "dimension": "dimension_extraction",
+          "score": 2,
+          "maxScore": 2,
+          "passed": true,
+          "details": "Found: ambiance, presentation"
+        },
+        {
+          "dimension": "score_range",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "Score 4.9 within expected range [4, 5]"
+        },
+        {
+          "dimension": "explanation_content",
+          "score": 2,
+          "maxScore": 2,
+          "passed": true,
+          "details": "Mentioned: atmosphere, presentation"
+        },
+        {
+          "dimension": "weight_coherence",
+          "score": 3,
+          "maxScore": 3,
+          "passed": true,
+          "details": "Weight ordering matches expected: ambiance > presentation > authenticity"
+        },
+        {
+          "dimension": "intent_alignment",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "Paired cases \"pai-thai-datenight\" (4.9) and \"pai-thai-spice\" (4.1) diverge by 0.8 — intent produces different scores"
+        }
+      ],
+      "overallScore": 9,
+      "overallMax": 10,
+      "passed": false
+    },
+    {
+      "caseId": "pai-thai-spice",
+      "restaurant": "PAI Northern Thai Kitchen",
+      "intent": "Authentic Thai food, real spice levels, not dumbed down for tourists, don't care about wait times or decor",
+      "timestamp": "2026-06-25T18:19:51.715Z",
+      "analysis": {
+        "restaurant": {
+          "name": "PAI",
+          "address": "18 Duncan St, Toronto, ON M5H 3G8, Canada",
+          "placeId": "ChIJE9on3F3L1IkRyitHxPYqn6k",
+          "googleRating": 4.6,
+          "totalReviews": 14864,
+          "priceLevel": 2
+        },
+        "parallaxScore": 4.1,
+        "googleScore": 4.6,
+        "relevantReviews": [
+          {
+            "author": "Angie R",
+            "rating": 5,
+            "excerpt": "Authentic northern Thai comfort food at its best",
+            "whyRelevant": "Angie R's review highlights the authenticity of the food, which is a key aspect of the user's intent",
+            "dimensionScores": [
+              {
+                "dimension": "authenticity",
+                "sentiment": 1
+              }
+            ]
+          },
+          {
+            "author": "David Chen",
+            "rating": 3,
+            "excerpt": "The spice level seems toned down compared to actual Thai street food",
+            "whyRelevant": "David Chen's review mentions the spice level, which is another important aspect of the user's intent",
+            "dimensionScores": [
+              {
+                "dimension": "spice_level",
+                "sentiment": -0.6
+              }
+            ]
+          },
+          {
+            "author": "Mika Kim",
+            "rating": 4,
+            "excerpt": "Delicious Thai food",
+            "whyRelevant": "Mika Kim's review praises the food quality, which is also relevant to the user's intent",
+            "dimensionScores": [
+              {
+                "dimension": "food_quality",
+                "sentiment": 0.8
+              }
+            ]
+          }
+        ],
+        "explanation": "For someone looking for authentic Thai food with real spice levels, this restaurant scores 0.2 lower than Google's 4.6 because 2 of 5 reviewers praised the authenticity and food quality, but 1 reviewer noted that the spice level was toned down. In contrast, Google's high rating is driven by presentation and service scores, which you deprioritized. The Parallax score is lower due to the mixed opinions on spice level and authenticity, which are crucial to your dining experience.",
+        "confidence": "medium",
+        "sampleSize": 5,
+        "dimensionBreakdown": [
+          {
+            "dimension": "food_quality",
+            "averageSentiment": 0.8,
+            "googleSentiment": 0.8,
+            "weight": 0.4,
+            "reviewCount": 5
+          },
+          {
+            "dimension": "authenticity",
+            "averageSentiment": 0.2,
+            "googleSentiment": 0.2,
+            "weight": 0.3,
+            "reviewCount": 2
+          },
+          {
+            "dimension": "spice_level",
+            "averageSentiment": 0,
+            "googleSentiment": 0,
+            "weight": 0.3,
+            "reviewCount": 0
+          }
+        ]
+      },
+      "decomposed": [
+        {
+          "author": "JAY KAY",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The food was very delicious! Fresh and full of flavours"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The staff was very friendly and attentive"
+            },
+            {
+              "dimension": "cleanliness",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The restaurant was clean and well-maintained"
+            }
+          ],
+          "contextSignals": [
+            "casual"
+          ],
+          "overallTone": "positive",
+          "text": "The food was very delicious! Fresh and full of flavours. The staff was very friendly and attentive. The restaurant was clean and well-maintained. I would definitely recommend this restaurant to anyone looking for a great dining experience.",
+          "relativeTime": "2 months ago"
+        },
+        {
+          "author": "Mika Kim",
+          "rating": 4,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.8,
+              "confidence": 0.9,
+              "claim": "Delicious Thai food"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.8,
+              "confidence": 0.9,
+              "claim": "warm and attentive staff"
+            },
+            {
+              "dimension": "portion_size",
+              "sentiment": 0.8,
+              "confidence": 0.9,
+              "claim": "The portions were generous"
+            },
+            {
+              "dimension": "price_value",
+              "sentiment": 0.8,
+              "confidence": 0.9,
+              "claim": "the prices were reasonable for the quality"
+            },
+            {
+              "dimension": "wait_time",
+              "sentiment": -0.8,
+              "confidence": 0.9,
+              "claim": "Only downside was the wait time on a Friday evening"
+            }
+          ],
+          "contextSignals": [
+            "friends",
+            "casual"
+          ],
+          "overallTone": "positive",
+          "text": "Delicious Thai food, made even better by the warm and attentive staff. The portions were generous and the prices were reasonable for the quality. Only downside was the wait time on a Friday evening.",
+          "relativeTime": "3 months ago"
+        },
+        {
+          "author": "Angie R",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The mango salad had flavors that tickled all the senses"
+            },
+            {
+              "dimension": "authenticity",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "Authentic northern Thai comfort food at its best"
+            }
+          ],
+          "contextSignals": [
+            "casual",
+            "foodie"
+          ],
+          "overallTone": "positive",
+          "text": "The mango salad had flavors that tickled all the senses. Yum! I'm going to crave this one forever and ever. The khao soi was rich and creamy with just the right amount of spice. Authentic northern Thai comfort food at its best.",
+          "relativeTime": "1 month ago"
+        },
+        {
+          "author": "David Chen",
+          "rating": 3,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.2,
+              "confidence": 0.8,
+              "claim": "The food is good but not exceptional"
+            },
+            {
+              "dimension": "authenticity",
+              "sentiment": -0.6,
+              "confidence": 0.8,
+              "claim": "The spice level seems toned down compared to actual Thai street food"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.8,
+              "confidence": 0.9,
+              "claim": "Decor is Instagram-worthy though"
+            }
+          ],
+          "contextSignals": [
+            "casual",
+            "solo"
+          ],
+          "overallTone": "mixed",
+          "text": "Overhyped. The food is good but not exceptional. The spice level seems toned down compared to actual Thai street food. The pad thai was sweet, not the tangy version you'd get in Bangkok. Decor is Instagram-worthy though.",
+          "relativeTime": "2 weeks ago"
+        },
+        {
+          "author": "Sarah M",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "ambiance",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "Beautiful restaurant"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "amazing food presentation"
+            },
+            {
+              "dimension": "drink_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The cocktails were incredible"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "the service was top notch"
+            },
+            {
+              "dimension": "presentation",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "Everything was beautifully plated"
+            }
+          ],
+          "contextSignals": [
+            "celebration",
+            "date_night"
+          ],
+          "overallTone": "positive",
+          "text": "Beautiful restaurant with amazing food presentation. The cocktails were incredible and the atmosphere was perfect for our anniversary dinner. Everything was beautifully plated and the service was top notch.",
+          "relativeTime": "1 month ago"
+        }
+      ],
+      "rubricScores": [
+        {
+          "dimension": "confidence_calibration",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "Confidence correctly reported as \"medium\""
+        },
+        {
+          "dimension": "dimension_extraction",
+          "score": 2,
+          "maxScore": 2,
+          "passed": true,
+          "details": "Found: food_quality, authenticity"
+        },
+        {
+          "dimension": "score_range",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "Score 4.1 within expected range [2.5, 4.2]"
+        },
+        {
+          "dimension": "explanation_content",
+          "score": 3,
+          "maxScore": 3,
+          "passed": true,
+          "details": "Mentioned: authenticity, spice"
+        },
+        {
+          "dimension": "weight_coherence",
+          "score": 2,
+          "maxScore": 3,
+          "passed": false,
+          "details": "Violations: authenticity (0.30) should outweigh food_quality (0.40)"
+        }
+      ],
+      "overallScore": 9,
+      "overallMax": 10,
+      "passed": false
+    },
+    {
+      "caseId": "raku-omakase",
+      "restaurant": "Ju-Raku Japanese Restaurant",
+      "intent": "Traditional Japanese omakase, fresh fish quality, authentic preparation, minimalist presentation",
+      "timestamp": "2026-06-25T18:20:12.419Z",
+      "analysis": {
+        "restaurant": {
+          "name": "Ju-Raku Japanese Restaurant",
+          "address": "2901 Bayview Ave Unit 101, North York, ON M2K 1E6, Canada",
+          "placeId": "ChIJTSEX8EktK4gR_daO9G4EArI",
+          "googleRating": 4.6,
+          "totalReviews": 843
+        },
+        "parallaxScore": 3.3,
+        "googleScore": 4.6,
+        "relevantReviews": [
+          {
+            "author": "Ka Chi",
+            "rating": 5,
+            "excerpt": "The Kinmedai sashimi was super fresh and sweet. The uni was rich and creamy, and the otoro was amazing.",
+            "whyRelevant": "This review highlights the freshness and quality of the sushi, which aligns with the user's intent of traditional Japanese omakase and fresh fish quality.",
+            "dimensionScores": [
+              {
+                "dimension": "food_quality",
+                "sentiment": 1
+              }
+            ]
+          },
+          {
+            "author": "Joanne Cheung (Hungry.Jo)",
+            "rating": 5,
+            "excerpt": "The sushi is the freshest and the assortment flown in from Japan and Europe",
+            "whyRelevant": "This review emphasizes the freshness and variety of the sushi, which matches the user's desire for authentic Japanese cuisine.",
+            "dimensionScores": [
+              {
+                "dimension": "food_quality",
+                "sentiment": 1
+              },
+              {
+                "dimension": "menu_variety",
+                "sentiment": 0.9
+              }
+            ]
+          },
+          {
+            "author": "Paul Murata",
+            "rating": 2,
+            "excerpt": "It’s more Japanese-adjacent than authentically Japanese",
+            "whyRelevant": "This review raises concerns about the restaurant's authenticity, which is a key aspect of the user's intent.",
+            "dimensionScores": [
+              {
+                "dimension": "authenticity",
+                "sentiment": -0.9
+              }
+            ]
+          }
+        ],
+        "explanation": "For someone looking for traditional Japanese omakase with fresh fish quality, authentic preparation, and minimalist presentation, Ju-Raku scores 0.2 higher than Google's 4.6 because 2 of 5 reviewers praised the food quality and freshness, with Ka Chi and Joanne Cheung highlighting the exceptional sushi. However, Paul Murata's review raises concerns about the restaurant's authenticity, which might impact the overall experience. Google's high rating is driven by service and ambiance scores, which this user deprioritized, whereas the dimensions of food quality, authenticity, and menu variety are more relevant to this user's intent.",
+        "confidence": "medium",
+        "sampleSize": 5,
+        "dimensionBreakdown": [
+          {
+            "dimension": "food_quality",
+            "averageSentiment": 0.52,
+            "googleSentiment": 0.52,
+            "weight": 0.4,
+            "reviewCount": 5
+          },
+          {
+            "dimension": "authenticity",
+            "averageSentiment": -0.9,
+            "googleSentiment": -0.9,
+            "weight": 0.3,
+            "reviewCount": 1
+          },
+          {
+            "dimension": "menu_variety",
+            "averageSentiment": 0.9,
+            "googleSentiment": 0.9,
+            "weight": 0.2,
+            "reviewCount": 2
+          },
+          {
+            "dimension": "ambiance",
+            "averageSentiment": 0.52,
+            "googleSentiment": 0.52,
+            "weight": 0.1,
+            "reviewCount": 5
+          }
+        ]
+      },
+      "decomposed": [
+        {
+          "author": "Ka Chi",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The food quality was excellent"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.8,
+              "confidence": 0.9,
+              "claim": "The restaurant has a comfortable atmosphere"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The service was excellent"
+            },
+            {
+              "dimension": "menu_variety",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "They have many Japanese dishes that are very hard to find in Toronto"
+            },
+            {
+              "dimension": "drink_quality",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "They have many premium Japanese sake that you don’t usually see outside Japan"
+            }
+          ],
+          "contextSignals": [
+            "celebration",
+            "friends"
+          ],
+          "overallTone": "positive",
+          "text": "Had a great dinner at Ju-Raku recently. The food quality was excellent and they have many Japanese dishes that are very hard to find in Toronto.\n\nThe Kinmedai sashimi was super fresh and sweet. The uni was rich and creamy, and the otoro was amazing. The oysters were also very fresh. One of my favourite dishes was the grilled fish fin, which is not something you can easily find in other Japanese restaurants. The mentaiko chicken skewers were also very tasty.\n\nI was also impressed by their sake selection. They have many premium Japanese sake that you don’t usually see outside Japan, and it was nice to try something different from the usual sake available in most restaurants.\n\nThe service was excellent as well. The staff were very friendly, attentive, and knowledgeable about both the food and sake. They took the time to explain the dishes and gave good recommendations, which made the whole dining experience even better.\n\nThe restaurant has a comfortable atmosphere and is a good place for both special occasions and casual dinners.\n\nIf you enjoy authentic Japanese food, fresh seafood, rare Japanese dishes, and good sake, I highly recommend Ju-Raku. Definitely one of my favourite Japanese restaurants in Toronto. Will definitely come back again! 🍣🍶👍🏻✨",
+          "relativeTime": "3 weeks ago"
+        },
+        {
+          "author": "Hank Ban",
+          "rating": 3,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.2,
+              "confidence": 0.8,
+              "claim": "Tuna nigiri was surprisingly good"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.5,
+              "confidence": 0.7,
+              "claim": "Inside the mall. Ample seating and well lit, clean and nice modern decor"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.7,
+              "confidence": 0.8,
+              "claim": "Service was pretty good"
+            },
+            {
+              "dimension": "price_value",
+              "sentiment": -0.8,
+              "confidence": 0.9,
+              "claim": "Doesn't justify the price they're charging"
+            },
+            {
+              "dimension": "cleanliness",
+              "sentiment": 0.5,
+              "confidence": 0.6,
+              "claim": "Clean and nice modern decor"
+            }
+          ],
+          "contextSignals": [
+            "casual",
+            "solo"
+          ],
+          "overallTone": "mixed",
+          "text": "Tuna nigiri was surprisingly good. Every large platter of sushi, they throw in these pre-prepared California rolls that are cold and dry to make plate seem fuller. It's nice if you're gong for quantity but it brings the quality level down. Appetizers were meh. Hamachi carpace tasted a little odd.\n\nService was pretty good. Inside the mall. Ample seating and well lit, clean and nice modern decor. Separate room for teppanyaki which is nice as those tend to get noisy. Thing off is they have random storage out in the open - also another point off for the place's overall quality. Use of plastic serving trays for some of their fish also brings down the quality feel despite colorful patterns including potentially affecting the taste. They try hard for the upscale look for other things like having monogrammed place settings and crane chopsticks rest. Therefore all-in-all, it doesn't justify the price they're charging. Maybe for teppanyaki but I don't believe so for their sushi. I think they could be better and do have potential. May explain partly why they weren't overly busy when I went.",
+          "relativeTime": "5 months ago"
+        },
+        {
+          "author": "Paul Murata",
+          "rating": 2,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": -0.5,
+              "confidence": 0.8,
+              "claim": "The teppanyaki was average, and the chawanmushi missed the mark entirely"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": -0.3,
+              "confidence": 0.6,
+              "claim": "The vibe from the start suggested it's a Chinese-run establishment serving Japanese-style food"
+            },
+            {
+              "dimension": "authenticity",
+              "sentiment": -0.9,
+              "confidence": 0.9,
+              "claim": "It’s more Japanese-adjacent than authentically Japanese"
+            },
+            {
+              "dimension": "price_value",
+              "sentiment": 0.2,
+              "confidence": 0.5,
+              "claim": "The Winterlicious lunch teppanyaki menu was reasonably priced"
+            },
+            {
+              "dimension": "kid_friendliness",
+              "sentiment": 0.5,
+              "confidence": 0.6,
+              "claim": "I’d recommend it for families with young children"
+            }
+          ],
+          "contextSignals": [
+            "date_night",
+            "celebration"
+          ],
+          "overallTone": "negative",
+          "text": "My excitement for Ju-Raku was high on Valentine's Day. As a newly opened spot with a sleek online presence, it seemed like a great choice. However, from the moment we arrived, it was clear that the reality didn't match the high-end image we had built up in our minds.\n\nFollow post owner review. There will not be a return visit.\nTo be clear, a more casual atmosphere isn't a bad thing. But when a restaurant requires your credit card information to secure a reservation, it sets a certain expectation for the level of service and quality. Unfortunately, the online portrayal felt misleading compared to our in-person experience.\n\nThe restaurant is presented as Japanese, but the vibe from the start suggested it's a Chinese-run establishment serving Japanese-style food. That’s not inherently negative, but it became a defining characteristic of the meal. The sushi rice was a pleasant surprise—well-prepared—and the fish was fresh, but that was the peak of the culinary experience. The teppanyaki was average, and the chawanmushi missed the mark entirely. In my opinion, it lacked the delicate subtlety that defines Japanese cuisine; it felt like a poor translation of the dish, with odd ingredient additions and, most notably, the absence of the traditional ginkgo nut.\n\nThe miso soup arrived lukewarm, which was disappointing. The green salad, while refreshing, was also quite small. On the positive side, the Winterlicious lunch teppanyaki menu was reasonably priced, and the quality of the meats was good, though the Wagyu fat was chewy and its texture inconsistent.\n\nIt’s possible the restaurant is still finding its footing, being so new. But the impression it left was less of a place perfecting its craft and more of one experimenting to see what sells, without a strong focus on delivering a refined product.\n\nThis brings me back to the credit card requirement for a reservation. I fail to see its necessity unless a restaurant is either a highly exclusive, sought-after venue or overly concerned about preventing no-shows. Ju-Raku is neither.\n\nIn summary, Ju-Raku isn’t a bad restaurant. It’s more Japanese-adjacent than authentically Japanese. I’d recommend it for families with young children who might enjoy the teppanyaki show and the reasonable prices. For anyone seeking a genuine Japanese dining experience, I’d suggest looking elsewhere.",
+          "relativeTime": "3 months ago"
+        },
+        {
+          "author": "Michele Marques",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "The food is a little pricey but absolutely delicious"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.8,
+              "confidence": 0.8,
+              "claim": "The atmosphere is elegant, with beautiful murals and unusual lighting"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 0.4,
+              "confidence": 0.7,
+              "claim": "The level of service is very mixed"
+            },
+            {
+              "dimension": "price_value",
+              "sentiment": -0.2,
+              "confidence": 0.5,
+              "claim": "The food is a little pricey"
+            },
+            {
+              "dimension": "wait_time",
+              "sentiment": -0.5,
+              "confidence": 0.6,
+              "claim": "The timing of delivering dishes was odd"
+            }
+          ],
+          "contextSignals": [
+            "casual",
+            "solo"
+          ],
+          "overallTone": "positive",
+          "text": "I finally tried Ju-Raku for lunch, and I will definitely be back. The atmosphere is elegant, with beautiful murals and unusual lighting.\n\nThe food is a little pricey but absolutely delicious. The hamachi in the daily special handroll was so tender and fresh.\n\nMy only complaint is that the level of service is very mixed. On the positive side, the waiter asked about allergies, and told us about one item having dairy that we did not expect. However, the timing of delivering dishes was odd.  I realize that food might not be ready at the same time, but why did one of us get our miso soup and salad about 15 minutes before the other?",
+          "relativeTime": "2 months ago"
+        },
+        {
+          "author": "Joanne Cheung (Hungry.Jo)",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The sushi is the freshest and the assortment flown in from Japan and Europe"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.8,
+              "confidence": 0.8,
+              "claim": "Comfortable and spacious seating for our party of 6"
+            },
+            {
+              "dimension": "service",
+              "sentiment": 1,
+              "confidence": 1,
+              "claim": "The service was excellent"
+            },
+            {
+              "dimension": "menu_variety",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "We ordered the Sashimi Moriawase ( 30 pieces for $99)"
+            },
+            {
+              "dimension": "portion_size",
+              "sentiment": 0.8,
+              "confidence": 0.8,
+              "claim": "Generous portion served in a traditional iron Japanese pot"
+            }
+          ],
+          "contextSignals": [
+            "celebration",
+            "friends"
+          ],
+          "overallTone": "positive",
+          "text": "We had our Christmas gathering here and the service was excellent and everyone was very impressed with the food. Comfortable and spacious seating for our party of 6.\n\nWe ordered the Sashimi Moriawase ( 30 pieces for $99). The sushi is the freshest and the assortment flown in from Japan and Europe. The Otoro was amazing and melts in your mouth.\n\nWe ordered some maki rolls and were a good size and right proportions of rice. We highly recommend the Lobster Maki along with the Golden Dragon Maki.\n\nWe also enjoyed the Steamed Clams in sake and Kombu broth. Generous portion served in a traditional iron Japanese pot.\n\nFor curry Udon, we selected the beef for our protein and we were pleasantly surprised topped with a perfectly grilled steak.\n\nFor apps we included GYOZAS and shrimp and vegetable Tempura.\n\nIf you haven’t been to Ju Raku located inside Bayview Village in North York, it’s time to make a visit in your the New Year",
+          "relativeTime": "5 months ago"
+        }
+      ],
+      "rubricScores": [
+        {
+          "dimension": "confidence_calibration",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No confidence expectation set — skipped"
+        },
+        {
+          "dimension": "dimension_extraction",
+          "score": 2,
+          "maxScore": 2,
+          "passed": true,
+          "details": "Found: food_quality, authenticity"
+        },
+        {
+          "dimension": "score_range",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No score expectation set — skipped"
+        },
+        {
+          "dimension": "explanation_content",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No explanation expectations set — skipped"
+        },
+        {
+          "dimension": "weight_coherence",
+          "score": 2,
+          "maxScore": 3,
+          "passed": false,
+          "details": "Violations: authenticity (0.30) should outweigh food_quality (0.40)"
+        }
+      ],
+      "overallScore": 7,
+      "overallMax": 8,
+      "passed": false
+    },
+    {
+      "caseId": "tacos-street-authentic",
+      "restaurant": "Tacos El Asador",
+      "intent": "Authentic Mexican street tacos, real al pastor, corn tortillas, don't care about ambiance or seating",
+      "timestamp": "2026-06-25T18:20:28.521Z",
+      "analysis": {
+        "restaurant": {
+          "name": "Tacos El Asador",
+          "address": "689 Bloor St W, Toronto, ON M6G 1L3, Canada",
+          "placeId": "ChIJi3FM_Iw0K4gRZCq6WEoqyjU",
+          "googleRating": 4.4,
+          "totalReviews": 1461,
+          "priceLevel": 1
+        },
+        "parallaxScore": 3.9,
+        "googleScore": 4.4,
+        "relevantReviews": [
+          {
+            "author": "Divy Thasarathan",
+            "rating": 5,
+            "excerpt": "Tacos were full of flavour",
+            "whyRelevant": "this review mentions the flavor of the tacos, which is relevant to the user's intent of authentic Mexican street tacos",
+            "dimensionScores": [
+              {
+                "dimension": "food_quality",
+                "sentiment": 1
+              }
+            ]
+          },
+          {
+            "author": "Chef Solito",
+            "rating": 4,
+            "excerpt": "The nachos with no meat added was amazing",
+            "whyRelevant": "this review mentions a specific Mexican dish, which is relevant to the user's intent of authentic Mexican street food",
+            "dimensionScores": [
+              {
+                "dimension": "food_quality",
+                "sentiment": 0.9
+              }
+            ]
+          },
+          {
+            "author": "Lee Smith",
+            "rating": 3,
+            "excerpt": "Burrito was more than 50% beans and the meat was slices of tough beef",
+            "whyRelevant": "this review mentions a negative experience with a Mexican dish, which is relevant to the user's intent of authentic Mexican street food",
+            "dimensionScores": [
+              {
+                "dimension": "food_quality",
+                "sentiment": -0.9
+              }
+            ]
+          }
+        ],
+        "explanation": "For someone looking for authentic Mexican street tacos with real al pastor and corn tortillas, this restaurant scores slightly lower than Google's 4.4 because 2 of 5 reviewers praised the flavor and authenticity of the tacos, but 1 reviewer had a negative experience with a burrito. Google's high rating is driven by service and ambiance scores, which this user deprioritized. The Parallax score is 4.1, 0.3 lower than Google's, due to the focus on food quality and authenticity.",
+        "confidence": "high",
+        "sampleSize": 5,
+        "dimensionBreakdown": [
+          {
+            "dimension": "food_quality",
+            "averageSentiment": 0.4461538461538461,
+            "googleSentiment": 0.4461538461538461,
+            "weight": 0.8,
+            "reviewCount": 13
+          },
+          {
+            "dimension": "authenticity",
+            "averageSentiment": 0,
+            "googleSentiment": 0,
+            "weight": 0.2,
+            "reviewCount": 0
+          }
+        ]
+      },
+      "decomposed": [
+        {
+          "author": "Chef Solito",
+          "rating": 4,
+          "dimensions": [
+            {
+              "dimension": "service",
+              "sentiment": 1,
+              "confidence": 0.9,
+              "claim": "excellent customer service they attend to you very sweet and warm welcoming"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "The food is very hot and served so fast I couldn’t believe it"
+            },
+            {
+              "dimension": "wait_time",
+              "sentiment": 1,
+              "confidence": 0.8,
+              "claim": "The food is very hot and served so fast I couldn’t believe it"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.9,
+              "claim": "The nachos with no meat added was amazing"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.8,
+              "confidence": 0.8,
+              "claim": "And even the pupusas were good"
+            }
+          ],
+          "contextSignals": [
+            "casual",
+            "sports"
+          ],
+          "overallTone": "positive",
+          "text": "Was watching the blue jays games here .This place has excellent customer service they attend to you very sweet and warm welcoming .The food is very hot and served so fast I couldn’t believe it . The nachos with no meat added was amazing !! And even the pupusas were good I got revuelta and I order tacos de birria. This the second time I went to this place and the food taste was still the same I like that :) check this place out and sorry didn’t take to many pictures was eating ahaha",
+          "relativeTime": "8 months ago"
+        },
+        {
+          "author": "Divy Thasarathan",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 0.9,
+              "claim": "Tacos were full of flavour"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 1,
+              "confidence": 0.8,
+              "claim": "the side hot sauces were the perfect pairing to add a kick"
+            }
+          ],
+          "contextSignals": [
+            "casual",
+            "craving"
+          ],
+          "overallTone": "positive",
+          "text": "Was in the area and craving Birria tacos and it did not disappoint!\n\nTacos were full of flavour and the side hot sauces were the perfect pairing to add a kick 🌮 🔥",
+          "relativeTime": "4 months ago"
+        },
+        {
+          "author": "Jenny",
+          "rating": 5,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.9,
+              "confidence": 0.8,
+              "claim": "food was great"
+            },
+            {
+              "dimension": "ambiance",
+              "sentiment": 0.8,
+              "confidence": 0.7,
+              "claim": "this 30+ year family run joint"
+            }
+          ],
+          "contextSignals": [
+            "casual",
+            "quick_bite"
+          ],
+          "overallTone": "positive",
+          "text": "went in for a quick bite on a friday night and was pleasantly surprised by this 30+ year family run joint! food was great - will be back :)",
+          "relativeTime": "2 months ago"
+        },
+        {
+          "author": "Lee Smith",
+          "rating": 3,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": -0.9,
+              "confidence": 0.9,
+              "claim": "Burrito was more than 50% beans and the meat was slices of tough beef"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": -0.9,
+              "confidence": 0.8,
+              "claim": "The lamb taco meat was dry and not seasoned"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.8,
+              "confidence": 0.7,
+              "claim": "Guoc was great, sauces great"
+            }
+          ],
+          "contextSignals": [
+            "delivery",
+            "casual"
+          ],
+          "overallTone": "mixed",
+          "text": "Sorry guys, but  my delivery order didn't cut it. Burrito was more than 50% beans and the meat was slices of tough beef. The lamb taco meat was dry and not seasoned. Guoc was great, sauces great. Missed the mark today.",
+          "relativeTime": "4 months ago"
+        },
+        {
+          "author": "Rachelle Lopez",
+          "rating": 4,
+          "dimensions": [
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.5,
+              "confidence": 0.7,
+              "claim": "The Food was proper but nothing to write about"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.8,
+              "confidence": 0.8,
+              "claim": "Enjoyed my Platano maduros"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": 0.5,
+              "confidence": 0.6,
+              "claim": "the burrito was good according to my friend"
+            },
+            {
+              "dimension": "food_quality",
+              "sentiment": -0.5,
+              "confidence": 0.6,
+              "claim": "my tacos need more flavour"
+            }
+          ],
+          "contextSignals": [
+            "casual",
+            "dining_with_friends"
+          ],
+          "overallTone": "mixed",
+          "text": "The Food was proper but nothing to write about. Enjoyed my Platano maduros, the burrito was good according to my friend but my tacos need more flavour.",
+          "relativeTime": "11 months ago"
+        }
+      ],
+      "rubricScores": [
+        {
+          "dimension": "confidence_calibration",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No confidence expectation set — skipped"
+        },
+        {
+          "dimension": "dimension_extraction",
+          "score": 1,
+          "maxScore": 3,
+          "passed": false,
+          "details": "Found: food_quality. Missing: authenticity. Unwanted: ambiance"
+        },
+        {
+          "dimension": "score_range",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No score expectation set — skipped"
+        },
+        {
+          "dimension": "explanation_content",
+          "score": 1,
+          "maxScore": 1,
+          "passed": true,
+          "details": "No explanation expectations set — skipped"
+        },
+        {
+          "dimension": "weight_coherence",
+          "score": 0,
+          "maxScore": 1,
+          "passed": false,
+          "details": "Violations: authenticity (0.20) should outweigh food_quality (0.80)"
+        }
+      ],
+      "overallScore": 4,
+      "overallMax": 7,
+      "passed": false
+    }
+  ],
+  "summary": {
+    "totalCases": 13,
+    "passed": 2,
+    "failed": 11,
+    "overallScore": 77,
+    "overallMax": 96,
+    "byDimension": {
+      "confidence_calibration": {
+        "score": 11,
+        "max": 13,
+        "passRate": 0.8461538461538461
+      },
+      "dimension_extraction": {
+        "score": 18,
+        "max": 24,
+        "passRate": 0.6153846153846154
+      },
+      "score_range": {
+        "score": 13,
+        "max": 13,
+        "passRate": 1
+      },
+      "explanation_content": {
+        "score": 16,
+        "max": 16,
+        "passRate": 1
+      },
+      "weight_coherence": {
+        "score": 16,
+        "max": 27,
+        "passRate": 0.23076923076923078
+      },
+      "intent_alignment": {
+        "score": 3,
+        "max": 3,
+        "passRate": 1
+      }
+    }
+  }
+}
