@@ -1,5 +1,5 @@
 import { ReviewSource, UnifiedReview, PlaceInfo } from "./types";
-import { GooglePlacesSource } from "./google-places";
+import { GooglePlacesSource, isGoogleMapsUrl } from "./google-places";
 
 export interface AggregatedResult {
   place: PlaceInfo;
@@ -25,7 +25,9 @@ export async function aggregateReviews(
     return null;
   }
 
-  const googleResult = await googleSource.searchPlace(query);
+  const googleResult = isGoogleMapsUrl(query)
+    ? await googleSource.getPlaceByUrl(query)
+    : await googleSource.searchPlace(query);
   if (!googleResult) return null;
 
   const allReviews: UnifiedReview[] = [...googleResult.reviews];
