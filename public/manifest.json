@@ -1,0 +1,23 @@
+{
+  "name": "Parallax",
+  "short_name": "Parallax",
+  "description": "Same reviews, your viewpoint. Personalized restaurant review re-scoring.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#d97706",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "share_target": {
+    "action": "/",
+    "method": "GET",
+    "params": {
+      "url": "query"
+    }
+  }
+}

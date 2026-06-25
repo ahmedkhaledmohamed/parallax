@@ -16,6 +16,13 @@ export const metadata: Metadata = {
   title: "Parallax — Same reviews, your viewpoint",
   description:
     "See what a restaurant's rating actually means for what you care about.",
+  manifest: "/manifest.json",
+  themeColor: "#d97706",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Parallax",
+  },
 };
 
 export default function RootLayout({
@@ -28,7 +35,14 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js')`,
+          }}
+        />
+      </body>
     </html>
   );
 }
