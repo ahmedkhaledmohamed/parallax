@@ -44,8 +44,12 @@ export async function runAllCases(
   const results: EvalResult[] = [];
 
   for (const fixture of fixtures) {
-    const result = await runCase(fixture);
-    results.push(result);
+    try {
+      const result = await runCase(fixture);
+      results.push(result);
+    } catch (err) {
+      console.error(`  Case ${fixture.id} failed: ${err}`);
+    }
   }
 
   // Paired alignment checks
