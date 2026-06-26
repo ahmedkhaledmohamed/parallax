@@ -1,7 +1,6 @@
 import { Redis } from "@upstash/redis";
 import { DecomposedReview } from "../types";
-
-const TTL_SECONDS = 30 * 24 * 60 * 60; // 30 days
+import { CONFIG } from "../config";
 
 let _redis: Redis | null = null;
 function redis(): Redis {
@@ -35,7 +34,7 @@ export async function setDecomposed(
 ): Promise<void> {
   if (!isDecompCacheAvailable()) return;
   try {
-    await redis().set(`decomp:${placeId}`, data, { ex: TTL_SECONDS });
+    await redis().set(`decomp:${placeId}`, data, { ex: CONFIG.cache.decompTtlSeconds });
   } catch {
     // Cache write failures are non-fatal
   }

@@ -1,6 +1,7 @@
 import { ReviewSource, UnifiedReview, PlaceInfo } from "./types";
 import { GooglePlacesSource, isGoogleMapsUrl } from "./google-places";
 import { YelpSource } from "./yelp";
+import { CONFIG } from "../config";
 
 export interface AggregatedResult {
   place: PlaceInfo;
@@ -72,7 +73,7 @@ function deduplicateReviews(reviews: UnifiedReview[]): UnifiedReview[] {
 
     let isDuplicate = false;
     for (const existing of seen) {
-      if (jaccardSimilarity(key, existing) > 0.5) {
+      if (jaccardSimilarity(key, existing) > CONFIG.dedup.jaccardThreshold) {
         isDuplicate = true;
         break;
       }
