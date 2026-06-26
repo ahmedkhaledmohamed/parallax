@@ -2,7 +2,7 @@ import { GooglePlaceResult } from "../types";
 import { decomposeReviews, matchAndScore } from "../review-analyzer";
 import { runAllRubrics, scoreIntentAlignment } from "./rubrics";
 import { judgeExplanationQuality } from "./judge";
-import { EvalCase, EvalResult, EvalReport } from "./types";
+import { EvalCase, EvalResult, EvalReport, EvalComparison } from "./types";
 
 export async function runCase(evalCase: EvalCase): Promise<EvalResult> {
   const place: GooglePlaceResult = {
@@ -44,8 +44,12 @@ export async function runAllCases(
   const results: EvalResult[] = [];
 
   for (const fixture of fixtures) {
-    const result = await runCase(fixture);
-    results.push(result);
+    try {
+      const result = await runCase(fixture);
+      results.push(result);
+    } catch (err) {
+      console.error(`  Case ${fixture.id} failed: ${err}`);
+    }
   }
 
   // Paired alignment checks
@@ -127,5 +131,72 @@ export function buildReport(
       overallMax,
       byDimension: dimensionSummary,
     },
+  };
+}
+
+export function compareReports(
+  baseline: EvalReport,
+  current: EvalReport
+): EvalComparison {
+  const regressions: EvalComparison["regressions"] = [];
+  const improvements: EvalComparison["improvements"] = [];
+
+  for (const currentResult of current.results) {
+    const baselineResult = baseline.results.find(
+      (r) => r.caseId === currentResult.caseId
+    );
+    if (!baselineResult) continue;
+
+    for (const currentRubric of currentResult.rubricScores) {
+      const baselineRubric = baselineResult.rubricScores.find(
+        (r) => r.dimension === currentRubric.dimension
+      );
+      if (!baselineRubric) continue;
+
+      const baseNorm =
+        baselineRubric.maxScore > 0
+          ? baselineRubric.score / baselineRubric.maxScore
+          : 0;
+      const currNorm =
+        currentRubric.maxScore > 0
+          ? currentRubric.score / currentRubric.maxScore
+          : 0;
+      const delta = currNorm - baseNorm;
+
+      if (delta < -0.1) {
+        regressions.push({
+          caseId: currentResult.caseId,
+          dimension: currentRubric.dimension,
+          baselineScore: baseNorm,
+          currentScore: currNorm,
+          delta,
+        });
+      } else if (delta > 0.1) {
+        improvements.push({
+          caseId: currentResult.caseId,
+          dimension: currentRubric.dimension,
+          baselineScore: baseNorm,
+          currentScore: currNorm,
+          delta,
+        });
+      }
+    }
+  }
+
+  const baseNorm =
+    baseline.summary.overallMax > 0
+      ? baseline.summary.overallScore / baseline.summary.overallMax
+      : 0;
+  const currNorm =
+    current.summary.overallMax > 0
+      ? current.summary.overallScore / current.summary.overallMax
+      : 0;
+
+  return {
+    baselineRunId: baseline.runId,
+    currentRunId: current.runId,
+    regressions,
+    improvements,
+    overallDelta: currNorm - baseNorm,
   };
 }
