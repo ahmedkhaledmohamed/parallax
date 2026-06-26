@@ -221,6 +221,47 @@ export function scoreIntentAlignment(
   };
 }
 
+export function scoreDirection(
+  result: AnalysisResult,
+  evalCase: EvalCase
+): RubricScore {
+  const dir = evalCase.expectations.expectedDirection;
+  if (!dir) {
+    return {
+      dimension: "score_direction",
+      score: 1,
+      maxScore: 1,
+      passed: true,
+      details: "No direction expectation set — skipped",
+    };
+  }
+
+  const delta = result.parallaxScore - result.googleScore;
+  let passed: boolean;
+  let expected: string;
+
+  if (dir === "lower") {
+    passed = delta < -0.2;
+    expected = `lower than Google's ${result.googleScore}`;
+  } else if (dir === "higher") {
+    passed = delta > 0.2;
+    expected = `higher than Google's ${result.googleScore}`;
+  } else {
+    passed = Math.abs(delta) <= 0.3;
+    expected = `similar to Google's ${result.googleScore} (±0.3)`;
+  }
+
+  return {
+    dimension: "score_direction",
+    score: passed ? 1 : 0,
+    maxScore: 1,
+    passed,
+    details: passed
+      ? `Parallax ${result.parallaxScore} is correctly ${dir} than Google ${result.googleScore} (delta: ${delta > 0 ? "+" : ""}${delta.toFixed(1)})`
+      : `Expected ${expected} but got Parallax ${result.parallaxScore} (delta: ${delta > 0 ? "+" : ""}${delta.toFixed(1)})`,
+  };
+}
+
 export function runAllRubrics(
   result: AnalysisResult,
   decomposed: DecomposedReview[],
@@ -232,5 +273,6 @@ export function runAllRubrics(
     scoreScoreRange(result, evalCase),
     scoreExplanationContent(result, evalCase),
     scoreWeightCoherence(result, evalCase),
+    scoreDirection(result, evalCase),
   ];
 }

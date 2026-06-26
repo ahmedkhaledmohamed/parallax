@@ -22,6 +22,7 @@ export interface EvalCase {
     explanationMustMention?: string[];
     explanationMustNotContain?: string[];
     weightOrder?: string[];
+    expectedDirection?: "lower" | "higher" | "similar";
   };
   pairedWith?: string;
   humanScore?: number;

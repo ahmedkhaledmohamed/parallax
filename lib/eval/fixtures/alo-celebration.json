@@ -21,7 +21,7 @@
     {
       "author": "Matteo Farrokhi",
       "rating": 5,
-      "text": "One of the best dining experiences in Toronto. From the moment you walk in, everything feels refined and perfectly organized.\n\nThe tasting menu is outstanding — every dish is beautifully presented and full of flavor, with a perfect balance of French technique and creativity. The attention to detail in each course truly reflects Michelin-level quality.\n\nService is professional, friendly, and very knowledgeable, making the whole experience even more enjoyable.\n\nHighly recommended for anyone looking for a luxurious and memorable fine dining experience",
+      "text": "One of the best dining experiences in Toronto. From the moment you walk in, everything feels refined and perfectly organized.\n\nThe tasting menu is outstanding \u2014 every dish is beautifully presented and full of flavor, with a perfect balance of French technique and creativity. The attention to detail in each course truly reflects Michelin-level quality.\n\nService is professional, friendly, and very knowledgeable, making the whole experience even more enjoyable.\n\nHighly recommended for anyone looking for a luxurious and memorable fine dining experience",
       "relativeTime": "3 months ago"
     },
     {
@@ -33,13 +33,13 @@
     {
       "author": "Zoe",
       "rating": 4,
-      "text": "Came here to celebrate a birthday, we had the 10 course set menu with wine pairings.\n\nThe food was good, but nothing really surprised us. Each dish was well balanced, just not very memorable. The wine pairings, though, were a letdown, most of the reds, whites, and even the champagne were disappointing. We also felt the sommelier didn’t quite match the level you’d expect from a Michelin star restaurant.\n\nalthough we had some disappointment, the service was very thoughtful and wonderful overall.",
+      "text": "Came here to celebrate a birthday, we had the 10 course set menu with wine pairings.\n\nThe food was good, but nothing really surprised us. Each dish was well balanced, just not very memorable. The wine pairings, though, were a letdown, most of the reds, whites, and even the champagne were disappointing. We also felt the sommelier didn\u2019t quite match the level you\u2019d expect from a Michelin star restaurant.\n\nalthough we had some disappointment, the service was very thoughtful and wonderful overall.",
       "relativeTime": "2 months ago"
     },
     {
       "author": "Anthony DiCenzo",
       "rating": 5,
-      "text": "An exceptional dining experience — easily deserving its Michelin star (and arguably more).\n\nAlo is one of those rare restaurants where absolutely everything — from the first greeting to the final bite — feels intentional, precise, and quietly extraordinary. Toronto has no shortage of ambitious tasting-menu restaurants, but Alo sits in a class of its own. The execution is flawless, the flavors are balanced yet surprising, and every plate feels like it was composed by people who care about perfection without ever drifting into pretension.\n\nThe tasting menu flows beautifully: thoughtful transitions, impeccable pacing, and dishes that manage to be both technically impressive and genuinely delicious. There’s no “one dish” that steals the show because the entire experience is the show — elevated but warm, sophisticated but deeply satisfying. Even the smallest elements (a broth, a garnish, a sauce) are dialed in with a level of finesse you rarely see.\n\nService is world-class: gracious, polished, attentive without hovering. The kind of hospitality that anticipates needs rather than reacts to them. The team operates with the smoothness of a well-rehearsed ensemble, and yet the energy is relaxed, never stiff.\n\nThe room itself feels quietly luxurious — intimate, atmospheric, and perfectly suited to the multi-course format. It sets the stage rather than competing with the food.\n\nAlo absolutely earns its Michelin star, and honestly, it’s easy to imagine it holding more. It’s a restaurant that makes you feel lucky to be there.\n\n5 out of 5 stars — a standout in Toronto and a must for anyone who loves exceptional dining.",
+      "text": "An exceptional dining experience \u2014 easily deserving its Michelin star (and arguably more).\n\nAlo is one of those rare restaurants where absolutely everything \u2014 from the first greeting to the final bite \u2014 feels intentional, precise, and quietly extraordinary. Toronto has no shortage of ambitious tasting-menu restaurants, but Alo sits in a class of its own. The execution is flawless, the flavors are balanced yet surprising, and every plate feels like it was composed by people who care about perfection without ever drifting into pretension.\n\nThe tasting menu flows beautifully: thoughtful transitions, impeccable pacing, and dishes that manage to be both technically impressive and genuinely delicious. There\u2019s no \u201cone dish\u201d that steals the show because the entire experience is the show \u2014 elevated but warm, sophisticated but deeply satisfying. Even the smallest elements (a broth, a garnish, a sauce) are dialed in with a level of finesse you rarely see.\n\nService is world-class: gracious, polished, attentive without hovering. The kind of hospitality that anticipates needs rather than reacts to them. The team operates with the smoothness of a well-rehearsed ensemble, and yet the energy is relaxed, never stiff.\n\nThe room itself feels quietly luxurious \u2014 intimate, atmospheric, and perfectly suited to the multi-course format. It sets the stage rather than competing with the food.\n\nAlo absolutely earns its Michelin star, and honestly, it\u2019s easy to imagine it holding more. It\u2019s a restaurant that makes you feel lucky to be there.\n\n5 out of 5 stars \u2014 a standout in Toronto and a must for anyone who loves exceptional dining.",
       "relativeTime": "6 months ago"
     }
   ],
@@ -56,7 +56,8 @@
       "ambiance",
       "presentation",
       "food_quality"
-    ]
+    ],
+    "expectedDirection": "higher"
   },
   "pairedWith": "alo-authentic-french",
   "humanScore": 4.8,

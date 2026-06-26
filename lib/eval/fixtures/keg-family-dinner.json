@@ -51,7 +51,8 @@
       "kid_friendliness",
       "noise_level",
       "service"
-    ]
+    ],
+    "expectedDirection": "lower"
   },
   "pairedWith": "keg-steak-quality"
 }
