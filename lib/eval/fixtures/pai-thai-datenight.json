@@ -44,11 +44,25 @@
     }
   ],
   "expectations": {
-    "scoreShouldBe": { "min": 4.0, "max": 5.0 },
+    "scoreShouldBe": {
+      "min": 4.0,
+      "max": 5.0
+    },
     "confidenceShouldBe": "high",
-    "dimensionsMustInclude": ["ambiance", "presentation"],
-    "explanationMustMention": ["atmosphere", "presentation"],
-    "weightOrder": ["ambiance", "presentation", "authenticity"]
+    "dimensionsMustInclude": [
+      "ambiance",
+      "presentation"
+    ],
+    "explanationMustMention": [
+      "atmosphere",
+      "presentation"
+    ],
+    "weightOrder": [
+      "ambiance",
+      "presentation",
+      "authenticity"
+    ],
+    "expectedDirection": "higher"
   },
   "pairedWith": "pai-thai-spice",
   "humanScore": 4.6,

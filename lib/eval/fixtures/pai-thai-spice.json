@@ -44,14 +44,30 @@
     }
   ],
   "expectations": {
-    "scoreShouldBe": { "min": 2.5, "max": 4.2 },
+    "scoreShouldBe": {
+      "min": 2.5,
+      "max": 4.2
+    },
     "confidenceShouldBe": "medium",
-    "dimensionsMustInclude": ["food_quality", "authenticity"],
-    "explanationMustMention": ["authenticity", "spice"],
-    "explanationMustNotContain": ["based on the reviews analyzed"],
-    "weightOrder": ["authenticity", "food_quality", "ambiance"]
+    "dimensionsMustInclude": [
+      "food_quality",
+      "authenticity"
+    ],
+    "explanationMustMention": [
+      "authenticity",
+      "spice"
+    ],
+    "explanationMustNotContain": [
+      "based on the reviews analyzed"
+    ],
+    "weightOrder": [
+      "authenticity",
+      "food_quality",
+      "ambiance"
+    ],
+    "expectedDirection": "lower"
   },
   "pairedWith": "pai-thai-datenight",
   "humanScore": 3.5,
-  "humanRationale": "Only 1 of 5 reviewers (David Chen) addresses authenticity/spice directly, and his review is negative on that dimension. The positive reviews focus on presentation, atmosphere, and generic 'delicious' — not what this user is looking for."
+  "humanRationale": "Only 1 of 5 reviewers (David Chen) addresses authenticity/spice directly, and his review is negative on that dimension. The positive reviews focus on presentation, atmosphere, and generic 'delicious' \u2014 not what this user is looking for."
 }

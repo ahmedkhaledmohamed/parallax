@@ -27,7 +27,7 @@
     {
       "author": "Shay Gray",
       "rating": 5,
-      "text": "I have been here a few times and I can’t say I have any complaints. I actually ordered through Uber Eats this time and can say the taste remained the same! In fact, as soon as I opened the container it had the loveliest aroma. The portion size was also pretty good, though the salad was layered on the rice lol which was actually fine. Also, a solid choice eating and ordering from here.",
+      "text": "I have been here a few times and I can\u2019t say I have any complaints. I actually ordered through Uber Eats this time and can say the taste remained the same! In fact, as soon as I opened the container it had the loveliest aroma. The portion size was also pretty good, though the salad was layered on the rice lol which was actually fine. Also, a solid choice eating and ordering from here.",
       "relativeTime": "3 months ago"
     },
     {
@@ -39,7 +39,7 @@
     {
       "author": "Family Room",
       "rating": 5,
-      "text": "Possibly the best Pakistani restaurant in Ontario! Bold statement, but true. First and foremost - the food is swimming in flavour. Doesn’t matter what you get, I guarantee it will be delicious 😋 Secondly, the restaurant is clean and the service is prompt and friendly. We don’t live in the area but whenever we’re passing by, we make time for lunch or dinner here. We’re never disappointed and neither will you.",
+      "text": "Possibly the best Pakistani restaurant in Ontario! Bold statement, but true. First and foremost - the food is swimming in flavour. Doesn\u2019t matter what you get, I guarantee it will be delicious \ud83d\ude0b Secondly, the restaurant is clean and the service is prompt and friendly. We don\u2019t live in the area but whenever we\u2019re passing by, we make time for lunch or dinner here. We\u2019re never disappointed and neither will you.",
       "relativeTime": "8 months ago"
     }
   ],
@@ -53,6 +53,7 @@
       "authenticity",
       "food_quality",
       "price_value"
-    ]
+    ],
+    "expectedDirection": "higher"
   }
 }

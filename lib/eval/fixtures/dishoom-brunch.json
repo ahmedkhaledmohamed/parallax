@@ -27,13 +27,13 @@
     {
       "author": "A Luk",
       "rating": 4,
-      "text": "Overall I think the food is good and tasty, though I’m not entirely convinced the price tag is worth it as the portions are small. Lineup was considerable but they bring out chai tea to the waiting customers. As I don’t recall the specific dish names, it’ll be a bit generic. Shrimp: dry but flavourful. Okra fries: well seasoned, crispy. Baked rice: average. Chicken curry: rich, recommended. Salad: not very impressive.",
+      "text": "Overall I think the food is good and tasty, though I\u2019m not entirely convinced the price tag is worth it as the portions are small. Lineup was considerable but they bring out chai tea to the waiting customers. As I don\u2019t recall the specific dish names, it\u2019ll be a bit generic. Shrimp: dry but flavourful. Okra fries: well seasoned, crispy. Baked rice: average. Chicken curry: rich, recommended. Salad: not very impressive.",
       "relativeTime": "7 months ago"
     },
     {
       "author": "Saleh Alajlan",
       "rating": 4,
-      "text": "I visited Dishoom around 16:00 and was pleasantly surprised by how smooth the experience was, no booking required and no waiting at all, which was a big plus.\n\nThe service was exceptional. Staff were attentive, friendly, and efficient throughout the meal, which really elevated the overall experience.\n\nAs for the food, it was generally average. Some dishes were enjoyable, but nothing particularly stood out as memorable. Unfortunately, the salad was disappointing and didn’t match the quality or flavour of the other items on the table.\n\nOverall, Dishoom delivered excellent service and a relaxed dining experience, but the food itself felt hit-or-miss. Worth visiting for the service and convenience, though the menu could be more consistent.",
+      "text": "I visited Dishoom around 16:00 and was pleasantly surprised by how smooth the experience was, no booking required and no waiting at all, which was a big plus.\n\nThe service was exceptional. Staff were attentive, friendly, and efficient throughout the meal, which really elevated the overall experience.\n\nAs for the food, it was generally average. Some dishes were enjoyable, but nothing particularly stood out as memorable. Unfortunately, the salad was disappointing and didn\u2019t match the quality or flavour of the other items on the table.\n\nOverall, Dishoom delivered excellent service and a relaxed dining experience, but the food itself felt hit-or-miss. Worth visiting for the service and convenience, though the menu could be more consistent.",
       "relativeTime": "5 months ago"
     },
     {
@@ -51,6 +51,7 @@
     "weightOrder": [
       "ambiance",
       "food_quality"
-    ]
+    ],
+    "expectedDirection": "similar"
   }
 }

@@ -39,7 +39,7 @@
     {
       "author": "GHD_1109",
       "rating": 4,
-      "text": "McDonald’s Times Square is a good stop if you’re near Times Square. The upstairs seating is nice, but you have to buy something to go up there.",
+      "text": "McDonald\u2019s Times Square is a good stop if you\u2019re near Times Square. The upstairs seating is nice, but you have to buy something to go up there.",
       "relativeTime": "3 months ago"
     }
   ],
@@ -48,6 +48,7 @@
     "weightOrder": [
       "wait_time",
       "price_value"
-    ]
+    ],
+    "expectedDirection": "similar"
   }
 }

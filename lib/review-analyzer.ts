@@ -5,6 +5,7 @@ import {
   DecomposedReview,
   AnalysisResult,
 } from "./types";
+import { parseIntent } from "./intent-parser";
 
 interface ProviderConfig {
   name: string;
@@ -265,6 +266,19 @@ export async function matchAndScore(
   decomposed: DecomposedReview[],
   userIntent: string
 ): Promise<AnalysisResult> {
+  // Deterministic weight assignment — no LLM involved
+  const parsedIntent = parseIntent(userIntent);
+  const intentWeights =
+    parsedIntent.dimensions.length > 0
+      ? parsedIntent.dimensions
+      : [{ dimension: "food_quality", weight: 1.0 }];
+
+  const { score, dimensionBreakdown } = computeParallaxScore(
+    decomposed,
+    intentWeights
+  );
+
+  // LLM only handles explanation + relevant review selection
   const response = await chatWithFallback({
     temperature: 0.1,
     max_tokens: 4096,
@@ -276,42 +290,38 @@ export async function matchAndScore(
       },
       {
         role: "user",
-        content: `Given decomposed restaurant reviews and a user's specific intent, compute a personalized score that reflects what this user actually cares about.
+        content: `Given decomposed restaurant reviews and pre-computed dimension weights, select relevant reviews and write an explanation.
 
 Restaurant: ${place.name}
 Address: ${place.address}
 Google rating: ${place.rating}/5 from ${place.totalReviews} total reviews
-Reviews analyzed: ${decomposed.length}
+Parallax score: ${score.toFixed(1)}/5 (already computed, DO NOT recalculate)
 
 User's intent: "${userIntent}"
+Excluded dimensions: ${parsedIntent.excluded.length > 0 ? parsedIntent.excluded.join(", ") : "none"}
+
+Pre-computed dimension weights and scores:
+${JSON.stringify(dimensionBreakdown.map((d) => ({
+  dimension: d.dimension,
+  weight: d.weight,
+  sentiment: d.averageSentiment.toFixed(2),
+  reviewCount: d.reviewCount,
+})), null, 2)}
 
 Decomposed reviews:
 ${JSON.stringify(decomposed, null, 2)}
 
 Instructions:
-1. Identify which dimensions the user cares about based on their intent. Be specific — "quiet dinner" maps to noise_level and ambiance, not food_quality.
-2. Assign weights to relevant dimensions (0.0 to 1.0, should roughly sum to 1.0). Do NOT compute a score — the score will be calculated separately from your weights.
-
-CRITICAL WEIGHT RULES:
-- Dimensions explicitly mentioned in the user's intent MUST receive the highest weights.
-- If the user says "authentic" or "real" or "traditional", authenticity MUST be the top-weighted dimension.
-- If the user says "don't care about X", dimension X MUST receive weight 0.0 and be EXCLUDED.
-- food_quality should only be highly weighted if the user explicitly mentions food quality, taste, or flavor.
-- Do NOT default to food_quality as the highest weight — many intents prioritize other dimensions.
-- Rank dimensions STRICTLY by how prominently they appear in the user's intent statement.
-3. Select the 3-5 most relevant review excerpts — reviews that specifically address what the user cares about.
-4. Write the explanation following this structure:
+1. Select the 3-5 most relevant review excerpts — reviews that address the dimensions with highest weights.
+2. Write the explanation following this structure:
    - Start: "For someone looking for [restate the user's intent in your own words],"
-   - State whether the Parallax score is higher, lower, or similar to Google's and by how much.
-   - Explain WHY using specific dimension findings: name the dimensions, cite sentiment direction, and reference how many reviewers mentioned them (e.g., "3 of 5 reviewers praised the ambiance, but only 1 mentioned noise level — and negatively").
-   - Contrast: explain what drives Google's aggregate that the user does NOT care about (e.g., "Google's high rating is driven by presentation and service scores, which you deprioritized").
-   - NEVER use these phrases: "based on the reviews analyzed", "the restaurant has mixed reviews", "overall the restaurant", or any statement that would be equally valid for a completely different user intent.
+   - State that the Parallax score is ${score.toFixed(1)} vs Google's ${place.rating} (${score > place.rating ? "higher" : score < place.rating ? "lower" : "similar"}).
+   - Explain WHY using the pre-computed dimension data: name the dimensions, cite their sentiment direction and review count.
+   - Contrast: explain what drives Google's aggregate that the user does NOT care about.
+   - NEVER use these phrases: "based on the reviews analyzed", "the restaurant has mixed reviews", "overall the restaurant", or any statement that would be equally valid for a different intent.
 
 Respond as JSON:
 {
-  "dimensionWeights": [
-    { "dimension": "noise_level", "weight": 0.4 }
-  ],
   "relevantReviews": [
     {
       "author": "Name",
@@ -329,15 +339,9 @@ Respond as JSON:
 
   const text = response.choices[0].message.content ?? "";
   const parsed = extractJson(text) as {
-    dimensionWeights: { dimension: string; weight: number }[];
     relevantReviews: AnalysisResult["relevantReviews"];
     explanation: string;
   };
-
-  const { score, dimensionBreakdown } = computeParallaxScore(
-    decomposed,
-    parsed.dimensionWeights
-  );
 
   const confidence = calculateConfidence(
     decomposed.length,
@@ -360,7 +364,7 @@ Respond as JSON:
     confidence,
     sampleSize: decomposed.length,
     dimensionBreakdown,
-    dimensionClaims: buildDimensionClaims(decomposed, parsed.dimensionWeights),
+    dimensionClaims: buildDimensionClaims(decomposed, intentWeights),
   };
 }
 
