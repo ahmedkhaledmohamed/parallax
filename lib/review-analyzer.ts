@@ -5,7 +5,7 @@ import {
   DecomposedReview,
   AnalysisResult,
 } from "./types";
-import { parseIntent } from "./intent-parser";
+import { parseIntentSmart } from "./intent-parser";
 import { CONFIG } from "./config";
 
 interface ProviderConfig {
@@ -292,12 +292,8 @@ export async function matchAndScore(
   decomposed: DecomposedReview[],
   userIntent: string
 ): Promise<AnalysisResult> {
-  // Deterministic weight assignment — no LLM involved
-  const parsedIntent = parseIntent(userIntent);
-  const intentWeights =
-    parsedIntent.dimensions.length > 0
-      ? parsedIntent.dimensions
-      : [{ dimension: "food_quality", weight: 1.0 }];
+  const parsedIntent = await parseIntentSmart(userIntent);
+  const intentWeights = parsedIntent.dimensions;
 
   const { score, dimensionBreakdown } = computeParallaxScore(
     decomposed,
@@ -391,6 +387,7 @@ Respond as JSON:
     sampleSize: decomposed.length,
     dimensionBreakdown,
     dimensionClaims: buildDimensionClaims(decomposed, intentWeights),
+    intentSource: parsedIntent.source,
   };
 }
 

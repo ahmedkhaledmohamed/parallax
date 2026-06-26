@@ -1,0 +1,61 @@
+{
+  "id": "pai-thai-first-date",
+  "restaurant": "PAI Northern Thai Kitchen",
+  "city": "Toronto",
+  "intent": "Good for a first date where we're both a bit nervous and want somewhere that makes conversation easy",
+  "mockPlace": {
+    "name": "PAI",
+    "address": "18 Duncan St, Toronto, ON M5H 3G8, Canada",
+    "placeId": "ChIJE9on3F3L1IkRyitHxPYqn6k",
+    "rating": 4.6,
+    "totalReviews": 14864,
+    "priceLevel": 2
+  },
+  "mockReviews": [
+    {
+      "author": "JAY KAY",
+      "rating": 5,
+      "text": "The food was very delicious! Fresh and full of flavours. The staff was very friendly and attentive. The restaurant was clean and well-maintained. I would definitely recommend this restaurant to anyone looking for a great dining experience.",
+      "relativeTime": "2 months ago"
+    },
+    {
+      "author": "Mika Kim",
+      "rating": 4,
+      "text": "Delicious Thai food, made even better by the warm and attentive staff. The portions were generous and the prices were reasonable for the quality. Only downside was the wait time on a Friday evening.",
+      "relativeTime": "3 months ago"
+    },
+    {
+      "author": "Angie R",
+      "rating": 5,
+      "text": "The mango salad had flavors that tickled all the senses. Yum! I'm going to crave this one forever and ever. The khao soi was rich and creamy with just the right amount of spice. Authentic northern Thai comfort food at its best.",
+      "relativeTime": "1 month ago"
+    },
+    {
+      "author": "David Chen",
+      "rating": 3,
+      "text": "Overhyped. The food is good but not exceptional. The spice level seems toned down compared to actual Thai street food. The pad thai was sweet, not the tangy version you'd get in Bangkok. Decor is Instagram-worthy though.",
+      "relativeTime": "2 weeks ago"
+    },
+    {
+      "author": "Sarah M",
+      "rating": 5,
+      "text": "Beautiful restaurant with amazing food presentation. The cocktails were incredible and the atmosphere was perfect for our anniversary dinner. Everything was beautifully plated and the service was top notch.",
+      "relativeTime": "1 month ago"
+    }
+  ],
+  "expectations": {
+    "scoreShouldBe": {
+      "min": 3.5,
+      "max": 5.0
+    },
+    "dimensionsMustInclude": [
+      "ambiance",
+      "noise_level"
+    ],
+    "explanationMustMention": [
+      "atmosphere"
+    ]
+  },
+  "humanScore": 4.3,
+  "humanRationale": "First date intent implies caring about ambiance, noise level (conversation-friendly), and service quality. The LLM should infer these from the natural language even though no keywords match directly."
+}

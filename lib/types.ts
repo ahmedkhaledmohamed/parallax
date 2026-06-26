@@ -66,4 +66,5 @@ export interface AnalysisResult {
   dimensionBreakdown: DimensionScore[];
   sourceBreakdown?: { source: string; count: number }[];
   dimensionClaims?: Record<string, { author: string; claim: string; sentiment: number }[]>;
+  intentSource?: "deterministic" | "llm";
 }
