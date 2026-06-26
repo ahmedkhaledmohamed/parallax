@@ -121,6 +121,7 @@ export function computeParallaxScore(
   const breakdown: AnalysisResult["dimensionBreakdown"] = [];
   let weightedSum = 0;
   let totalWeight = 0;
+  const maxWeight = Math.max(...dimensionWeights.map((d) => d.weight));
 
   for (const dw of dimensionWeights) {
     const claims = decomposed.flatMap((r) =>
@@ -134,19 +135,22 @@ export function computeParallaxScore(
         : 0;
 
     if (claims.length === 0) {
-      // No reviews mention this dimension — treat as mildly negative signal.
-      // If the user specifically asked about authenticity and no reviewer
-      // addressed it, that's a meaningful absence, not neutral.
-      const absencePenalty = -0.3;
+      // Only penalize absence for the top-weighted dimension — if the user's
+      // primary concern has zero coverage, that's a real red flag. Secondary
+      // dimensions missing is just sparse data, not a negative signal.
+      const isTopDimension = dw.weight >= maxWeight;
+      const absenceSentiment = isTopDimension ? -0.3 : 0;
       breakdown.push({
         dimension: dw.dimension,
-        averageSentiment: absencePenalty,
+        averageSentiment: absenceSentiment,
         googleSentiment,
         weight: dw.weight,
         reviewCount: 0,
       });
-      weightedSum += absencePenalty * dw.weight;
-      totalWeight += dw.weight;
+      if (isTopDimension) {
+        weightedSum += absenceSentiment * dw.weight;
+        totalWeight += dw.weight;
+      }
       continue;
     }
 
