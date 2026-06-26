@@ -24,6 +24,7 @@ export const metadata: Metadata = {
       "Same reviews, your viewpoint. See what a restaurant's rating actually means for what you care about.",
     type: "website",
     siteName: "Parallax",
+    images: ["/api/og"],
   },
   twitter: {
     card: "summary",

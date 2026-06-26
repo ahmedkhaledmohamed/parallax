@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { AnalysisResult } from "@/lib/types";
 
 interface ParallaxScoreProps {
@@ -22,6 +25,45 @@ function confidenceBadge(confidence: "high" | "medium" | "low") {
     >
       {confidence} confidence
     </span>
+  );
+}
+
+function ShareButton({ result }: { result: AnalysisResult }) {
+  const [copied, setCopied] = useState(false);
+
+  async function handleShare() {
+    const url = window.location.href;
+    const text = `${result.restaurant.name}: Parallax ${result.parallaxScore.toFixed(1)} vs Google ${result.googleScore.toFixed(1)}`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: "Parallax", text, url });
+        return;
+      } catch {
+        // user cancelled or share failed — fall through to clipboard
+      }
+    }
+
+    await navigator.clipboard.writeText(url);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+
+  return (
+    <button
+      onClick={handleShare}
+      className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-700 px-3 py-1.5 text-xs font-medium text-zinc-400 hover:border-zinc-500 hover:text-zinc-200 transition-colors"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        className="w-3.5 h-3.5"
+      >
+        <path d="M13 4.5a2.5 2.5 0 1 1 .702 1.737L6.97 9.604a2.518 2.518 0 0 1 0 .799l6.733 3.365a2.5 2.5 0 1 1-.671 1.342l-6.733-3.365a2.5 2.5 0 1 1 0-3.482l6.733-3.366A2.52 2.52 0 0 1 13 4.5Z" />
+      </svg>
+      {copied ? "Copied!" : "Share"}
+    </button>
   );
 }
 
@@ -88,26 +130,29 @@ export function ParallaxScore({ result }: ParallaxScoreProps) {
               </span>
             )}
           </div>
-          <a
-            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(result.restaurant.name)}&query_place_id=${result.restaurant.placeId}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-700 px-3 py-1.5 text-xs font-medium text-zinc-400 hover:border-zinc-500 hover:text-zinc-200 transition-colors"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="w-3.5 h-3.5"
+          <div className="flex items-center gap-2">
+            <ShareButton result={result} />
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(result.restaurant.name)}&query_place_id=${result.restaurant.placeId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-700 px-3 py-1.5 text-xs font-medium text-zinc-400 hover:border-zinc-500 hover:text-zinc-200 transition-colors"
             >
-              <path
-                fillRule="evenodd"
-                d="m9.69 18.933.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 0 0 .281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 1 0 3 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 0 0 2.273 1.765 11.842 11.842 0 0 0 .976.544l.062.029.018.008.006.003ZM10 11.25a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z"
-                clipRule="evenodd"
-              />
-            </svg>
-            Get Directions
-          </a>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="w-3.5 h-3.5"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="m9.69 18.933.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 0 0 .281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 1 0 3 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 0 0 2.273 1.765 11.842 11.842 0 0 0 .976.544l.062.029.018.008.006.003ZM10 11.25a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Get Directions
+            </a>
+          </div>
         </div>
       </div>
     </div>

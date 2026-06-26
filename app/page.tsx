@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AnalysisResult } from "@/lib/types";
 import { SearchForm } from "@/components/search-form";
 import { ParallaxScore } from "@/components/parallax-score";
@@ -27,6 +27,50 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [lastSearch, setLastSearch] = useState<{ query: string; intent: string } | null>(null);
   const [historyKey, setHistoryKey] = useState(0);
+  const didAutoSubmit = useRef(false);
+
+  function updateUrl(query: string, intent: string) {
+    const params = new URLSearchParams({ q: query, i: intent });
+    window.history.replaceState(null, "", `?${params.toString()}`);
+  }
+
+  useEffect(() => {
+    if (!result) return;
+    const ogParams = new URLSearchParams({
+      name: result.restaurant.name,
+      parallax: result.parallaxScore.toFixed(1),
+      google: result.googleScore.toFixed(1),
+    });
+    const ogUrl = `/api/og?${ogParams.toString()}`;
+
+    let ogTag = document.querySelector('meta[property="og:image"]') as HTMLMetaElement | null;
+    if (!ogTag) {
+      ogTag = document.createElement("meta");
+      ogTag.setAttribute("property", "og:image");
+      document.head.appendChild(ogTag);
+    }
+    ogTag.content = ogUrl;
+
+    let titleTag = document.querySelector('meta[property="og:title"]') as HTMLMetaElement | null;
+    if (!titleTag) {
+      titleTag = document.createElement("meta");
+      titleTag.setAttribute("property", "og:title");
+      document.head.appendChild(titleTag);
+    }
+    titleTag.content = `${result.restaurant.name} — Parallax ${result.parallaxScore.toFixed(1)} vs Google ${result.googleScore.toFixed(1)}`;
+  }, [result]);
+
+  useEffect(() => {
+    if (didAutoSubmit.current) return;
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get("q");
+    const i = params.get("i");
+    if (q && i) {
+      didAutoSubmit.current = true;
+      handleSearch(q, i);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function handleSearch(query: string, intent: string) {
     setStage("searching");
@@ -67,6 +111,7 @@ export default function Home() {
           googleScore: data.googleScore,
         });
         setHistoryKey((k) => k + 1);
+        updateUrl(query, intent);
         setStage("done");
         return;
       }
@@ -108,6 +153,7 @@ export default function Home() {
                 googleScore: event.data.googleScore,
               });
               setHistoryKey((k) => k + 1);
+              updateUrl(query, intent);
               setStage("done");
             } else if (event.type === "error") {
               setError(event.data.error);
