@@ -1,3 +1,5 @@
+import { CONFIG } from "./config";
+
 export interface ParsedIntent {
   dimensions: { dimension: string; weight: number }[];
   excluded: string[];
@@ -145,7 +147,7 @@ export function parseIntent(intent: string): ParsedIntent {
   const sorted = Array.from(matched.entries()).sort((a, b) => b[1] - a[1]);
 
   // Assign weights: exponential decay based on rank
-  const rawWeights = sorted.map((_, i) => Math.pow(0.6, i));
+  const rawWeights = sorted.map((_, i) => Math.pow(CONFIG.intent.weightDecayBase, i));
   const totalWeight = rawWeights.reduce((a, b) => a + b, 0);
 
   const dimensions = sorted.map(([dimension], i) => ({

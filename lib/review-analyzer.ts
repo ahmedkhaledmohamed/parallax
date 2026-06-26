@@ -6,6 +6,7 @@ import {
   AnalysisResult,
 } from "./types";
 import { parseIntent } from "./intent-parser";
+import { CONFIG } from "./config";
 
 interface ProviderConfig {
   name: string;
@@ -61,7 +62,7 @@ async function chatWithFallback(
   for (let i = 0; i < providers.length; i++) {
     try {
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 30000);
+      const timeout = setTimeout(() => controller.abort(), CONFIG.llm.timeoutMs);
       try {
         const result = await getClient(providers[i]).chat.completions.create(
           { ...params, model: providers[i].model },
@@ -76,7 +77,7 @@ async function chatWithFallback(
       const isTimeout = err instanceof Error && err.name === "AbortError";
       const isLast = i === providers.length - 1;
       if ((isRateLimit || isTimeout) && !isLast) continue;
-      if (isTimeout) throw new Error("LLM request timed out after 30 seconds");
+      if (isTimeout) throw new Error(`LLM request timed out after ${CONFIG.llm.timeoutMs / 1000} seconds`);
       throw err;
     }
   }
@@ -88,9 +89,11 @@ function calculateConfidence(
   totalReviews: number,
   dimensionBreakdown: AnalysisResult["dimensionBreakdown"]
 ): "high" | "medium" | "low" {
-  if (totalReviews < 3) return "low";
+  if (totalReviews < CONFIG.scoring.lowMinReviews) return "low";
 
-  const keyDimensions = dimensionBreakdown.filter((d) => d.weight > 0.15);
+  const keyDimensions = dimensionBreakdown.filter(
+    (d) => d.weight > CONFIG.scoring.keyDimensionWeightThreshold
+  );
   if (keyDimensions.length === 0) return "low";
 
   const avgCoverage =
@@ -98,8 +101,8 @@ function calculateConfidence(
     keyDimensions.length;
   const coverageRatio = avgCoverage / totalReviews;
 
-  if (coverageRatio < 0.3) return "low";
-  if (coverageRatio < 0.6 || totalReviews < 5) return "medium";
+  if (coverageRatio < CONFIG.scoring.lowCoverageRatio) return "low";
+  if (coverageRatio < CONFIG.scoring.mediumCoverageRatio || totalReviews < CONFIG.scoring.mediumMinReviews) return "medium";
   return "high";
 }
 
@@ -139,7 +142,7 @@ export function computeParallaxScore(
       // primary concern has zero coverage, that's a real red flag. Secondary
       // dimensions missing is just sparse data, not a negative signal.
       const isTopDimension = dw.weight >= maxWeight;
-      const absenceSentiment = isTopDimension ? -0.3 : 0;
+      const absenceSentiment = isTopDimension ? CONFIG.scoring.absencePenalty : 0;
       breakdown.push({
         dimension: dw.dimension,
         averageSentiment: absenceSentiment,
