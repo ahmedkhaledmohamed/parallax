@@ -78,7 +78,10 @@ const NEGATION_PATTERNS = [
 function findDimensionForKeyword(keyword: string): string | null {
   const lower = keyword.toLowerCase().trim();
   for (const [dimension, keywords] of Object.entries(DIMENSION_KEYWORDS)) {
-    if (keywords.some((kw) => lower.includes(kw))) {
+    if (keywords.some((kw) => {
+      const regex = new RegExp(`\\b${kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`);
+      return regex.test(lower);
+    })) {
       return dimension;
     }
   }
@@ -115,13 +118,15 @@ export function parseIntent(intent: string): ParsedIntent {
     }
   }
 
-  // Match dimensions by keyword position in intent string
+  // Match dimensions by keyword position in intent string (word boundary matching)
   for (const [dimension, keywords] of Object.entries(DIMENSION_KEYWORDS)) {
     if (excluded.includes(dimension)) continue;
 
     for (const keyword of keywords) {
-      const idx = lower.indexOf(keyword);
-      if (idx >= 0) {
+      const regex = new RegExp(`\\b${keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`);
+      const match = regex.exec(lower);
+      if (match) {
+        const idx = match.index;
         const positionWeight = 1000 - idx;
         matched.set(
           dimension,
