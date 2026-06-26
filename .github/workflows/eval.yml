@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'lib/review-analyzer.ts'
+      - 'lib/intent-parser.ts'
       - 'lib/eval/**'
 
 jobs:
