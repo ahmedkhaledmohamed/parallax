@@ -32,9 +32,16 @@ export function Explanation({ result }: ExplanationProps) {
   return (
     <div className="w-full max-w-2xl space-y-4">
       <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-        <h3 className="text-sm font-medium uppercase tracking-wider text-amber-500 mb-3">
-          Why the difference?
-        </h3>
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-sm font-medium uppercase tracking-wider text-amber-500">
+            Why the difference?
+          </h3>
+          {result.intentSource === "llm" && (
+            <span className="text-[10px] font-medium uppercase tracking-wider text-zinc-500 border border-zinc-700 rounded px-1.5 py-0.5">
+              AI-interpreted intent
+            </span>
+          )}
+        </div>
         <p className="text-sm text-zinc-300 leading-relaxed">
           {result.explanation}
         </p>

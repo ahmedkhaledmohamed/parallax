@@ -1,0 +1,61 @@
+{
+  "id": "keg-picky-parent",
+  "restaurant": "The Keg Steakhouse + Bar",
+  "city": "Toronto",
+  "intent": "Somewhere my picky mother would approve of — she judges restaurants on cleanliness and whether the staff seem professional",
+  "mockPlace": {
+    "name": "The Keg Steakhouse + Bar",
+    "address": "515 Jarvis St, Toronto, ON M4Y 2H7, Canada",
+    "placeId": "ChIJR0lA5vU0K4gRGGz41kOAb8o",
+    "rating": 4.4,
+    "totalReviews": 2547,
+    "priceLevel": 3
+  },
+  "mockReviews": [
+    {
+      "author": "Mark P",
+      "rating": 5,
+      "text": "Excellent steaks as always. The prime rib was cooked to perfection. Great service from our waiter who was very knowledgeable about the menu. Clean and well-maintained dining room.",
+      "relativeTime": "1 month ago"
+    },
+    {
+      "author": "Linda T",
+      "rating": 4,
+      "text": "Very professional service. The servers are well-trained and attentive without being overbearing. The restaurant is always spotless. Food is consistently good — reliable for business dinners or family celebrations.",
+      "relativeTime": "2 months ago"
+    },
+    {
+      "author": "James W",
+      "rating": 4,
+      "text": "Good steaks, reasonable prices for the quality. The Caesar salad is a must. Bathroom was clean which is always a good sign. Parking can be tricky in this area.",
+      "relativeTime": "3 weeks ago"
+    },
+    {
+      "author": "Rachel K",
+      "rating": 3,
+      "text": "Decent but nothing special. The steak was fine but I've had better at half the price. The bread was stale and the cocktail was weak. At least the place was clean.",
+      "relativeTime": "2 months ago"
+    },
+    {
+      "author": "Tom S",
+      "rating": 5,
+      "text": "Brought my parents here for their anniversary. They loved it — the staff treated them like royalty. The manager even came by to congratulate them. Classic steakhouse experience.",
+      "relativeTime": "1 month ago"
+    }
+  ],
+  "expectations": {
+    "scoreShouldBe": {
+      "min": 3.5,
+      "max": 5.0
+    },
+    "dimensionsMustInclude": [
+      "cleanliness",
+      "service"
+    ],
+    "explanationMustMention": [
+      "clean"
+    ]
+  },
+  "humanScore": 4.5,
+  "humanRationale": "The intent is about impressing a judgmental parent who cares about cleanliness and professionalism. LLM should infer cleanliness and service as primary dimensions from the social context."
+}

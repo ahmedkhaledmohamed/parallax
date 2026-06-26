@@ -1,0 +1,61 @@
+{
+  "id": "raku-post-workout",
+  "restaurant": "Raku",
+  "city": "Toronto",
+  "intent": "Post-workout meal — need high protein, generous portions, and somewhere I can eat fast without feeling rushed",
+  "mockPlace": {
+    "name": "Raku",
+    "address": "68 Carlton St, Toronto, ON M5B 1L6, Canada",
+    "placeId": "ChIJp4-E3VnL1IkRQWIKJF0ZmIg",
+    "rating": 4.3,
+    "totalReviews": 1893,
+    "priceLevel": 2
+  },
+  "mockReviews": [
+    {
+      "author": "Alex N",
+      "rating": 5,
+      "text": "Best ramen in Toronto hands down. The tonkotsu broth is rich and flavorful. Huge portions — I could barely finish. The chashu pork is melt-in-your-mouth. Fast service too, food came out in under 10 minutes.",
+      "relativeTime": "2 weeks ago"
+    },
+    {
+      "author": "Emily C",
+      "rating": 4,
+      "text": "Great ramen spot with authentic Japanese flavors. The miso ramen was excellent. Love that you can customize your noodle firmness and broth richness. Casual atmosphere, good for a quick lunch.",
+      "relativeTime": "1 month ago"
+    },
+    {
+      "author": "Ryan J",
+      "rating": 4,
+      "text": "Solid ramen. The extra noodles and extra chashu are worth the add-on. This is not a dainty bowl — you leave full. Service is efficient, they don't rush you but the pace is naturally quick.",
+      "relativeTime": "3 weeks ago"
+    },
+    {
+      "author": "Lisa M",
+      "rating": 3,
+      "text": "Good but not amazing. The broth was a bit too salty for my taste. The gyoza were the highlight. Small and cramped seating, definitely not a place to linger. Portions are decent though.",
+      "relativeTime": "2 months ago"
+    },
+    {
+      "author": "Kevin H",
+      "rating": 5,
+      "text": "My go-to spot after gym sessions. The protein-heavy options like extra chashu and ajitama egg keep me coming back. Quick in and out, exactly what I need after a workout.",
+      "relativeTime": "1 month ago"
+    }
+  ],
+  "expectations": {
+    "scoreShouldBe": {
+      "min": 3.8,
+      "max": 5.0
+    },
+    "dimensionsMustInclude": [
+      "portion_size",
+      "wait_time"
+    ],
+    "explanationMustMention": [
+      "portion"
+    ]
+  },
+  "humanScore": 4.5,
+  "humanRationale": "Post-workout intent implies portion size, food quality (protein focus), and speed. The LLM should infer these from context even though 'post-workout' and 'protein' are not in the keyword list."
+}
