@@ -1,8 +1,6 @@
 import { Index } from "@upstash/vector";
 import { AnalysisResult } from "../types";
-
-const SIMILARITY_THRESHOLD = 0.92;
-const TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+import { CONFIG } from "../config";
 
 let _index: Index | null = null;
 function index(): Index {
@@ -46,13 +44,13 @@ export async function findSimilarAnalysis(
     if (results.length === 0) return null;
 
     const top = results[0];
-    if (top.score < SIMILARITY_THRESHOLD) return null;
+    if (top.score < CONFIG.cache.vectorSimilarityThreshold) return null;
 
     const meta = top.metadata;
     if (!meta) return null;
 
     // Check TTL
-    if (Date.now() - meta.timestamp > TTL_MS) return null;
+    if (Date.now() - meta.timestamp > CONFIG.cache.vectorTtlMs) return null;
 
     return {
       analysis: JSON.parse(meta.analysis) as AnalysisResult,
