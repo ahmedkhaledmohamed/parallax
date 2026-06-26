@@ -11,17 +11,28 @@ import { DimensionDetail } from "@/components/dimension-detail";
 import { ReviewCard } from "@/components/review-card";
 import { SearchHistory, saveToHistory } from "@/components/search-history";
 
+type Stage = "idle" | "searching" | "found" | "decomposing" | "done";
+
+interface RestaurantInfo {
+  name: string;
+  address: string;
+  rating: number;
+  totalReviews: number;
+}
+
 export default function Home() {
   const [result, setResult] = useState<AnalysisResult | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [stage, setStage] = useState<Stage>("idle");
+  const [restaurant, setRestaurant] = useState<RestaurantInfo | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [lastSearch, setLastSearch] = useState<{ query: string; intent: string } | null>(null);
   const [historyKey, setHistoryKey] = useState(0);
 
   async function handleSearch(query: string, intent: string) {
-    setIsLoading(true);
+    setStage("searching");
     setError(null);
     setResult(null);
+    setRestaurant(null);
     setLastSearch({ query, intent });
 
     try {
@@ -31,27 +42,89 @@ export default function Home() {
         body: JSON.stringify({ query, intent }),
       });
 
-      const data = await res.json();
-
       if (!res.ok) {
+        const data = await res.json();
         setError(data.error || "Something went wrong.");
+        setStage("idle");
         return;
       }
 
-      setResult(data);
-      saveToHistory({
-        restaurant: data.restaurant.name,
-        intent,
-        parallaxScore: data.parallaxScore,
-        googleScore: data.googleScore,
-      });
-      setHistoryKey((k) => k + 1);
+      const contentType = res.headers.get("content-type") ?? "";
+
+      if (contentType.includes("application/json")) {
+        const data = await res.json();
+        setResult(data);
+        setRestaurant({
+          name: data.restaurant.name,
+          address: data.restaurant.address,
+          rating: data.restaurant.googleRating,
+          totalReviews: data.restaurant.totalReviews,
+        });
+        saveToHistory({
+          restaurant: data.restaurant.name,
+          intent,
+          parallaxScore: data.parallaxScore,
+          googleScore: data.googleScore,
+        });
+        setHistoryKey((k) => k + 1);
+        setStage("done");
+        return;
+      }
+
+      const reader = res.body?.getReader();
+      if (!reader) {
+        setError("Failed to read response.");
+        setStage("idle");
+        return;
+      }
+
+      const decoder = new TextDecoder();
+      let buffer = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() ?? "";
+
+        for (const line of lines) {
+          if (!line.trim()) continue;
+          try {
+            const event = JSON.parse(line);
+
+            if (event.type === "restaurant") {
+              setRestaurant(event.data);
+              setStage("found");
+            } else if (event.type === "decomposed") {
+              setStage("decomposing");
+            } else if (event.type === "result") {
+              setResult(event.data);
+              saveToHistory({
+                restaurant: event.data.restaurant.name,
+                intent,
+                parallaxScore: event.data.parallaxScore,
+                googleScore: event.data.googleScore,
+              });
+              setHistoryKey((k) => k + 1);
+              setStage("done");
+            } else if (event.type === "error") {
+              setError(event.data.error);
+              setStage("idle");
+            }
+          } catch {
+            // skip malformed lines
+          }
+        }
+      }
     } catch {
       setError("Failed to connect. Please try again.");
-    } finally {
-      setIsLoading(false);
+      setStage("idle");
     }
   }
+
+  const isLoading = stage !== "idle" && stage !== "done";
 
   return (
     <main className="flex-1 flex flex-col items-center px-4 py-16">
@@ -81,17 +154,59 @@ export default function Home() {
         </div>
       )}
 
-      {result && (
+      {isLoading && !error && (
+        <div className="mt-10 w-full max-w-5xl">
+          {restaurant && (stage === "found" || stage === "decomposing") && (
+            <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 mb-6">
+              <h2 className="text-lg font-semibold text-zinc-100">
+                {restaurant.name}
+              </h2>
+              <p className="text-sm text-zinc-500 mt-1">{restaurant.address}</p>
+              <p className="text-sm text-zinc-500 mt-1">
+                Google: {restaurant.rating}/5 from{" "}
+                {restaurant.totalReviews.toLocaleString()} reviews
+              </p>
+            </div>
+          )}
+          <div className="flex items-center gap-3 text-sm text-zinc-500">
+            <svg
+              className="animate-spin h-4 w-4 text-amber-500"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              />
+            </svg>
+            <span>
+              {stage === "searching" && "Finding restaurant..."}
+              {stage === "found" && "Analyzing reviews..."}
+              {stage === "decomposing" && "Computing your personalized score..."}
+            </span>
+          </div>
+        </div>
+      )}
+
+      {result && stage === "done" && (
         <div className="mt-10 w-full max-w-5xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Left column: scores + visualizations */}
             <div className="space-y-6">
               <ParallaxScore result={result} />
               <DimensionRadar dimensions={result.dimensionBreakdown} />
               <DimensionDelta dimensions={result.dimensionBreakdown} />
             </div>
 
-            {/* Right column: explanation + evidence + reviews */}
             <div className="space-y-6">
               <Explanation result={result} />
               <DimensionDetail result={result} />
@@ -110,7 +225,7 @@ export default function Home() {
         </div>
       )}
 
-      {!result && (
+      {!result && stage === "idle" && (
         <SearchHistory
           key={historyKey}
           onSelect={(restaurant, intent) =>
