@@ -4,6 +4,15 @@ import { decomposeReviews, matchAndScore } from "@/lib/review-analyzer";
 import { GooglePlaceResult } from "@/lib/types";
 import { checkCache, storeInCache, type CacheStatus } from "@/lib/cache";
 
+function sendEvent(
+  controller: ReadableStreamDefaultController,
+  event: Record<string, unknown>
+) {
+  controller.enqueue(
+    new TextEncoder().encode(JSON.stringify(event) + "\n")
+  );
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { query, intent } = await request.json();
@@ -31,9 +40,7 @@ export async function POST(request: NextRequest) {
     }
 
     const placeId = aggregated.place.placeId;
-    let cacheStatus: CacheStatus = "miss";
 
-    // Check cache
     const cached = await checkCache(placeId, intent);
 
     if (cached.status === "hit" && cached.analysis) {
@@ -56,25 +63,71 @@ export async function POST(request: NextRequest) {
       })),
     };
 
-    // Use cached decomposition or run fresh
-    let decomposed;
-    if (cached.status === "partial" && cached.decomposed) {
-      decomposed = cached.decomposed;
-      cacheStatus = "partial";
-    } else {
-      decomposed = await decomposeReviews(place.reviews);
-      cacheStatus = "miss";
-    }
+    const stream = new ReadableStream({
+      async start(controller) {
+        try {
+          sendEvent(controller, {
+            type: "restaurant",
+            data: {
+              name: aggregated.place.name,
+              address: aggregated.place.address,
+              rating: aggregated.place.rating,
+              totalReviews: aggregated.place.totalReviews,
+              sourceBreakdown: aggregated.sourceBreakdown,
+            },
+          });
 
-    const analysis = await matchAndScore(place, decomposed, intent);
+          let decomposed;
+          let cacheStatus: CacheStatus = "miss";
 
-    // Store in cache (non-blocking)
-    storeInCache(placeId, intent, analysis, decomposed).catch(() => {});
+          if (cached.status === "partial" && cached.decomposed) {
+            decomposed = cached.decomposed;
+            cacheStatus = "partial";
+          } else {
+            decomposed = await decomposeReviews(place.reviews);
+            cacheStatus = "miss";
+          }
 
-    return NextResponse.json({
-      ...analysis,
-      sourceBreakdown: aggregated.sourceBreakdown,
-      _cache: cacheStatus,
+          sendEvent(controller, {
+            type: "decomposed",
+            data: {
+              reviewCount: decomposed.length,
+              dimensionCount: new Set(
+                decomposed.flatMap((r) => r.dimensions.map((d) => d.dimension))
+              ).size,
+            },
+          });
+
+          const analysis = await matchAndScore(place, decomposed, intent);
+
+          storeInCache(placeId, intent, analysis, decomposed).catch(() => {});
+
+          sendEvent(controller, {
+            type: "result",
+            data: {
+              ...analysis,
+              sourceBreakdown: aggregated.sourceBreakdown,
+              _cache: cacheStatus,
+            },
+          });
+
+          controller.close();
+        } catch (err) {
+          sendEvent(controller, {
+            type: "error",
+            data: { error: "Analysis failed. Please try again." },
+          });
+          controller.close();
+          console.error("Streaming analysis failed:", err);
+        }
+      },
+    });
+
+    return new Response(stream, {
+      headers: {
+        "Content-Type": "application/x-ndjson",
+        "Transfer-Encoding": "chunked",
+      },
     });
   } catch (err) {
     console.error("Analysis failed:", err);
