@@ -134,13 +134,19 @@ export function computeParallaxScore(
         : 0;
 
     if (claims.length === 0) {
+      // No reviews mention this dimension — treat as mildly negative signal.
+      // If the user specifically asked about authenticity and no reviewer
+      // addressed it, that's a meaningful absence, not neutral.
+      const absencePenalty = -0.3;
       breakdown.push({
         dimension: dw.dimension,
-        averageSentiment: 0,
+        averageSentiment: absencePenalty,
         googleSentiment,
         weight: dw.weight,
         reviewCount: 0,
       });
+      weightedSum += absencePenalty * dw.weight;
+      totalWeight += dw.weight;
       continue;
     }
 
@@ -230,6 +236,19 @@ For each review, extract:
 2. For each dimension: sentiment (-1.0 to 1.0), confidence (0.0 to 1.0), and the exact claim text from the review.
 3. Context signals — inferred visit context: date_night, family, business, solo, friends, celebration, casual, tourist, regular.
 4. Overall tone: positive, negative, mixed, or neutral.
+
+CRITICAL RULES FOR AUTHENTICITY SCORING:
+- Generic praise like "delicious food" or "tasty" is food_quality, NOT authenticity. Authenticity requires SPECIFIC mention of traditional preparation, cultural fidelity, regional accuracy, or comparison to the cuisine's origin.
+- If a reviewer says "great pasta" at a chain restaurant, that is food_quality sentiment +0.5 to +0.7 (decent but generic) — NOT authenticity.
+- Authenticity claims must reference: traditional methods, original recipes, imported ingredients, comparison to the home country, regional specificity, or cultural context.
+- If NO reviewer mentions authenticity specifically, do NOT infer or create an authenticity dimension. Absence of authenticity discussion IS the signal.
+- Confidence for authenticity should be LOW (0.2-0.4) unless the reviewer demonstrates knowledge of the cuisine's origin.
+
+SENTIMENT CALIBRATION:
+- "Delicious" or "tasty" without specifics = food_quality +0.5 (not +0.8 or +0.9)
+- "Best X I've ever had" with specific details = +0.9
+- Generic positive with no specific claim = +0.3 to +0.5
+- Reserve +0.8 to +1.0 for reviews with SPECIFIC, detailed praise
 
 Respond as JSON:
 {
