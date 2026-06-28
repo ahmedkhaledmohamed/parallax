@@ -13,18 +13,57 @@ function scoreColor(score: number): string {
   return "text-red-400";
 }
 
-function confidenceBadge(confidence: "high" | "medium" | "low") {
+function ConfidenceExplainer({ result }: { result: AnalysisResult }) {
+  const [expanded, setExpanded] = useState(false);
+  const { confidence, sampleSize, dimensionBreakdown } = result;
+
   const styles = {
     high: "bg-emerald-900/50 text-emerald-400 border-emerald-800",
     medium: "bg-amber-900/50 text-amber-400 border-amber-800",
     low: "bg-red-900/50 text-red-400 border-red-800",
   };
+
+  const uncovered = dimensionBreakdown
+    .filter((d) => d.weight > 0.1 && d.reviewCount === 0)
+    .map((d) => d.dimension.replace(/_/g, " "));
+
+  let explanation: string;
+  if (sampleSize < 3) {
+    explanation = `Only ${sampleSize} review${sampleSize === 1 ? "" : "s"} available. Take this score as directional.`;
+  } else if (confidence === "low") {
+    explanation = `Few of the ${sampleSize} reviews mention your priorities. This score may shift with more data.`;
+  } else if (confidence === "medium") {
+    explanation = `Decent coverage from ${sampleSize} reviews, but some priorities had limited mentions.`;
+  } else {
+    explanation = `Strong coverage — most of your priorities were directly addressed across ${sampleSize} reviews.`;
+  }
+
+  if (uncovered.length > 0) {
+    explanation += ` No reviews mentioned: ${uncovered.join(", ")}.`;
+  }
+
   return (
-    <span
-      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium ${styles[confidence]}`}
-    >
-      {confidence} confidence
-    </span>
+    <div>
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-medium transition-colors ${styles[confidence]}`}
+      >
+        {confidence} confidence
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          fill="currentColor"
+          className={`w-3 h-3 transition-transform ${expanded ? "rotate-180" : ""}`}
+        >
+          <path fillRule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+        </svg>
+      </button>
+      {expanded && (
+        <p className="mt-2 text-xs text-zinc-500 leading-relaxed max-w-sm">
+          {explanation}
+        </p>
+      )}
+    </div>
   );
 }
 
@@ -116,14 +155,21 @@ export function ParallaxScore({ result }: ParallaxScoreProps) {
               {result.parallaxScore.toFixed(1)}
             </p>
             <p className="text-xs text-zinc-600">
-              {result.sampleSize} analyzed
+              {result.sourceBreakdown && result.sourceBreakdown.length > 1
+                ? result.sourceBreakdown.map((s) => `${s.count} ${s.source}`).join(" + ")
+                : `${result.sampleSize} analyzed`}
             </p>
+            {result.sampleSize < 5 && (
+              <p className="text-[10px] text-amber-600 mt-0.5">
+                Few reviews — score may shift
+              </p>
+            )}
           </div>
         </div>
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            {confidenceBadge(result.confidence)}
+            <ConfidenceExplainer result={result} />
             {result.restaurant.priceLevel != null && (
               <span className="text-sm text-zinc-500">
                 {"$".repeat(result.restaurant.priceLevel)}

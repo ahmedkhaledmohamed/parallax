@@ -388,6 +388,7 @@ Respond as JSON:
     dimensionBreakdown,
     dimensionClaims: buildDimensionClaims(decomposed, intentWeights),
     intentSource: parsedIntent.source,
+    parsedDimensions: intentWeights,
   };
 }
 

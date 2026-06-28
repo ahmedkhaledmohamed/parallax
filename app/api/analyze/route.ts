@@ -19,7 +19,10 @@ export async function POST(request: NextRequest) {
 
     if (!query?.trim() || !intent?.trim()) {
       return NextResponse.json(
-        { error: "Both restaurant and intent are required." },
+        {
+          error: "Both restaurant and intent are required.",
+          suggestion: "Enter a restaurant name and describe what you're looking for.",
+        },
         { status: 400 }
       );
     }
@@ -27,14 +30,20 @@ export async function POST(request: NextRequest) {
     const aggregated = await aggregateReviews(query, "");
     if (!aggregated) {
       return NextResponse.json(
-        { error: "Could not find that restaurant. Try a more specific name or add the city." },
+        {
+          error: "Could not find that restaurant.",
+          suggestion: "Try the full name with city (e.g. \"PAI Northern Thai Kitchen, Toronto\"), or paste a Google Maps URL.",
+        },
         { status: 404 }
       );
     }
 
     if (!aggregated.reviews.length) {
       return NextResponse.json(
-        { error: "No reviews found for this restaurant." },
+        {
+          error: "No reviews found for this restaurant.",
+          suggestion: "This restaurant may be new or have reviews disabled. Try a nearby alternative.",
+        },
         { status: 404 }
       );
     }
@@ -115,7 +124,10 @@ export async function POST(request: NextRequest) {
         } catch (err) {
           sendEvent(controller, {
             type: "error",
-            data: { error: "Analysis failed. Please try again." },
+            data: {
+              error: "Analysis failed.",
+              suggestion: "Our review analysis service is temporarily slow. Try again in a moment.",
+            },
           });
           controller.close();
           console.error("Streaming analysis failed:", err);
@@ -132,7 +144,10 @@ export async function POST(request: NextRequest) {
   } catch (err) {
     console.error("Analysis failed:", err);
     return NextResponse.json(
-      { error: "Analysis failed. Please try again." },
+      {
+        error: "Analysis failed.",
+        suggestion: "Our review analysis service is temporarily slow. Try again in a moment.",
+      },
       { status: 500 }
     );
   }
