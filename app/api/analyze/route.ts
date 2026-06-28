@@ -3,6 +3,8 @@ import { aggregateReviews } from "@/lib/sources/aggregator";
 import { decomposeReviews, matchAndScore } from "@/lib/review-analyzer";
 import { GooglePlaceResult } from "@/lib/types";
 import { checkCache, storeInCache, type CacheStatus } from "@/lib/cache";
+import { validateApiKey } from "@/lib/api/auth";
+import { checkRateLimit, getRateLimitIdentifier } from "@/lib/api/rate-limit";
 
 function sendEvent(
   controller: ReadableStreamDefaultController,
@@ -15,6 +17,37 @@ function sendEvent(
 
 export async function POST(request: NextRequest) {
   try {
+    if (!validateApiKey(request)) {
+      return NextResponse.json(
+        {
+          error: "Unauthorized.",
+          suggestion: "Include an Authorization: Bearer <key> header.",
+        },
+        { status: 401 }
+      );
+    }
+
+    const apiKey = (request.headers.get("authorization") ?? "").replace(/^Bearer\s+/i, "");
+    const rateLimitId = getRateLimitIdentifier(request, apiKey || undefined);
+    const rateLimit = await checkRateLimit(rateLimitId);
+
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        {
+          error: "Rate limit exceeded.",
+          suggestion: `Try again in ${Math.ceil((rateLimit.reset - Date.now() / 1000) / 60)} minutes.`,
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(rateLimit.reset - Math.floor(Date.now() / 1000)),
+            "X-RateLimit-Remaining": String(rateLimit.remaining),
+            "X-RateLimit-Limit": "20",
+          },
+        }
+      );
+    }
+
     const { query, intent } = await request.json();
 
     if (!query?.trim() || !intent?.trim()) {
@@ -53,13 +86,22 @@ export async function POST(request: NextRequest) {
     const cached = await checkCache(placeId, intent);
 
     if (cached.status === "hit" && cached.analysis) {
-      return NextResponse.json({
-        ...cached.analysis,
-        sourceBreakdown: aggregated.sourceBreakdown,
-        _cache: "hit",
-        _cachedIntent: cached.cachedIntent,
-        _similarity: cached.similarity,
-      });
+      return NextResponse.json(
+        {
+          ...cached.analysis,
+          sourceBreakdown: aggregated.sourceBreakdown,
+          _cache: "hit",
+          _cachedIntent: cached.cachedIntent,
+          _similarity: cached.similarity,
+        },
+        {
+          headers: {
+            "Cache-Control": "public, max-age=3600, s-maxage=86400",
+            "X-Parallax-Cache": "hit",
+            "X-RateLimit-Remaining": String(rateLimit.remaining),
+          },
+        }
+      );
     }
 
     const place: GooglePlaceResult = {
@@ -139,6 +181,8 @@ export async function POST(request: NextRequest) {
       headers: {
         "Content-Type": "application/x-ndjson",
         "Transfer-Encoding": "chunked",
+        "Cache-Control": "no-store",
+        "X-RateLimit-Remaining": String(rateLimit.remaining),
       },
     });
   } catch (err) {
