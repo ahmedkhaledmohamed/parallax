@@ -31,17 +31,40 @@ function sentimentBar(sentiment: number, weight: number) {
 export function Explanation({ result }: ExplanationProps) {
   return (
     <div className="w-full max-w-2xl space-y-4">
-      <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-sm font-medium uppercase tracking-wider text-amber-500">
-            Why the difference?
-          </h3>
-          {result.intentSource === "llm" && (
-            <span className="text-[10px] font-medium uppercase tracking-wider text-zinc-500 border border-zinc-700 rounded px-1.5 py-0.5">
-              AI-interpreted intent
-            </span>
-          )}
+      {result.parsedDimensions && result.parsedDimensions.length > 0 && (
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-4">
+          <div className="flex items-center gap-2 mb-2.5">
+            <h3 className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+              What we understood
+            </h3>
+            {result.intentSource === "llm" && (
+              <span className="text-[10px] font-medium uppercase tracking-wider text-zinc-600 border border-zinc-700 rounded px-1.5 py-0.5">
+                AI-interpreted
+              </span>
+            )}
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {result.parsedDimensions.map((d) => (
+              <span
+                key={d.dimension}
+                className="inline-flex items-center gap-1 rounded-full bg-zinc-800 px-2.5 py-1 text-xs text-zinc-300"
+              >
+                <span className="capitalize">
+                  {d.dimension.replace(/_/g, " ")}
+                </span>
+                <span className="text-zinc-500">
+                  {(d.weight * 100).toFixed(0)}%
+                </span>
+              </span>
+            ))}
+          </div>
         </div>
+      )}
+
+      <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
+        <h3 className="text-sm font-medium uppercase tracking-wider text-amber-500 mb-3">
+          Why the difference?
+        </h3>
         <p className="text-sm text-zinc-300 leading-relaxed">
           {result.explanation}
         </p>
