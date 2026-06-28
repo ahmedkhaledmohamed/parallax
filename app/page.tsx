@@ -25,6 +25,7 @@ export default function Home() {
   const [stage, setStage] = useState<Stage>("idle");
   const [restaurant, setRestaurant] = useState<RestaurantInfo | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [errorSuggestion, setErrorSuggestion] = useState<string | null>(null);
   const [lastSearch, setLastSearch] = useState<{ query: string; intent: string } | null>(null);
   const [historyKey, setHistoryKey] = useState(0);
   const didAutoSubmit = useRef(false);
@@ -75,6 +76,7 @@ export default function Home() {
   async function handleSearch(query: string, intent: string) {
     setStage("searching");
     setError(null);
+    setErrorSuggestion(null);
     setResult(null);
     setRestaurant(null);
     setLastSearch({ query, intent });
@@ -89,6 +91,7 @@ export default function Home() {
       if (!res.ok) {
         const data = await res.json();
         setError(data.error || "Something went wrong.");
+        setErrorSuggestion(data.suggestion || null);
         setStage("idle");
         return;
       }
@@ -157,6 +160,7 @@ export default function Home() {
               setStage("done");
             } else if (event.type === "error") {
               setError(event.data.error);
+              setErrorSuggestion(event.data.suggestion || null);
               setStage("idle");
             }
           } catch {
@@ -187,15 +191,20 @@ export default function Home() {
       <SearchForm onSubmit={handleSearch} isLoading={isLoading} />
 
       {error && (
-        <div className="mt-8 w-full max-w-2xl rounded-lg border border-red-900 bg-red-950/30 px-4 py-3 text-sm text-red-400 flex items-center justify-between">
-          <span>{error}</span>
-          {lastSearch && (
-            <button
-              onClick={() => handleSearch(lastSearch.query, lastSearch.intent)}
-              className="ml-4 rounded border border-red-800 px-3 py-1 text-xs font-medium text-red-400 hover:bg-red-900/30 transition-colors"
-            >
-              Try again
-            </button>
+        <div className="mt-8 w-full max-w-2xl rounded-lg border border-red-900 bg-red-950/30 px-4 py-3 text-sm">
+          <div className="flex items-center justify-between">
+            <span className="text-red-400">{error}</span>
+            {lastSearch && (
+              <button
+                onClick={() => handleSearch(lastSearch.query, lastSearch.intent)}
+                className="ml-4 shrink-0 rounded border border-red-800 px-3 py-1 text-xs font-medium text-red-400 hover:bg-red-900/30 transition-colors"
+              >
+                Try again
+              </button>
+            )}
+          </div>
+          {errorSuggestion && (
+            <p className="mt-2 text-xs text-zinc-500">{errorSuggestion}</p>
           )}
         </div>
       )}
