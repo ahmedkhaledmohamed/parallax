@@ -28,7 +28,7 @@ final class APIClient {
     private var currentTask: Task<Void, Never>?
 
     private static let baseURL = "https://parallax-ten-sigma.vercel.app"
-    private static let apiKey = "" // Set via config or Keychain for production
+    private static let apiKey = Secrets.apiKey
 
     struct AnalyzeRequest: Encodable {
         let query: String
