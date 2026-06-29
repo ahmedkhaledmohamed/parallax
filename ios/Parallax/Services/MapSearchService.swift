@@ -6,10 +6,46 @@ struct PlaceResult: Identifiable, Equatable {
     let name: String
     let address: String
     let coordinate: CLLocationCoordinate2D
+    let category: String
     let mapItem: MKMapItem
+
+    var formattedDistance: String? = nil
 
     static func == (lhs: PlaceResult, rhs: PlaceResult) -> Bool {
         lhs.id == rhs.id
+    }
+
+    static func from(_ item: MKMapItem, userLocation: CLLocationCoordinate2D?) -> PlaceResult {
+        let category = item.pointOfInterestCategory.flatMap { Self.categoryName($0) } ?? "Restaurant"
+        var result = PlaceResult(
+            name: item.name ?? "Unknown",
+            address: item.placemark.title ?? "",
+            coordinate: item.placemark.coordinate,
+            category: category,
+            mapItem: item
+        )
+        if let userLoc = userLocation {
+            let from = CLLocation(latitude: userLoc.latitude, longitude: userLoc.longitude)
+            let to = CLLocation(latitude: item.placemark.coordinate.latitude, longitude: item.placemark.coordinate.longitude)
+            let meters = from.distance(from: to)
+            if meters < 1000 {
+                result.formattedDistance = "\(Int(meters))m"
+            } else {
+                result.formattedDistance = String(format: "%.1fkm", meters / 1000)
+            }
+        }
+        return result
+    }
+
+    private static func categoryName(_ category: MKPointOfInterestCategory) -> String? {
+        switch category {
+        case .restaurant: return "Restaurant"
+        case .cafe: return "Cafe"
+        case .bakery: return "Bakery"
+        case .foodMarket: return "Food Market"
+        case .nightlife: return "Bar"
+        default: return nil
+        }
     }
 }
 
@@ -55,13 +91,8 @@ final class MapSearchService {
             let search = MKLocalSearch(request: request)
             let response = try await search.start()
             guard !Task.isCancelled else { return }
-            results = response.mapItems.prefix(8).map { item in
-                PlaceResult(
-                    name: item.name ?? "Unknown",
-                    address: item.placemark.title ?? "",
-                    coordinate: item.placemark.coordinate,
-                    mapItem: item
-                )
+            results = response.mapItems.prefix(8).map {
+                PlaceResult.from($0, userLocation: coordinate)
             }
         } catch {
             if !Task.isCancelled { results = [] }

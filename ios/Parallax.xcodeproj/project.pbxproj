@@ -28,6 +28,7 @@
 		A77C9EC9EBA8FCF9887D8CA1 /* DemoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E89250B252A5D39762A6702 /* DemoData.swift */; };
 		AB2323459985EEB3E45F31B1 /* ParallaxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C717DD378C4A91D405FDA962 /* ParallaxApp.swift */; };
 		AC06FCC85D77D10EADD59C39 /* MapSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56394BFEA8035BA9B4EEB2C /* MapSearchService.swift */; };
+		ACD61D26BA5E4968B604693A /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FE9E3AA54B89E05F887E91 /* StarRatingView.swift */; };
 		BB223994FBB47785D7569CE9 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46142AF6442454593790937F /* Secrets.swift */; };
 		C8D8AF6F676C998202C824AF /* RadarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99A2580E8321D57D082B7D /* RadarChartView.swift */; };
 		D76829393345F933FBA1655D /* ParallaxShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DE386E9ABF86F58452B0583E /* ParallaxShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -85,6 +86,7 @@
 		C269E9FF0940B6AAC76D6505 /* ConfidenceBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfidenceBadgeView.swift; sourceTree = "<group>"; };
 		C717DD378C4A91D405FDA962 /* ParallaxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxApp.swift; sourceTree = "<group>"; };
 		D3A6FB60CD0E005A584A1998 /* GoogleMapsURLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsURLParser.swift; sourceTree = "<group>"; };
+		D5FE9E3AA54B89E05F887E91 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		D7D2A4E7693FA0AC2909BA92 /* Parallax.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Parallax.entitlements; sourceTree = "<group>"; };
 		D91520E042D4D8CB05614E3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DE386E9ABF86F58452B0583E /* ParallaxShare.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = ParallaxShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +126,7 @@
 				AB0BD45F6A2A5F6037911933 /* ReviewCardView.swift */,
 				E98FC9CAE905D02685696F2E /* ScoreHeaderView.swift */,
 				7B184612FBE75BCCF12BF996 /* SearchHistoryView.swift */,
+				D5FE9E3AA54B89E05F887E91 /* StarRatingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				259C247168477E7CCE1ED2C9 /* SearchHistoryItem.swift in Sources */,
 				64AE8B5B1188AA12D9B2740D /* SearchHistoryView.swift in Sources */,
 				BB223994FBB47785D7569CE9 /* Secrets.swift in Sources */,
+				ACD61D26BA5E4968B604693A /* StarRatingView.swift in Sources */,
 				966A0A2DE1D917ECACC4304E /* StreamEvent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
