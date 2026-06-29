@@ -25,11 +25,7 @@ targets:
       GENERATE_INFOPLIST_FILE: YES
       SWIFT_VERSION: "5.9"
       TARGETED_DEVICE_FAMILY: "1"
-    entitlements:
-      path: Parallax/Parallax.entitlements
-      properties:
-        com.apple.security.application-groups:
-          - group.com.ahmedkhaled.parallax
+      CODE_SIGN_ENTITLEMENTS: Parallax/Parallax.entitlements
     dependencies:
       - target: ParallaxShare
         embed: true
@@ -46,8 +42,4 @@ targets:
       INFOPLIST_FILE: ParallaxShare/Info.plist
       GENERATE_INFOPLIST_FILE: YES
       SWIFT_VERSION: "5.9"
-    entitlements:
-      path: ParallaxShare/ParallaxShare.entitlements
-      properties:
-        com.apple.security.application-groups:
-          - group.com.ahmedkhaled.parallax
+      CODE_SIGN_ENTITLEMENTS: ParallaxShare/ParallaxShare.entitlements
