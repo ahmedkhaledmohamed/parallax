@@ -35,13 +35,14 @@ struct ConfidenceBadgeView: View {
                 HStack(spacing: 4) {
                     Text("\(result.confidence.rawValue) confidence")
                         .font(.system(size: 11, weight: .medium))
+                        .lineLimit(1)
                     Image(systemName: "chevron.down")
                         .font(.system(size: 8, weight: .medium))
                         .rotationEffect(.degrees(expanded ? 180 : 0))
                 }
                 .foregroundColor(Color.confidenceColor(result.confidence))
-                .padding(.horizontal, 10)
-                .padding(.vertical, 4)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
                 .background(Color.confidenceColor(result.confidence).opacity(0.15))
                 .cornerRadius(12)
                 .overlay(

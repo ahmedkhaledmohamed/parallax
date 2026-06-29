@@ -44,6 +44,8 @@ struct SearchInputView: View {
                 TextField("Describe what matters to you...", text: $intent, axis: .vertical)
                     .lineLimit(2...4)
                     .textFieldStyle(.plain)
+                    .submitLabel(.search)
+                    .onSubmit { onSubmit() }
                     .padding(12)
                     .background(Color.parallaxSurface)
                     .cornerRadius(10)
@@ -63,7 +65,7 @@ struct SearchInputView: View {
                                     .font(.caption2)
                                     .foregroundColor(.parallaxMuted)
                                     .padding(.horizontal, 10)
-                                    .padding(.vertical, 5)
+                                    .padding(.vertical, 8)
                                     .overlay(
                                         Capsule()
                                             .stroke(Color.parallaxBorder, lineWidth: 1)

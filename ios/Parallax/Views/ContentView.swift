@@ -6,7 +6,6 @@ struct ContentView: View {
     @State private var apiClient = APIClient()
     @State private var query = ""
     @State private var intent = ""
-    @State private var showResult = false
 
     var body: some View {
         ZStack {
@@ -19,7 +18,9 @@ struct ContentView: View {
                     resultSection
                 }
                 .padding(.horizontal, 16)
+                .padding(.bottom, 32)
             }
+            .scrollDismissesKeyboard(.interactively)
         }
         .preferredColorScheme(.dark)
         .onChange(of: pendingQuery) { _, newQuery in
@@ -33,17 +34,17 @@ struct ContentView: View {
     private var header: some View {
         VStack(spacing: 8) {
             Text("P")
-                .font(.system(size: 40, weight: .bold))
+                .font(.system(size: 36, weight: .bold))
                 .foregroundColor(.parallaxAmber)
             Text("Parallax")
-                .font(.title.bold())
+                .font(.title2.bold())
                 .foregroundColor(.parallaxText)
             Text("Same reviews, your viewpoint")
                 .font(.subheadline)
                 .foregroundColor(.parallaxMuted)
         }
-        .padding(.top, 40)
-        .padding(.bottom, 32)
+        .padding(.top, 24)
+        .padding(.bottom, 24)
     }
 
     private var searchSection: some View {
@@ -55,6 +56,12 @@ struct ContentView: View {
                 apiClient.analyze(query: query, intent: intent)
             }
         )
+    }
+
+    private func resetSearch() {
+        apiClient.cancel()
+        query = ""
+        intent = ""
     }
 
     @ViewBuilder
@@ -81,7 +88,7 @@ struct ContentView: View {
                 .padding(.top, 24)
 
         case .completed(let result):
-            ResultView(result: result)
+            ResultView(result: result, onNewSearch: resetSearch)
                 .padding(.top, 24)
 
         case .error(let message, let suggestion):

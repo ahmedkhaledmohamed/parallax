@@ -70,18 +70,18 @@ struct RadarChartView: View {
 
                     for i in 0..<count {
                         let angle = angleStep * Double(i) - .pi / 2
-                        let labelR = radius + 24
+                        let labelR = radius + 30
                         let p = CGPoint(
                             x: center.x + labelR * cos(angle),
                             y: center.y + labelR * sin(angle)
                         )
                         let label = Text(dimensions[i].dimension.dimensionDisplayName)
-                            .font(.system(size: 9))
+                            .font(.system(size: 10))
                             .foregroundColor(.parallaxMuted)
                         context.draw(label, at: p)
                     }
                 }
-                .frame(height: 280)
+                .frame(height: 240)
 
                 HStack(spacing: 16) {
                     HStack(spacing: 6) {

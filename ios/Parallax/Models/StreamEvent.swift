@@ -39,23 +39,29 @@ struct StreamEventParser {
         let decoder = JSONDecoder()
 
         guard let envelope = try? decoder.decode(Envelope.self, from: data) else {
+            print("[Parallax] Failed to decode envelope from: \(line.prefix(100))")
             return nil
         }
 
-        switch envelope.type {
-        case "restaurant":
-            guard let event = try? decoder.decode(TypedEvent<RestaurantEvent>.self, from: data) else { return nil }
-            return .restaurant(event.data)
-        case "decomposed":
-            guard let event = try? decoder.decode(TypedEvent<DecomposedEvent>.self, from: data) else { return nil }
-            return .decomposed(event.data)
-        case "result":
-            guard let event = try? decoder.decode(TypedEvent<AnalysisResult>.self, from: data) else { return nil }
-            return .result(event.data)
-        case "error":
-            guard let event = try? decoder.decode(TypedEvent<APIError>.self, from: data) else { return nil }
-            return .error(event.data)
-        default:
+        do {
+            switch envelope.type {
+            case "restaurant":
+                let event = try decoder.decode(TypedEvent<RestaurantEvent>.self, from: data)
+                return .restaurant(event.data)
+            case "decomposed":
+                let event = try decoder.decode(TypedEvent<DecomposedEvent>.self, from: data)
+                return .decomposed(event.data)
+            case "result":
+                let event = try decoder.decode(TypedEvent<AnalysisResult>.self, from: data)
+                return .result(event.data)
+            case "error":
+                let event = try decoder.decode(TypedEvent<APIError>.self, from: data)
+                return .error(event.data)
+            default:
+                return nil
+            }
+        } catch {
+            print("[Parallax] Failed to decode \(envelope.type) event: \(error)")
             return nil
         }
     }

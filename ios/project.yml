@@ -7,8 +7,9 @@ options:
   createIntermediateGroups: true
 
 settings:
-  DEVELOPMENT_TEAM: ""
+  DEVELOPMENT_TEAM: VMXQN9K3P2
   CODE_SIGN_IDENTITY: "Apple Development"
+  CODE_SIGN_STYLE: Automatic
 
 targets:
   Parallax:
@@ -29,6 +30,9 @@ targets:
       properties:
         com.apple.security.application-groups:
           - group.com.ahmedkhaled.parallax
+    dependencies:
+      - target: ParallaxShare
+        embed: true
 
   ParallaxShare:
     type: app-extension
@@ -40,12 +44,10 @@ targets:
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.ahmedkhaled.parallax.share
       INFOPLIST_FILE: ParallaxShare/Info.plist
+      GENERATE_INFOPLIST_FILE: YES
       SWIFT_VERSION: "5.9"
     entitlements:
       path: ParallaxShare/ParallaxShare.entitlements
       properties:
         com.apple.security.application-groups:
           - group.com.ahmedkhaled.parallax
-    dependencies:
-      - target: Parallax
-        embed: false
