@@ -1,11 +1,19 @@
 import SwiftUI
 
-private let intentExamples = [
-    "Quiet date night, great wine, authentic Italian",
-    "Quick family lunch, kid-friendly, large portions",
-    "Business dinner, upscale but not pretentious",
-    "Cheap eats, big flavors, don't care about decor",
-    "Brunch with friends, good vibes, strong coffee",
+private struct IntentOption: Identifiable {
+    let id = UUID()
+    let title: String
+    let subtitle: String
+    let full: String
+}
+
+private let intentOptions = [
+    IntentOption(title: "Date night", subtitle: "Quiet, wine, romantic", full: "Quiet date night, great wine, authentic Italian"),
+    IntentOption(title: "Family lunch", subtitle: "Kids, quick, portions", full: "Quick family lunch, kid-friendly, large portions"),
+    IntentOption(title: "Business dinner", subtitle: "Upscale, cocktails", full: "Business dinner, upscale but not pretentious, good cocktails"),
+    IntentOption(title: "Cheap eats", subtitle: "Big flavors, casual", full: "Cheap eats, big flavors, don't care about decor"),
+    IntentOption(title: "Brunch", subtitle: "Vibes, coffee, friends", full: "Brunch with friends, good vibes, strong coffee"),
+    IntentOption(title: "Post-workout", subtitle: "Protein, fast, filling", full: "Post-workout meal, high protein, generous portions, quick"),
 ]
 
 struct SearchInputView: View {
@@ -14,94 +22,120 @@ struct SearchInputView: View {
     let isLoading: Bool
     let onSubmit: () -> Void
 
+    @State private var selectedOption: UUID?
+
     var body: some View {
-        VStack(spacing: 16) {
-            VStack(alignment: .leading, spacing: 6) {
-                Text("Restaurant")
-                    .font(.caption)
-                    .foregroundColor(.parallaxSubtext)
-                TextField("Restaurant name or Google Maps URL", text: $query)
-                    .textFieldStyle(.plain)
-                    .padding(12)
-                    .background(Color.parallaxSurface)
-                    .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.parallaxBorder, lineWidth: 1)
-                    )
+        VStack(spacing: 20) {
+            restaurantField
+            intentSection
+            submitButton
+        }
+    }
+
+    private var restaurantField: some View {
+        HStack(spacing: 10) {
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.parallaxMuted)
+                .font(.system(size: 15))
+            TextField("Restaurant name or Maps link", text: $query)
+                .textFieldStyle(.plain)
+                .submitLabel(.next)
+                .disabled(isLoading)
+        }
+        .padding(14)
+        .background(Color.parallaxSurface)
+        .cornerRadius(12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(query.isEmpty ? Color.parallaxBorder : Color.parallaxAmber.opacity(0.5), lineWidth: 1)
+        )
+    }
+
+    private var intentSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("What matters to you?")
+                .font(.subheadline.weight(.medium))
+                .foregroundColor(.parallaxSubtext)
+
+            LazyVGrid(columns: [GridItem(.flexible(), spacing: 8), GridItem(.flexible(), spacing: 8)], spacing: 8) {
+                ForEach(intentOptions) { option in
+                    Button {
+                        withAnimation(.easeInOut(duration: 0.15)) {
+                            selectedOption = option.id
+                            intent = option.full
+                        }
+                    } label: {
+                        VStack(alignment: .leading, spacing: 3) {
+                            Text(option.title)
+                                .font(.subheadline.weight(.semibold))
+                                .foregroundColor(selectedOption == option.id ? .parallaxAmber : .parallaxText)
+                            Text(option.subtitle)
+                                .font(.caption2)
+                                .foregroundColor(.parallaxMuted)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(12)
+                        .background(selectedOption == option.id ? Color.parallaxAmber.opacity(0.1) : Color.parallaxSurface)
+                        .cornerRadius(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(selectedOption == option.id ? Color.parallaxAmber.opacity(0.4) : Color.parallaxBorder, lineWidth: 1)
+                        )
+                    }
                     .disabled(isLoading)
-                if GoogleMapsURLParser.isGoogleMapsURL(query) {
-                    Text("Google Maps link detected")
-                        .font(.caption2)
-                        .foregroundColor(.parallaxAmber)
                 }
             }
 
-            VStack(alignment: .leading, spacing: 6) {
-                Text("What are you looking for?")
-                    .font(.caption)
-                    .foregroundColor(.parallaxSubtext)
-                TextField("Describe what matters to you...", text: $intent, axis: .vertical)
-                    .lineLimit(2...4)
+            HStack(spacing: 10) {
+                Image(systemName: "text.bubble")
+                    .foregroundColor(.parallaxMuted)
+                    .font(.system(size: 13))
+                TextField("Or describe your own...", text: $intent, axis: .vertical)
+                    .lineLimit(1...3)
                     .textFieldStyle(.plain)
                     .submitLabel(.search)
                     .onSubmit { onSubmit() }
-                    .padding(12)
-                    .background(Color.parallaxSurface)
-                    .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.parallaxBorder, lineWidth: 1)
-                    )
                     .disabled(isLoading)
-
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 6) {
-                        ForEach(intentExamples, id: \.self) { example in
-                            Button {
-                                intent = example
-                            } label: {
-                                Text(example)
-                                    .font(.caption2)
-                                    .foregroundColor(.parallaxMuted)
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 8)
-                                    .overlay(
-                                        Capsule()
-                                            .stroke(Color.parallaxBorder, lineWidth: 1)
-                                    )
-                            }
-                            .disabled(isLoading)
+                    .onChange(of: intent) { _, _ in
+                        if selectedOption != nil {
+                            let isPreset = intentOptions.contains { $0.full == intent }
+                            if !isPreset { selectedOption = nil }
                         }
                     }
-                }
             }
-
-            Button(action: onSubmit) {
-                if isLoading {
-                    ProgressView()
-                        .tint(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 22)
-                } else {
-                    Text("Get your Parallax Score")
-                        .fontWeight(.medium)
-                        .frame(maxWidth: .infinity)
-                }
-            }
-            .padding(.vertical, 14)
-            .background(
-                query.trimmingCharacters(in: .whitespaces).isEmpty ||
-                intent.trimmingCharacters(in: .whitespaces).isEmpty ||
-                isLoading ? Color.parallaxAmber.opacity(0.4) : Color.parallaxAmber
-            )
-            .foregroundColor(.white)
+            .padding(12)
+            .background(Color.parallaxSurface)
             .cornerRadius(10)
-            .disabled(
-                query.trimmingCharacters(in: .whitespaces).isEmpty ||
-                intent.trimmingCharacters(in: .whitespaces).isEmpty ||
-                isLoading
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.parallaxBorder, lineWidth: 1)
             )
         }
+    }
+
+    private var canSubmit: Bool {
+        !query.trimmingCharacters(in: .whitespaces).isEmpty &&
+        !intent.trimmingCharacters(in: .whitespaces).isEmpty &&
+        !isLoading
+    }
+
+    private var submitButton: some View {
+        Button(action: onSubmit) {
+            if isLoading {
+                ProgressView()
+                    .tint(.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 22)
+            } else {
+                Text("Get your Parallax Score")
+                    .font(.body.weight(.semibold))
+                    .frame(maxWidth: .infinity)
+            }
+        }
+        .padding(.vertical, 16)
+        .background(canSubmit ? Color.parallaxAmber : Color.parallaxAmber.opacity(0.3))
+        .foregroundColor(.white)
+        .cornerRadius(14)
+        .disabled(!canSubmit)
     }
 }
