@@ -6,23 +6,74 @@ struct ContentView: View {
     @State private var apiClient = APIClient()
     @State private var query = ""
     @State private var intent = ""
+    @State private var showSheet = false
+
+    private var isActive: Bool {
+        switch apiClient.state {
+        case .idle: return false
+        default: return true
+        }
+    }
 
     var body: some View {
         ZStack {
             Color.parallaxBackground.ignoresSafeArea()
 
-            ScrollView {
-                VStack(spacing: 0) {
-                    header
-                    searchSection
-                    resultSection
+            VStack(spacing: 0) {
+                header
+                    .padding(.top, 8)
+
+                ScrollView {
+                    VStack(spacing: 16) {
+                        SearchInputView(
+                            query: $query,
+                            intent: $intent,
+                            isLoading: isActive,
+                            onSubmit: submit
+                        )
+
+                        if case .error(let message, let suggestion) = apiClient.state {
+                            ErrorBannerView(
+                                message: message,
+                                suggestion: suggestion,
+                                onRetry: submit
+                            )
+                        }
+
+                        if !isActive {
+                            SearchHistoryView { restaurant, savedIntent in
+                                query = restaurant
+                                intent = savedIntent
+                                submit()
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 32)
                 }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 32)
+                .scrollDismissesKeyboard(.interactively)
             }
-            .scrollDismissesKeyboard(.interactively)
         }
         .preferredColorScheme(.dark)
+        .sheet(isPresented: $showSheet, onDismiss: {
+            apiClient.cancel()
+        }) {
+            ResultSheetView(apiClient: apiClient)
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+                .presentationBackgroundInteraction(.enabled(upThrough: .medium))
+                .presentationCornerRadius(20)
+        }
+        .onChange(of: apiClient.state) { _, newState in
+            switch newState {
+            case .searching, .foundRestaurant, .decomposing, .completed:
+                if !showSheet { showSheet = true }
+            case .error:
+                showSheet = false
+            case .idle:
+                break
+            }
+        }
         .onChange(of: pendingQuery) { _, newQuery in
             if let q = newQuery {
                 query = q
@@ -31,82 +82,28 @@ struct ContentView: View {
         }
     }
 
+    private func submit() {
+        guard !query.trimmingCharacters(in: .whitespaces).isEmpty,
+              !intent.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+        apiClient.analyze(query: query, intent: intent)
+    }
+
     private var header: some View {
-        VStack(spacing: 8) {
-            Text("P")
-                .font(.system(size: 36, weight: .bold))
-                .foregroundColor(.parallaxAmber)
-            Text("Parallax")
-                .font(.title2.bold())
-                .foregroundColor(.parallaxText)
+        HStack {
+            HStack(spacing: 6) {
+                Text("P")
+                    .font(.system(size: 20, weight: .bold))
+                    .foregroundColor(.parallaxAmber)
+                Text("Parallax")
+                    .font(.headline)
+                    .foregroundColor(.parallaxText)
+            }
+            Spacer()
             Text("Same reviews, your viewpoint")
-                .font(.subheadline)
+                .font(.caption2)
                 .foregroundColor(.parallaxMuted)
         }
-        .padding(.top, 24)
-        .padding(.bottom, 24)
-    }
-
-    private var searchSection: some View {
-        SearchInputView(
-            query: $query,
-            intent: $intent,
-            isLoading: isLoading,
-            onSubmit: {
-                apiClient.analyze(query: query, intent: intent)
-            }
-        )
-    }
-
-    private func resetSearch() {
-        apiClient.cancel()
-        query = ""
-        intent = ""
-    }
-
-    @ViewBuilder
-    private var resultSection: some View {
-        switch apiClient.state {
-        case .idle:
-            SearchHistoryView { restaurant, savedIntent in
-                query = restaurant
-                intent = savedIntent
-                apiClient.analyze(query: restaurant, intent: savedIntent)
-            }
-            .padding(.top, 24)
-
-        case .searching:
-            LoadingStateView(stage: .searching, restaurant: nil)
-                .padding(.top, 24)
-
-        case .foundRestaurant(let restaurant):
-            LoadingStateView(stage: .found, restaurant: restaurant)
-                .padding(.top, 24)
-
-        case .decomposing(let restaurant):
-            LoadingStateView(stage: .decomposing, restaurant: restaurant)
-                .padding(.top, 24)
-
-        case .completed(let result):
-            ResultView(result: result, onNewSearch: resetSearch)
-                .padding(.top, 24)
-
-        case .error(let message, let suggestion):
-            ErrorBannerView(
-                message: message,
-                suggestion: suggestion,
-                onRetry: {
-                    apiClient.analyze(query: query, intent: intent)
-                }
-            )
-            .padding(.top, 24)
-        }
-    }
-
-    private var isLoading: Bool {
-        switch apiClient.state {
-        case .idle, .completed, .error: return false
-        default: return true
-        }
+        .padding(.horizontal, 16)
+        .padding(.bottom, 12)
     }
 }
