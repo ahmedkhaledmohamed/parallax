@@ -3,11 +3,12 @@ import SwiftData
 
 struct ResultView: View {
     let result: AnalysisResult
+    var onNewSearch: (() -> Void)?
     @Environment(\.modelContext) private var modelContext
 
     var body: some View {
-        VStack(spacing: 20) {
-            ScoreHeaderView(result: result)
+        VStack(spacing: 14) {
+            ScoreHeaderView(result: result, onNewSearch: onNewSearch)
             RadarChartView(dimensions: result.dimensionBreakdown)
             DimensionDeltaView(dimensions: result.dimensionBreakdown)
             ExplanationView(result: result)

@@ -10,7 +10,7 @@ class ShareViewController: UIViewController {
 
     private func handleSharedContent() {
         guard let items = extensionContext?.inputItems as? [NSExtensionItem] else {
-            dismiss()
+            done()
             return
         }
 
@@ -24,7 +24,7 @@ class ShareViewController: UIViewController {
                         } else if let urlString = item as? String {
                             self?.processURL(urlString)
                         } else {
-                            self?.dismiss()
+                            self?.done()
                         }
                     }
                     return
@@ -35,7 +35,7 @@ class ShareViewController: UIViewController {
                         if let text = item as? String {
                             self?.processURL(text)
                         } else {
-                            self?.dismiss()
+                            self?.done()
                         }
                     }
                     return
@@ -43,7 +43,7 @@ class ShareViewController: UIViewController {
             }
         }
 
-        dismiss()
+        done()
     }
 
     private func processURL(_ urlString: String) {
@@ -52,25 +52,16 @@ class ShareViewController: UIViewController {
             defaults?.set(urlString, forKey: "pendingShareURL")
 
             if let appURL = URL(string: "parallax://pending") {
-                self?.openURL(appURL)
+                self?.extensionContext?.open(appURL) { _ in
+                    self?.done()
+                }
+            } else {
+                self?.done()
             }
-
-            self?.dismiss()
         }
     }
 
-    private func openURL(_ url: URL) {
-        var responder: UIResponder? = self
-        while let r = responder {
-            if let application = r as? UIApplication {
-                application.open(url)
-                return
-            }
-            responder = r.next
-        }
-    }
-
-    private func dismiss() {
+    private func done() {
         extensionContext?.completeRequest(returningItems: nil)
     }
 }

@@ -30,19 +30,34 @@
 		B77CCA0845CFDCD29DACC575 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42D2801AE4BDE0A522E474D /* ResultView.swift */; };
 		BB223994FBB47785D7569CE9 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46142AF6442454593790937F /* Secrets.swift */; };
 		C8D8AF6F676C998202C824AF /* RadarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99A2580E8321D57D082B7D /* RadarChartView.swift */; };
+		D76829393345F933FBA1655D /* ParallaxShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DE386E9ABF86F58452B0583E /* ParallaxShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		EDC69CA3CB539DFD3782E578 /* ExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8005B1FCB5E50B58148E0604 /* ExplanationView.swift */; };
 		FFAA4B8C6D02E0A74A9B5792 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBEDBC3249D9118211716A6 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A6E6FBC31AC8AB3C435B9F4D /* PBXContainerItemProxy */ = {
+		7D8ED2BD1995630190695CC7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9DEF9E027A2E07998ECC87A6 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 23381A1C861EBCD909849851;
-			remoteInfo = Parallax;
+			remoteGlobalIDString = D31F860D4EFA01FB81009C23;
+			remoteInfo = ParallaxShare;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E1275970308C076B128B1722 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D76829393345F933FBA1655D /* ParallaxShare.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0C173B952DF4A190DF14DEA0 /* AnalysisResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisResult.swift; sourceTree = "<group>"; };
@@ -181,10 +196,12 @@
 			buildPhases = (
 				EBD3AE96FAB1C902815C1CAE /* Sources */,
 				A134B0CE627FB738B6FC11C4 /* Resources */,
+				E1275970308C076B128B1722 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C12D7E1453806DF27149C46D /* PBXTargetDependency */,
 			);
 			name = Parallax;
 			packageProductDependencies = (
@@ -202,7 +219,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				38CD11D79CB87F62D4EECFA5 /* PBXTargetDependency */,
 			);
 			name = ParallaxShare;
 			packageProductDependencies = (
@@ -221,10 +237,12 @@
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					23381A1C861EBCD909849851 = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = VMXQN9K3P2;
+						ProvisioningStyle = Automatic;
 					};
 					D31F860D4EFA01FB81009C23 = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = VMXQN9K3P2;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -301,10 +319,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		38CD11D79CB87F62D4EECFA5 /* PBXTargetDependency */ = {
+		C12D7E1453806DF27149C46D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 23381A1C861EBCD909849851 /* Parallax */;
-			targetProxy = A6E6FBC31AC8AB3C435B9F4D /* PBXContainerItemProxy */;
+			target = D31F860D4EFA01FB81009C23 /* ParallaxShare */;
+			targetProxy = 7D8ED2BD1995630190695CC7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -343,9 +361,10 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = VMXQN9K3P2;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -420,9 +439,10 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = VMXQN9K3P2;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -474,6 +494,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ParallaxShare/ParallaxShare.entitlements;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ParallaxShare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -491,6 +512,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ParallaxShare/ParallaxShare.entitlements;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ParallaxShare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

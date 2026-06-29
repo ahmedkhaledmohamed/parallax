@@ -102,7 +102,10 @@ final class APIClient {
                 if Task.isCancelled { return }
                 guard !line.isEmpty else { continue }
 
-                guard let event = StreamEventParser.parse(line: line) else { continue }
+                guard let event = StreamEventParser.parse(line: line) else {
+                    print("[Parallax] Skipped unparseable line: \(line.prefix(200))")
+                    continue
+                }
 
                 await MainActor.run {
                     switch event {
@@ -117,6 +120,12 @@ final class APIClient {
                     case .error(let err):
                         state = .error(err.error, suggestion: err.suggestion)
                     }
+                }
+            }
+
+            await MainActor.run {
+                if case .completed = state {} else if case .error = state {} else {
+                    state = .error("Analysis incomplete", suggestion: "The server response ended unexpectedly. Try again.")
                 }
             }
         } catch is CancellationError {

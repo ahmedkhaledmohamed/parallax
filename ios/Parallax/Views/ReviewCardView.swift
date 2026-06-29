@@ -24,7 +24,7 @@ struct ReviewCardView: View {
                     .fill(Color.parallaxAmber)
                     .frame(width: 2)
                 Text(review.excerpt)
-                    .font(.caption)
+                    .font(.subheadline)
                     .foregroundColor(.parallaxText.opacity(0.8))
                     .lineSpacing(3)
                     .padding(.leading, 10)
