@@ -2,7 +2,6 @@ import SwiftUI
 
 struct ScoreHeaderView: View {
     let result: AnalysisResult
-    var onNewSearch: (() -> Void)?
 
     private var delta: Double { result.parallaxScore - result.googleScore }
 
@@ -61,19 +60,6 @@ struct ScoreHeaderView: View {
             ConfidenceBadgeView(result: result)
 
             HStack(spacing: 8) {
-                if let onNewSearch {
-                    Button(action: onNewSearch) {
-                        Label("New Search", systemImage: "magnifyingglass")
-                            .font(.caption.weight(.medium))
-                            .foregroundColor(.parallaxAmber)
-                            .frame(maxWidth: .infinity, minHeight: 44)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.parallaxAmber.opacity(0.4), lineWidth: 1)
-                            )
-                    }
-                }
-
                 shareButton
                 directionsButton
             }

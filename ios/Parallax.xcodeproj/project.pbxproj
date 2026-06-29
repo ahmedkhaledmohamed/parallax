@@ -21,13 +21,13 @@
 		67B9AD2332286EE80F99A133 /* SearchInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D275BDD669C6EDCA31A7932 /* SearchInputView.swift */; };
 		724F00D4DF1FBC75CEF5BC20 /* ReviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD45F6A2A5F6037911933 /* ReviewCardView.swift */; };
 		79F60D98FF87D1FAE69BF908 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E20FF50101A8E337E3EE4 /* ShareViewController.swift */; };
+		7BE27FF37B99F50D4E5216E5 /* ResultSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25980CED37969CC4E25031 /* ResultSheetView.swift */; };
 		9407B0F3B17BF68FE439777E /* Secrets.example in Resources */ = {isa = PBXBuildFile; fileRef = 431F3CC3851EAE9DF667046C /* Secrets.example */; };
 		94D6BD3E9E263C4CEC05D0D6 /* AnalysisResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C173B952DF4A190DF14DEA0 /* AnalysisResult.swift */; };
 		966A0A2DE1D917ECACC4304E /* StreamEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5C295B582EFB6254C8DD1F /* StreamEvent.swift */; };
 		A59452F54BB3EE83574A0214 /* ErrorBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222E779A565E68442EED00DF /* ErrorBannerView.swift */; };
 		A77C9EC9EBA8FCF9887D8CA1 /* DemoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E89250B252A5D39762A6702 /* DemoData.swift */; };
 		AB2323459985EEB3E45F31B1 /* ParallaxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C717DD378C4A91D405FDA962 /* ParallaxApp.swift */; };
-		B77CCA0845CFDCD29DACC575 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42D2801AE4BDE0A522E474D /* ResultView.swift */; };
 		BB223994FBB47785D7569CE9 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46142AF6442454593790937F /* Secrets.swift */; };
 		C8D8AF6F676C998202C824AF /* RadarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99A2580E8321D57D082B7D /* RadarChartView.swift */; };
 		D76829393345F933FBA1655D /* ParallaxShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DE386E9ABF86F58452B0583E /* ParallaxShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -79,6 +79,7 @@
 		7BBEDBC3249D9118211716A6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8005B1FCB5E50B58148E0604 /* ExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationView.swift; sourceTree = "<group>"; };
 		9D99A2580E8321D57D082B7D /* RadarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadarChartView.swift; sourceTree = "<group>"; };
+		AA25980CED37969CC4E25031 /* ResultSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultSheetView.swift; sourceTree = "<group>"; };
 		AB0BD45F6A2A5F6037911933 /* ReviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCardView.swift; sourceTree = "<group>"; };
 		ABB9D6A3832FC219798AB5C8 /* Parallax.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Parallax.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF5C295B582EFB6254C8DD1F /* StreamEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamEvent.swift; sourceTree = "<group>"; };
@@ -89,7 +90,6 @@
 		D91520E042D4D8CB05614E3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DE386E9ABF86F58452B0583E /* ParallaxShare.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = ParallaxShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E98FC9CAE905D02685696F2E /* ScoreHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreHeaderView.swift; sourceTree = "<group>"; };
-		F42D2801AE4BDE0A522E474D /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
 		F4F5E3AB09D92557C0870FF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,7 +120,7 @@
 				8005B1FCB5E50B58148E0604 /* ExplanationView.swift */,
 				61CB2F742668D2B3D7B20895 /* LoadingStateView.swift */,
 				9D99A2580E8321D57D082B7D /* RadarChartView.swift */,
-				F42D2801AE4BDE0A522E474D /* ResultView.swift */,
+				AA25980CED37969CC4E25031 /* ResultSheetView.swift */,
 				AB0BD45F6A2A5F6037911933 /* ReviewCardView.swift */,
 				E98FC9CAE905D02685696F2E /* ScoreHeaderView.swift */,
 				7B184612FBE75BCCF12BF996 /* SearchHistoryView.swift */,
@@ -305,7 +305,7 @@
 				2F2E5477F14EF4313F9D4D24 /* LocationService.swift in Sources */,
 				AB2323459985EEB3E45F31B1 /* ParallaxApp.swift in Sources */,
 				C8D8AF6F676C998202C824AF /* RadarChartView.swift in Sources */,
-				B77CCA0845CFDCD29DACC575 /* ResultView.swift in Sources */,
+				7BE27FF37B99F50D4E5216E5 /* ResultSheetView.swift in Sources */,
 				724F00D4DF1FBC75CEF5BC20 /* ReviewCardView.swift in Sources */,
 				082768B359540AD37965A3EE /* ScoreHeaderView.swift in Sources */,
 				259C247168477E7CCE1ED2C9 /* SearchHistoryItem.swift in Sources */,
