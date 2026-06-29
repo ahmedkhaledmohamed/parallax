@@ -4,6 +4,7 @@ import CoreLocation
 @Observable
 final class LocationService: NSObject, CLLocationManagerDelegate {
     private(set) var city: String?
+    private(set) var lastLocation: CLLocationCoordinate2D?
     private(set) var authorizationStatus: CLAuthorizationStatus = .notDetermined
     private let manager = CLLocationManager()
     private var continuation: CheckedContinuation<String?, Never>?
@@ -39,6 +40,7 @@ final class LocationService: NSObject, CLLocationManagerDelegate {
             return
         }
 
+        lastLocation = location.coordinate
         CLGeocoder().reverseGeocodeLocation(location) { [weak self] placemarks, _ in
             let cityName = placemarks?.first?.locality
             self?.city = cityName
