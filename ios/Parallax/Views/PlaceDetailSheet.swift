@@ -18,61 +18,57 @@ private let intentOptions = [
     IntentOption(emoji: "💪", title: "Post-workout", full: "Post-workout, high protein, generous portions, quick"),
 ]
 
+enum SheetPhase {
+    case info
+    case intentPicker
+    case analyzing
+    case result(AnalysisResult)
+}
+
 struct PlaceDetailSheet: View {
     let place: PlaceResult
     let apiClient: APIClient
-    var preselectedIntent: String = ""
     @Environment(\.modelContext) private var modelContext
-    @State private var intent = ""
-    @State private var showIntentPicker = false
+    @State private var phase: SheetPhase = .info
     @State private var customIntent = ""
-
-    private var isAnalyzing: Bool {
-        switch apiClient.state {
-        case .searching, .foundRestaurant, .decomposing: return true
-        default: return false
-        }
-    }
-
-    private var activeIntent: String {
-        intent.isEmpty ? preselectedIntent : intent
-    }
 
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
+                // Always show restaurant header
                 placeHeader
                     .padding(.horizontal, 20)
                     .padding(.top, 12)
                     .padding(.bottom, 16)
 
-                Divider().background(Color.parallaxBorder)
-
-                if case .completed(let result) = apiClient.state {
+                switch phase {
+                case .info:
+                    infoContent
+                case .intentPicker:
+                    intentPickerContent
+                case .analyzing:
+                    analyzingContent
+                case .result(let result):
                     resultContent(result)
-                        .padding(.horizontal, 20)
-                        .padding(.top, 16)
-                } else if isAnalyzing {
-                    loadingContent
-                        .padding(.horizontal, 20)
-                        .padding(.top, 20)
-                } else {
-                    intentAndAction
-                        .padding(.horizontal, 20)
-                        .padding(.top, 16)
                 }
             }
             .padding(.bottom, 32)
         }
         .background(Color.parallaxBackground)
-        .onAppear {
-            if !preselectedIntent.isEmpty {
-                intent = preselectedIntent
+        .onChange(of: apiClient.state) { _, newState in
+            switch newState {
+            case .completed(let result):
+                withAnimation { phase = .result(result) }
+                saveToHistory(result)
+            case .error:
+                withAnimation { phase = .info }
+            default:
+                break
             }
         }
     }
 
-    // MARK: - Place Header (rich, like Apple Maps)
+    // MARK: - Restaurant Header
 
     private var placeHeader: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -85,7 +81,7 @@ struct PlaceDetailSheet: View {
                     .font(.subheadline)
                     .foregroundColor(.parallaxSubtext)
                 if let distance = place.formattedDistance {
-                    Text("•")
+                    Text("·")
                         .foregroundColor(.parallaxDimmed)
                     Text(distance)
                         .font(.subheadline)
@@ -101,52 +97,91 @@ struct PlaceDetailSheet: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
-    // MARK: - Intent + Action
+    // MARK: - Phase: Info (initial state)
 
-    private var intentAndAction: some View {
+    private var infoContent: some View {
         VStack(spacing: 16) {
-            if showIntentPicker {
-                intentPickerContent
-            } else {
-                activeIntentBar
-            }
+            Divider().background(Color.parallaxBorder)
 
-            Button(action: analyze) {
-                Text("Get Parallax Score")
-                    .font(.body.weight(.semibold))
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
+            Button {
+                withAnimation(.easeInOut(duration: 0.25)) { phase = .intentPicker }
+            } label: {
+                HStack {
+                    Image(systemName: "sparkles")
+                        .font(.body)
+                    Text("Get Parallax Score")
+                        .font(.body.weight(.semibold))
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 16)
             }
-            .background(activeIntent.isEmpty ? Color.parallaxAmber.opacity(0.3) : Color.parallaxAmber)
+            .background(Color.parallaxAmber)
             .foregroundColor(.white)
             .cornerRadius(14)
-            .disabled(activeIntent.isEmpty || isAnalyzing)
+            .padding(.horizontal, 20)
 
             if case .error(let message, let suggestion) = apiClient.state {
-                ErrorBannerView(message: message, suggestion: suggestion, onRetry: analyze)
+                ErrorBannerView(message: message, suggestion: suggestion, onRetry: {
+                    withAnimation { phase = .intentPicker }
+                })
+                .padding(.horizontal, 20)
             }
         }
     }
 
-    private var activeIntentBar: some View {
-        Button {
-            withAnimation(.easeInOut(duration: 0.2)) { showIntentPicker = true }
-        } label: {
-            HStack {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("YOUR ANGLE")
-                        .font(.system(size: 10, weight: .medium))
-                        .tracking(1)
-                        .foregroundColor(.parallaxMuted)
-                    Text(activeIntent.isEmpty ? "Choose what matters..." : activeIntent)
-                        .font(.subheadline)
-                        .foregroundColor(activeIntent.isEmpty ? .parallaxMuted : .parallaxText)
-                        .lineLimit(1)
+    // MARK: - Phase: Intent Picker
+
+    private var intentPickerContent: some View {
+        VStack(spacing: 14) {
+            Divider().background(Color.parallaxBorder)
+
+            Text("What's your angle?")
+                .font(.subheadline.weight(.medium))
+                .foregroundColor(.parallaxSubtext)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 20)
+
+            LazyVGrid(
+                columns: [GridItem(.flexible(), spacing: 8), GridItem(.flexible(), spacing: 8), GridItem(.flexible(), spacing: 8)],
+                spacing: 8
+            ) {
+                ForEach(intentOptions) { option in
+                    Button {
+                        analyze(intent: option.full)
+                    } label: {
+                        VStack(spacing: 4) {
+                            Text(option.emoji)
+                                .font(.system(size: 22))
+                            Text(option.title)
+                                .font(.caption2.weight(.medium))
+                                .foregroundColor(.parallaxText)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(Color.parallaxSurface)
+                        .cornerRadius(12)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.parallaxBorder, lineWidth: 1)
+                        )
+                    }
                 }
-                Spacer()
-                Image(systemName: "chevron.down")
-                    .font(.caption)
-                    .foregroundColor(.parallaxAmber)
+            }
+            .padding(.horizontal, 20)
+
+            HStack(spacing: 10) {
+                Image(systemName: "text.bubble")
+                    .foregroundColor(.parallaxMuted)
+                    .font(.system(size: 14))
+                TextField("Or type your own...", text: $customIntent)
+                    .textFieldStyle(.plain)
+                    .font(.subheadline)
+                    .submitLabel(.go)
+                    .onSubmit {
+                        if !customIntent.isEmpty {
+                            analyze(intent: customIntent)
+                        }
+                    }
             }
             .padding(14)
             .background(Color.parallaxSurface)
@@ -155,67 +190,16 @@ struct PlaceDetailSheet: View {
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(Color.parallaxBorder, lineWidth: 1)
             )
+            .padding(.horizontal, 20)
         }
     }
 
-    private var intentPickerContent: some View {
-        VStack(spacing: 10) {
-            LazyVGrid(columns: [GridItem(.flexible(), spacing: 8), GridItem(.flexible(), spacing: 8), GridItem(.flexible(), spacing: 8)], spacing: 8) {
-                ForEach(intentOptions) { option in
-                    Button {
-                        withAnimation(.easeInOut(duration: 0.15)) {
-                            intent = option.full
-                            showIntentPicker = false
-                        }
-                    } label: {
-                        VStack(spacing: 4) {
-                            Text(option.emoji)
-                                .font(.system(size: 20))
-                            Text(option.title)
-                                .font(.caption2.weight(.medium))
-                                .foregroundColor(intent == option.full ? .parallaxAmber : .parallaxText)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
-                        .background(intent == option.full ? Color.parallaxAmber.opacity(0.1) : Color.parallaxSurface)
-                        .cornerRadius(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(intent == option.full ? Color.parallaxAmber.opacity(0.4) : Color.parallaxBorder, lineWidth: 1)
-                        )
-                    }
-                }
-            }
+    // MARK: - Phase: Analyzing
 
-            HStack(spacing: 8) {
-                Image(systemName: "text.bubble")
-                    .foregroundColor(.parallaxMuted)
-                    .font(.system(size: 13))
-                TextField("Or type your own...", text: $customIntent)
-                    .textFieldStyle(.plain)
-                    .font(.subheadline)
-                    .submitLabel(.done)
-                    .onSubmit {
-                        if !customIntent.isEmpty {
-                            intent = customIntent
-                            showIntentPicker = false
-                        }
-                    }
-            }
-            .padding(12)
-            .background(Color.parallaxSurface)
-            .cornerRadius(10)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.parallaxBorder, lineWidth: 1)
-            )
-        }
-    }
+    private var analyzingContent: some View {
+        VStack(spacing: 16) {
+            Divider().background(Color.parallaxBorder)
 
-    // MARK: - Loading
-
-    private var loadingContent: some View {
-        VStack(spacing: 12) {
             switch apiClient.state {
             case .searching:
                 LoadingStateView(stage: .searching, restaurant: nil)
@@ -224,15 +208,20 @@ struct PlaceDetailSheet: View {
             case .decomposing(let r):
                 LoadingStateView(stage: .decomposing, restaurant: r)
             default:
-                EmptyView()
+                ProgressView()
+                    .tint(.parallaxAmber)
             }
         }
+        .padding(.horizontal, 20)
+        .padding(.top, 8)
     }
 
-    // MARK: - Results
+    // MARK: - Phase: Result
 
     private func resultContent(_ result: AnalysisResult) -> some View {
         VStack(spacing: 14) {
+            Divider().background(Color.parallaxBorder)
+
             ScoreHeaderView(result: result)
             RadarChartView(dimensions: result.dimensionBreakdown)
             DimensionDeltaView(dimensions: result.dimensionBreakdown)
@@ -250,20 +239,21 @@ struct PlaceDetailSheet: View {
                 }
             }
         }
-        .onAppear { saveToHistory(result) }
+        .padding(.horizontal, 20)
+        .padding(.top, 8)
     }
 
     // MARK: - Actions
 
-    private func analyze() {
-        guard !activeIntent.isEmpty else { return }
-        apiClient.analyze(query: place.name + ", " + place.address, intent: activeIntent)
+    private func analyze(intent: String) {
+        withAnimation(.easeInOut(duration: 0.25)) { phase = .analyzing }
+        apiClient.analyze(query: place.name + ", " + place.address, intent: intent)
     }
 
     private func saveToHistory(_ result: AnalysisResult) {
         let item = SearchHistoryItem(
             restaurant: result.restaurant.name,
-            intent: activeIntent,
+            intent: "",
             parallaxScore: result.parallaxScore,
             googleScore: result.googleScore,
             placeId: result.restaurant.placeId

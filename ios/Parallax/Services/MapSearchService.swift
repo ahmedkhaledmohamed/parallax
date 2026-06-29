@@ -91,7 +91,7 @@ final class MapSearchService {
             let search = MKLocalSearch(request: request)
             let response = try await search.start()
             guard !Task.isCancelled else { return }
-            results = response.mapItems.prefix(8).map {
+            results = response.mapItems.prefix(3).map {
                 PlaceResult.from($0, userLocation: coordinate)
             }
         } catch {
