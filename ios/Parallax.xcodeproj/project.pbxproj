@@ -20,6 +20,7 @@
 		64AE8B5B1188AA12D9B2740D /* SearchHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B184612FBE75BCCF12BF996 /* SearchHistoryView.swift */; };
 		724F00D4DF1FBC75CEF5BC20 /* ReviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD45F6A2A5F6037911933 /* ReviewCardView.swift */; };
 		79F60D98FF87D1FAE69BF908 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E20FF50101A8E337E3EE4 /* ShareViewController.swift */; };
+		83CB96E2D9127598F4605B74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B173DBE504C9BFEC753643CE /* Assets.xcassets */; };
 		8EB81E9D6EA731B969C392F4 /* PlaceDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEDA92A49590BFA99F8FEB2 /* PlaceDetailSheet.swift */; };
 		9407B0F3B17BF68FE439777E /* Secrets.example in Resources */ = {isa = PBXBuildFile; fileRef = 431F3CC3851EAE9DF667046C /* Secrets.example */; };
 		94D6BD3E9E263C4CEC05D0D6 /* AnalysisResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C173B952DF4A190DF14DEA0 /* AnalysisResult.swift */; };
@@ -82,6 +83,7 @@
 		AB0BD45F6A2A5F6037911933 /* ReviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCardView.swift; sourceTree = "<group>"; };
 		ABB9D6A3832FC219798AB5C8 /* Parallax.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Parallax.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF5C295B582EFB6254C8DD1F /* StreamEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamEvent.swift; sourceTree = "<group>"; };
+		B173DBE504C9BFEC753643CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B56394BFEA8035BA9B4EEB2C /* MapSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchService.swift; sourceTree = "<group>"; };
 		C269E9FF0940B6AAC76D6505 /* ConfidenceBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfidenceBadgeView.swift; sourceTree = "<group>"; };
 		C717DD378C4A91D405FDA962 /* ParallaxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxApp.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 		034678EB6044E59548E2C611 /* Parallax */ = {
 			isa = PBXGroup;
 			children = (
+				B173DBE504C9BFEC753643CE /* Assets.xcassets */,
 				D91520E042D4D8CB05614E3A /* Info.plist */,
 				D7D2A4E7693FA0AC2909BA92 /* Parallax.entitlements */,
 				C717DD378C4A91D405FDA962 /* ParallaxApp.swift */,
@@ -274,6 +277,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83CB96E2D9127598F4605B74 /* Assets.xcassets in Resources */,
 				9407B0F3B17BF68FE439777E /* Secrets.example in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,12 +400,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Parallax/Parallax.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Parallax/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ahmedkhaled.parallax;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.9;
@@ -481,12 +487,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Parallax/Parallax.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Parallax/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ahmedkhaled.parallax;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.9;
@@ -498,6 +506,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ParallaxShare/ParallaxShare.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ParallaxShare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -505,6 +514,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ahmedkhaled.parallax.share;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.9;
@@ -516,6 +526,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ParallaxShare/ParallaxShare.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ParallaxShare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -523,6 +534,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ahmedkhaled.parallax.share;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.9;
