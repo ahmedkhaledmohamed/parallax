@@ -39,9 +39,12 @@ struct ContentView: View {
 
             // Floating search + results
             VStack(spacing: 0) {
-                searchBar
-                    .padding(.horizontal, 16)
-                    .padding(.top, 8)
+                HStack(spacing: 10) {
+                    searchBar
+                    locationButton
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
 
                 if showResults {
                     searchResultsOverlay
@@ -136,6 +139,33 @@ struct ContentView: View {
         }
     }
 
+    // MARK: - Location Button
+
+    private var locationButton: some View {
+        Button {
+            if let loc = locationService.lastLocation {
+                withAnimation {
+                    cameraPosition = .region(
+                        MKCoordinateRegion(
+                            center: loc,
+                            latitudinalMeters: 3000,
+                            longitudinalMeters: 3000
+                        )
+                    )
+                }
+            }
+        } label: {
+            Image(systemName: "location.fill")
+                .font(.system(size: 14, weight: .medium))
+                .foregroundColor(.parallaxAmber)
+                .frame(width: 44, height: 44)
+                .background(.ultraThinMaterial)
+                .background(Color.parallaxBackground.opacity(0.7))
+                .cornerRadius(14)
+                .shadow(color: .black.opacity(0.3), radius: 8, y: 4)
+        }
+    }
+
     // MARK: - Map
 
     private var mapLayer: some View {
@@ -154,7 +184,6 @@ struct ContentView: View {
         }
         .mapStyle(.standard(elevation: .flat, pointsOfInterest: .including([.restaurant, .cafe, .bakery, .foodMarket])))
         .mapControls {
-            MapUserLocationButton()
             MapCompass()
         }
     }
