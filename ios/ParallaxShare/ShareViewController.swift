@@ -17,7 +17,6 @@ class ShareViewController: UIViewController {
         for item in items {
             guard let attachments = item.attachments else { continue }
             for attachment in attachments {
-                // Google Maps shares as plain text containing a URL
                 if attachment.hasItemConformingToTypeIdentifier(UTType.plainText.identifier) {
                     attachment.loadItem(forTypeIdentifier: UTType.plainText.identifier) { [weak self] item, _ in
                         if let text = item as? String {
@@ -48,29 +47,40 @@ class ShareViewController: UIViewController {
     }
 
     private func processSharedText(_ text: String) {
-        // Extract the URL from shared text (Google Maps may include extra text around the URL)
         let urlString = extractURL(from: text) ?? text
 
         DispatchQueue.main.async { [weak self] in
-            // Save to App Group for the main app to pick up
             let defaults = UserDefaults(suiteName: "group.com.ahmedkhaled.parallax")
             defaults?.set(urlString, forKey: "pendingShareURL")
             defaults?.synchronize()
 
-            // Open the main app via URL scheme
-            guard let appURL = URL(string: "parallax://pending") else {
+            // Open the main app — the only reliable way from a share extension
+            self?.openMainApp()
+
+            // Dismiss after a short delay to let the open happen
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 self?.done()
+            }
+        }
+    }
+
+    private func openMainApp() {
+        guard let url = URL(string: "parallax://pending") else { return }
+
+        // Method 1: Walk the responder chain to find UIApplication
+        var responder: UIResponder? = self as UIResponder
+        let openURLSelector = NSSelectorFromString("openURL:")
+        while responder != nil {
+            if responder?.responds(to: openURLSelector) == true {
+                responder?.perform(openURLSelector, with: url)
                 return
             }
+            responder = responder?.next
+        }
 
-            // Try extensionContext.open first (iOS 17+)
-            self?.extensionContext?.open(appURL) { success in
-                if !success {
-                    // Fallback: open via responder chain
-                    self?.openURLViaResponder(appURL)
-                }
-                self?.done()
-            }
+        // Method 2: Use shared UIApplication via string-based lookup
+        if let app = UIApplication.value(forKeyPath: "sharedApplication") as? UIApplication {
+            app.open(url)
         }
     }
 
@@ -79,18 +89,6 @@ class ShareViewController: UIViewController {
         let range = NSRange(text.startIndex..., in: text)
         let matches = detector?.matches(in: text, range: range) ?? []
         return matches.first?.url?.absoluteString
-    }
-
-    private func openURLViaResponder(_ url: URL) {
-        let selector = sel_registerName("openURL:")
-        var responder: UIResponder? = self
-        while let r = responder {
-            if r.responds(to: selector) {
-                r.perform(selector, with: url)
-                return
-            }
-            responder = r.next
-        }
     }
 
     private func done() {
