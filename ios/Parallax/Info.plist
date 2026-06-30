@@ -19,5 +19,7 @@
 	<string>Parallax uses your location to find nearby restaurants more accurately.</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>UILaunchScreen</key>
+	<dict/>
 </dict>
 </plist>
