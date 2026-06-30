@@ -31,7 +31,7 @@ struct ContentView: View {
         NavigationStack {
             ZStack {
                 mapLayer
-                    .ignoresSafeArea(edges: .bottom)
+                    .ignoresSafeArea()
 
                 if showResults {
                     searchResultsOverlay
@@ -60,7 +60,15 @@ struct ContentView: View {
                 if newPlace == nil { apiClient.cancel() }
             }
             .task {
-                await locationService.requestCityIfNeeded()
+                if let coordinate = await locationService.requestLocation() {
+                    cameraPosition = .region(
+                        MKCoordinateRegion(
+                            center: coordinate,
+                            latitudinalMeters: 3000,
+                            longitudinalMeters: 3000
+                        )
+                    )
+                }
             }
             .onChange(of: pendingQuery) { _, newQuery in
                 if let q = newQuery {
@@ -86,6 +94,12 @@ struct ContentView: View {
                 Marker(result.name, coordinate: result.coordinate)
                     .tint(Color.parallaxAmber)
             }
+
+            if let selected = selectedPlace {
+                Marker(selected.name, coordinate: selected.coordinate)
+                    .tint(Color.parallaxAmber)
+            }
+
             UserAnnotation()
         }
         .mapStyle(.standard(elevation: .flat, pointsOfInterest: .including([.restaurant, .cafe, .bakery, .foodMarket])))
@@ -156,7 +170,6 @@ struct ContentView: View {
         selectedPlace = place
         isSearchActive = false
         searchText = ""
-        mapSearch.clear()
         withAnimation {
             cameraPosition = .region(
                 MKCoordinateRegion(
