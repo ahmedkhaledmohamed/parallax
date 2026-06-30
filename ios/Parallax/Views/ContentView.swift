@@ -9,7 +9,7 @@ struct ContentView: View {
     @State private var locationService = LocationService()
 
     @State private var searchText = ""
-    @State private var isSearchActive = false
+    @State private var isSearchFocused = false
     @State private var selectedPlace: PlaceResult?
     @State private var cameraPosition: MapCameraPosition = .userLocation(fallback: .region(
         MKCoordinateRegion(
@@ -18,72 +18,122 @@ struct ContentView: View {
             longitudinalMeters: 5000
         )
     ))
+    @FocusState private var searchFieldFocused: Bool
 
     private var searchCenter: CLLocationCoordinate2D {
         locationService.lastLocation ?? CLLocationCoordinate2D(latitude: 43.6532, longitude: -79.3832)
     }
 
     private var showResults: Bool {
-        isSearchActive && !mapSearch.results.isEmpty && selectedPlace == nil
+        isSearchFocused && !mapSearch.results.isEmpty && selectedPlace == nil
     }
 
     var body: some View {
-        NavigationStack {
-            ZStack {
-                mapLayer
-                    .ignoresSafeArea()
+        ZStack(alignment: .top) {
+            // Full-screen map
+            mapLayer
+                .ignoresSafeArea()
+                .onTapGesture {
+                    dismissSearch()
+                }
+
+            // Floating search + results
+            VStack(spacing: 0) {
+                searchBar
+                    .padding(.horizontal, 16)
+                    .padding(.top, 8)
 
                 if showResults {
                     searchResultsOverlay
+                        .padding(.horizontal, 16)
+                        .padding(.top, 4)
                 }
             }
-            .navigationTitle("Parallax")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
-            .searchable(text: $searchText, isPresented: $isSearchActive, prompt: "Search restaurants")
-            .onChange(of: searchText) { _, newValue in
-                mapSearch.searchDebounced(query: newValue, near: searchCenter)
-            }
-            .onSubmit(of: .search) {
-                if let first = mapSearch.results.first {
-                    selectPlace(first)
-                }
-            }
-            .sheet(item: $selectedPlace) { place in
-                PlaceDetailSheet(place: place, apiClient: apiClient)
-                    .presentationDetents([.medium, .large])
-                    .presentationDragIndicator(.visible)
-                    .presentationBackgroundInteraction(.enabled(upThrough: .medium))
-                    .presentationCornerRadius(20)
-            }
-            .onChange(of: selectedPlace) { _, newPlace in
-                if newPlace == nil { apiClient.cancel() }
-            }
-            .task {
-                if let coordinate = await locationService.requestLocation() {
-                    cameraPosition = .region(
-                        MKCoordinateRegion(
-                            center: coordinate,
-                            latitudinalMeters: 3000,
-                            longitudinalMeters: 3000
-                        )
+            .padding(.top, 50) // below dynamic island / status bar
+        }
+        .preferredColorScheme(.dark)
+        .sheet(item: $selectedPlace) { place in
+            PlaceDetailSheet(place: place, apiClient: apiClient)
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+                .presentationBackgroundInteraction(.enabled(upThrough: .medium))
+                .presentationCornerRadius(20)
+        }
+        .onChange(of: selectedPlace) { _, newPlace in
+            if newPlace == nil { apiClient.cancel() }
+        }
+        .task {
+            if let coordinate = await locationService.requestLocation() {
+                cameraPosition = .region(
+                    MKCoordinateRegion(
+                        center: coordinate,
+                        latitudinalMeters: 3000,
+                        longitudinalMeters: 3000
                     )
-                }
+                )
             }
-            .onChange(of: pendingQuery) { _, newQuery in
-                if let q = newQuery {
-                    searchText = q
-                    pendingQuery = nil
-                    Task {
-                        await mapSearch.search(query: q, near: searchCenter)
-                        if let first = mapSearch.results.first {
-                            selectPlace(first)
-                        }
+        }
+        .onChange(of: pendingQuery) { _, newQuery in
+            if let q = newQuery {
+                searchText = q
+                pendingQuery = nil
+                Task {
+                    await mapSearch.search(query: q, near: searchCenter)
+                    if let first = mapSearch.results.first {
+                        selectPlace(first)
                     }
                 }
             }
         }
-        .preferredColorScheme(.dark)
+    }
+
+    // MARK: - Search Bar
+
+    private var searchBar: some View {
+        HStack(spacing: 10) {
+            Image(systemName: "magnifyingglass")
+                .font(.system(size: 15, weight: .medium))
+                .foregroundColor(isSearchFocused ? .parallaxAmber : .parallaxMuted)
+
+            TextField("Search restaurants", text: $searchText)
+                .textFieldStyle(.plain)
+                .font(.subheadline)
+                .foregroundColor(.parallaxText)
+                .focused($searchFieldFocused)
+                .submitLabel(.search)
+                .onSubmit {
+                    if let first = mapSearch.results.first {
+                        selectPlace(first)
+                    }
+                }
+
+            if !searchText.isEmpty {
+                Button {
+                    searchText = ""
+                    mapSearch.clear()
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.system(size: 16))
+                        .foregroundColor(.parallaxMuted)
+                }
+            }
+        }
+        .padding(.horizontal, 14)
+        .padding(.vertical, 12)
+        .background(.ultraThinMaterial)
+        .background(Color.parallaxBackground.opacity(0.7))
+        .cornerRadius(14)
+        .overlay(
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(isSearchFocused ? Color.parallaxAmber.opacity(0.5) : Color.clear, lineWidth: 1.5)
+        )
+        .shadow(color: .black.opacity(0.3), radius: 8, y: 4)
+        .onChange(of: searchText) { _, newValue in
+            mapSearch.searchDebounced(query: newValue, near: searchCenter)
+        }
+        .onChange(of: searchFieldFocused) { _, focused in
+            isSearchFocused = focused
+        }
     }
 
     // MARK: - Map
@@ -109,67 +159,62 @@ struct ContentView: View {
         }
     }
 
-    // MARK: - Search Results Overlay
+    // MARK: - Search Results
 
     private var searchResultsOverlay: some View {
-        VStack {
-            VStack(spacing: 0) {
-                ForEach(Array(mapSearch.results.enumerated()), id: \.element.id) { index, place in
-                    Button {
-                        selectPlace(place)
-                    } label: {
-                        HStack(spacing: 12) {
-                            Image(systemName: "mappin.circle.fill")
-                                .font(.title2)
-                                .foregroundColor(.parallaxAmber)
+        VStack(spacing: 0) {
+            ForEach(Array(mapSearch.results.enumerated()), id: \.element.id) { index, place in
+                Button {
+                    selectPlace(place)
+                } label: {
+                    HStack(spacing: 12) {
+                        Image(systemName: "mappin.circle.fill")
+                            .font(.title3)
+                            .foregroundColor(.parallaxAmber)
 
-                            VStack(alignment: .leading, spacing: 3) {
-                                Text(place.name)
-                                    .font(.body.weight(.semibold))
-                                    .foregroundColor(.primary)
-                                HStack(spacing: 4) {
-                                    Text(place.category)
-                                    if let dist = place.formattedDistance {
-                                        Text("·")
-                                        Text(dist)
-                                    }
+                        VStack(alignment: .leading, spacing: 3) {
+                            Text(place.name)
+                                .font(.subheadline.weight(.semibold))
+                                .foregroundColor(.primary)
+                            HStack(spacing: 4) {
+                                Text(place.category)
+                                if let dist = place.formattedDistance {
+                                    Text("·")
+                                    Text(dist)
                                 }
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
                             }
-
-                            Spacer()
-
-                            Image(systemName: "chevron.right")
-                                .font(.caption.weight(.semibold))
-                                .foregroundColor(.secondary.opacity(0.5))
+                            .font(.caption)
+                            .foregroundColor(.secondary)
                         }
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 14)
-                    }
 
-                    if index < mapSearch.results.count - 1 {
-                        Divider()
-                            .padding(.leading, 52)
+                        Spacer()
+
+                        Image(systemName: "chevron.right")
+                            .font(.caption2.weight(.semibold))
+                            .foregroundColor(.secondary.opacity(0.5))
                     }
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 12)
+                }
+
+                if index < mapSearch.results.count - 1 {
+                    Divider()
+                        .padding(.leading, 48)
                 }
             }
-            .background(.regularMaterial)
-            .cornerRadius(16)
-            .shadow(color: .black.opacity(0.3), radius: 12, y: 4)
-            .padding(.horizontal, 12)
-
-            Spacer()
         }
-        .transition(.move(edge: .top).combined(with: .opacity))
+        .background(.ultraThinMaterial)
+        .background(Color.parallaxBackground.opacity(0.7))
+        .cornerRadius(14)
+        .shadow(color: .black.opacity(0.3), radius: 8, y: 4)
     }
 
     // MARK: - Actions
 
     private func selectPlace(_ place: PlaceResult) {
         selectedPlace = place
-        isSearchActive = false
-        searchText = ""
+        searchText = place.name
+        dismissSearch()
         withAnimation {
             cameraPosition = .region(
                 MKCoordinateRegion(
@@ -179,5 +224,10 @@ struct ContentView: View {
                 )
             )
         }
+    }
+
+    private func dismissSearch() {
+        searchFieldFocused = false
+        isSearchFocused = false
     }
 }
