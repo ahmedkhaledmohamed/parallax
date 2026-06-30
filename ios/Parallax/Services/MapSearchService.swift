@@ -7,6 +7,8 @@ struct PlaceResult: Identifiable, Equatable {
     let address: String
     let coordinate: CLLocationCoordinate2D
     let category: String
+    let phoneNumber: String?
+    let websiteURL: URL?
     let mapItem: MKMapItem
 
     var formattedDistance: String? = nil
@@ -22,6 +24,8 @@ struct PlaceResult: Identifiable, Equatable {
             address: item.placemark.title ?? "",
             coordinate: item.placemark.coordinate,
             category: category,
+            phoneNumber: item.phoneNumber,
+            websiteURL: item.url,
             mapItem: item
         )
         if let userLoc = userLocation {

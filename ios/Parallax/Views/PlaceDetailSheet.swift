@@ -2,20 +2,34 @@ import SwiftUI
 import SwiftData
 import MapKit
 
-private struct IntentOption: Identifiable {
+private struct IntentTag: Identifiable {
     let id = UUID()
     let emoji: String
-    let title: String
-    let full: String
+    let label: String
+    let keyword: String
 }
 
-private let intentOptions = [
-    IntentOption(emoji: "🕯️", title: "Date night", full: "Quiet date night, great wine, romantic atmosphere"),
-    IntentOption(emoji: "👨‍👩‍👧", title: "Family", full: "Quick family lunch, kid-friendly, large portions"),
-    IntentOption(emoji: "💼", title: "Business", full: "Business dinner, upscale but not pretentious"),
-    IntentOption(emoji: "💰", title: "Cheap eats", full: "Cheap eats, big flavors, don't care about decor"),
-    IntentOption(emoji: "🥑", title: "Brunch", full: "Brunch with friends, good vibes, strong coffee"),
-    IntentOption(emoji: "💪", title: "Post-workout", full: "Post-workout, high protein, generous portions, quick"),
+private let intentTags = [
+    IntentTag(emoji: "🕯️", label: "Quiet", keyword: "quiet"),
+    IntentTag(emoji: "🍷", label: "Wine", keyword: "good wine"),
+    IntentTag(emoji: "🥗", label: "Healthy", keyword: "healthy"),
+    IntentTag(emoji: "👶", label: "Kids", keyword: "kid-friendly"),
+    IntentTag(emoji: "💰", label: "Budget", keyword: "affordable"),
+    IntentTag(emoji: "🔥", label: "Spicy", keyword: "spicy"),
+    IntentTag(emoji: "🅿️", label: "Parking", keyword: "easy parking"),
+    IntentTag(emoji: "⏱️", label: "Quick", keyword: "quick service"),
+    IntentTag(emoji: "🎵", label: "Music", keyword: "live music"),
+    IntentTag(emoji: "🍻", label: "Drinks", keyword: "good cocktails"),
+    IntentTag(emoji: "🥩", label: "Steak", keyword: "great steak"),
+    IntentTag(emoji: "🌱", label: "Vegan", keyword: "vegan options"),
+    IntentTag(emoji: "📸", label: "Insta", keyword: "instagrammable"),
+    IntentTag(emoji: "👔", label: "Formal", keyword: "upscale formal"),
+    IntentTag(emoji: "☕", label: "Coffee", keyword: "strong coffee"),
+    IntentTag(emoji: "🍰", label: "Dessert", keyword: "great desserts"),
+    IntentTag(emoji: "🍝", label: "Authentic", keyword: "authentic"),
+    IntentTag(emoji: "💪", label: "Protein", keyword: "high protein"),
+    IntentTag(emoji: "🪑", label: "Outdoor", keyword: "outdoor seating"),
+    IntentTag(emoji: "❤️", label: "Romantic", keyword: "romantic"),
 ]
 
 enum SheetPhase {
@@ -30,16 +44,16 @@ struct PlaceDetailSheet: View {
     let apiClient: APIClient
     @Environment(\.modelContext) private var modelContext
     @State private var phase: SheetPhase = .info
-    @State private var customIntent = ""
+    @State private var intentText = ""
+    @State private var selectedTags: Set<UUID> = []
 
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                // Always show restaurant header
                 placeHeader
                     .padding(.horizontal, 20)
                     .padding(.top, 12)
-                    .padding(.bottom, 16)
+                    .padding(.bottom, 12)
 
                 switch phase {
                 case .info:
@@ -61,17 +75,17 @@ struct PlaceDetailSheet: View {
                 withAnimation { phase = .result(result) }
                 saveToHistory(result)
             case .error:
-                withAnimation { phase = .info }
+                withAnimation { phase = .intentPicker }
             default:
                 break
             }
         }
     }
 
-    // MARK: - Restaurant Header
+    // MARK: - Restaurant Header (richer)
 
     private var placeHeader: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 10) {
             Text(place.name)
                 .font(.title2.bold())
                 .foregroundColor(.parallaxText)
@@ -93,11 +107,38 @@ struct PlaceDetailSheet: View {
                 .font(.caption)
                 .foregroundColor(.parallaxMuted)
                 .lineLimit(2)
+
+            HStack(spacing: 16) {
+                if let phone = place.phoneNumber {
+                    Link(destination: URL(string: "tel:\(phone)")!) {
+                        Label("Call", systemImage: "phone.fill")
+                            .font(.caption.weight(.medium))
+                            .foregroundColor(.parallaxAmber)
+                    }
+                }
+
+                if let url = place.websiteURL {
+                    Link(destination: url) {
+                        Label("Website", systemImage: "globe")
+                            .font(.caption.weight(.medium))
+                            .foregroundColor(.parallaxAmber)
+                    }
+                }
+
+                Button {
+                    place.mapItem.openInMaps()
+                } label: {
+                    Label("Maps", systemImage: "map.fill")
+                        .font(.caption.weight(.medium))
+                        .foregroundColor(.parallaxAmber)
+                }
+            }
+            .padding(.top, 4)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
-    // MARK: - Phase: Info (initial state)
+    // MARK: - Phase: Info
 
     private var infoContent: some View {
         VStack(spacing: 16) {
@@ -129,68 +170,113 @@ struct PlaceDetailSheet: View {
         }
     }
 
-    // MARK: - Phase: Intent Picker
+    // MARK: - Phase: Intent Picker (composable)
 
     private var intentPickerContent: some View {
         VStack(spacing: 14) {
             Divider().background(Color.parallaxBorder)
 
-            Text("What's your angle?")
-                .font(.subheadline.weight(.medium))
-                .foregroundColor(.parallaxSubtext)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 20)
-
-            LazyVGrid(
-                columns: [GridItem(.flexible(), spacing: 8), GridItem(.flexible(), spacing: 8), GridItem(.flexible(), spacing: 8)],
-                spacing: 8
-            ) {
-                ForEach(intentOptions) { option in
-                    Button {
-                        analyze(intent: option.full)
-                    } label: {
-                        VStack(spacing: 4) {
-                            Text(option.emoji)
-                                .font(.system(size: 22))
-                            Text(option.title)
-                                .font(.caption2.weight(.medium))
-                                .foregroundColor(.parallaxText)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
-                        .background(Color.parallaxSurface)
-                        .cornerRadius(12)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.parallaxBorder, lineWidth: 1)
-                        )
-                    }
-                }
-            }
-            .padding(.horizontal, 20)
-
-            HStack(spacing: 10) {
+            // Intent text field at top
+            HStack(spacing: 8) {
                 Image(systemName: "text.bubble")
                     .foregroundColor(.parallaxMuted)
                     .font(.system(size: 14))
-                TextField("Or type your own...", text: $customIntent)
+                TextField("What matters to you?", text: $intentText, axis: .vertical)
+                    .lineLimit(1...3)
                     .textFieldStyle(.plain)
                     .font(.subheadline)
-                    .submitLabel(.go)
-                    .onSubmit {
-                        if !customIntent.isEmpty {
-                            analyze(intent: customIntent)
-                        }
+                if !intentText.isEmpty {
+                    Button {
+                        intentText = ""
+                        selectedTags.removeAll()
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.parallaxMuted)
                     }
+                }
             }
             .padding(14)
             .background(Color.parallaxSurface)
             .cornerRadius(12)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.parallaxBorder, lineWidth: 1)
+                    .stroke(intentText.isEmpty ? Color.parallaxBorder : Color.parallaxAmber.opacity(0.5), lineWidth: 1)
             )
             .padding(.horizontal, 20)
+
+            // Tag grid
+            LazyVGrid(
+                columns: [GridItem(.adaptive(minimum: 75), spacing: 6)],
+                spacing: 6
+            ) {
+                ForEach(intentTags) { tag in
+                    let isSelected = selectedTags.contains(tag.id)
+                    Button {
+                        toggleTag(tag)
+                    } label: {
+                        HStack(spacing: 3) {
+                            Text(tag.emoji)
+                                .font(.system(size: 12))
+                            Text(tag.label)
+                                .font(.caption2.weight(.medium))
+                        }
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 8)
+                        .frame(maxWidth: .infinity)
+                        .background(isSelected ? Color.parallaxAmber.opacity(0.2) : Color.parallaxSurface)
+                        .foregroundColor(isSelected ? .parallaxAmber : .parallaxText)
+                        .cornerRadius(20)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(isSelected ? Color.parallaxAmber.opacity(0.5) : Color.parallaxBorder, lineWidth: 1)
+                        )
+                    }
+                }
+            }
+            .padding(.horizontal, 20)
+
+            // Analyze button
+            Button {
+                analyze(intent: intentText)
+            } label: {
+                HStack {
+                    Image(systemName: "sparkles")
+                        .font(.body)
+                    Text("Analyze")
+                        .font(.body.weight(.semibold))
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 16)
+            }
+            .background(intentText.isEmpty ? Color.parallaxAmber.opacity(0.3) : Color.parallaxAmber)
+            .foregroundColor(.white)
+            .cornerRadius(14)
+            .disabled(intentText.isEmpty)
+            .padding(.horizontal, 20)
+
+            if case .error(let message, let suggestion) = apiClient.state {
+                ErrorBannerView(message: message, suggestion: suggestion, onRetry: {
+                    analyze(intent: intentText)
+                })
+                .padding(.horizontal, 20)
+            }
+        }
+    }
+
+    // MARK: - Tag toggle
+
+    private func toggleTag(_ tag: IntentTag) {
+        if selectedTags.contains(tag.id) {
+            selectedTags.remove(tag.id)
+            let keywords = intentText.components(separatedBy: ", ").filter { $0 != tag.keyword }
+            intentText = keywords.joined(separator: ", ")
+        } else {
+            selectedTags.insert(tag.id)
+            if intentText.isEmpty {
+                intentText = tag.keyword
+            } else {
+                intentText += ", " + tag.keyword
+            }
         }
     }
 
@@ -246,6 +332,7 @@ struct PlaceDetailSheet: View {
     // MARK: - Actions
 
     private func analyze(intent: String) {
+        guard !intent.isEmpty else { return }
         withAnimation(.easeInOut(duration: 0.25)) { phase = .analyzing }
         apiClient.analyze(query: place.name + ", " + place.address, intent: intent)
     }
@@ -253,7 +340,7 @@ struct PlaceDetailSheet: View {
     private func saveToHistory(_ result: AnalysisResult) {
         let item = SearchHistoryItem(
             restaurant: result.restaurant.name,
-            intent: "",
+            intent: intentText,
             parallaxScore: result.parallaxScore,
             googleScore: result.googleScore,
             placeId: result.restaurant.placeId
