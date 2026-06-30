@@ -85,57 +85,91 @@ struct PlaceDetailSheet: View {
     // MARK: - Restaurant Header (richer)
 
     private var placeHeader: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 12) {
+            // Name
             Text(place.name)
                 .font(.title2.bold())
                 .foregroundColor(.parallaxText)
 
+            // Category · Distance · Rating (if available from analysis)
             HStack(spacing: 6) {
-                Text(place.category)
+                Label(place.category, systemImage: "fork.knife")
                     .font(.subheadline)
                     .foregroundColor(.parallaxSubtext)
                 if let distance = place.formattedDistance {
                     Text("·")
                         .foregroundColor(.parallaxDimmed)
-                    Text(distance)
+                    Label(distance, systemImage: "location.fill")
                         .font(.subheadline)
                         .foregroundColor(.parallaxSubtext)
                 }
+                if case .result(let result) = phase {
+                    Text("·")
+                        .foregroundColor(.parallaxDimmed)
+                    HStack(spacing: 2) {
+                        Image(systemName: "star.fill")
+                            .foregroundColor(.parallaxAmber)
+                        Text(result.googleScore.scoreFormatted)
+                            .fontWeight(.semibold)
+                    }
+                    .font(.subheadline)
+                    .foregroundColor(.parallaxText)
+                }
             }
 
-            Text(place.address)
-                .font(.caption)
-                .foregroundColor(.parallaxMuted)
-                .lineLimit(2)
+            // Address
+            HStack(spacing: 6) {
+                Image(systemName: "mappin")
+                    .font(.caption)
+                    .foregroundColor(.parallaxMuted)
+                Text(place.address)
+                    .font(.caption)
+                    .foregroundColor(.parallaxMuted)
+                    .lineLimit(2)
+            }
 
-            HStack(spacing: 16) {
+            // Action buttons
+            HStack(spacing: 0) {
                 if let phone = place.phoneNumber {
                     Link(destination: URL(string: "tel:\(phone)")!) {
-                        Label("Call", systemImage: "phone.fill")
-                            .font(.caption.weight(.medium))
-                            .foregroundColor(.parallaxAmber)
+                        actionButton(icon: "phone.fill", label: "Call")
                     }
                 }
 
                 if let url = place.websiteURL {
                     Link(destination: url) {
-                        Label("Website", systemImage: "globe")
-                            .font(.caption.weight(.medium))
-                            .foregroundColor(.parallaxAmber)
+                        actionButton(icon: "safari", label: "Website")
                     }
                 }
 
                 Button {
                     place.mapItem.openInMaps()
                 } label: {
-                    Label("Maps", systemImage: "map.fill")
-                        .font(.caption.weight(.medium))
-                        .foregroundColor(.parallaxAmber)
+                    actionButton(icon: "map.fill", label: "Directions")
                 }
+
+                Spacer()
             }
-            .padding(.top, 4)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private func actionButton(icon: String, label: String) -> some View {
+        VStack(spacing: 4) {
+            Image(systemName: icon)
+                .font(.system(size: 16))
+            Text(label)
+                .font(.system(size: 10, weight: .medium))
+        }
+        .foregroundColor(.parallaxAmber)
+        .frame(width: 70, height: 50)
+        .background(Color.parallaxSurface)
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.parallaxBorder, lineWidth: 1)
+        )
+        .padding(.trailing, 8)
     }
 
     // MARK: - Phase: Info
