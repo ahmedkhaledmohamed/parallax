@@ -48,15 +48,45 @@ class ShareViewController: UIViewController {
     }
 
     private func openApp(with sharedText: String) {
-        let urlString = extractURL(from: sharedText) ?? sharedText
-        let encoded = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? urlString
-        guard let deepLink = URL(string: "parallax://analyze?url=\(encoded)") else {
+        // Google Maps shares text like:
+        // "Pai Northern Thai Kitchen\nhttps://maps.app.goo.gl/xyz"
+        // or just a URL. Extract the restaurant name (first line) if present.
+        let lines = sharedText.components(separatedBy: "\n").map { $0.trimmingCharacters(in: .whitespaces) }.filter { !$0.isEmpty }
+
+        // Use the first non-URL line as the restaurant name, or extract from URL
+        var restaurantName: String?
+        for line in lines {
+            if !line.hasPrefix("http") {
+                restaurantName = line
+                break
+            }
+        }
+
+        // If no name found, try to extract from the URL
+        if restaurantName == nil {
+            for line in lines {
+                if line.contains("maps") && line.contains("place/") {
+                    if let range = line.range(of: "place/") {
+                        let after = line[range.upperBound...]
+                        if let end = after.firstIndex(of: "/") ?? after.firstIndex(of: "@") {
+                            restaurantName = String(after[..<end])
+                                .replacingOccurrences(of: "+", with: " ")
+                                .removingPercentEncoding
+                        }
+                    }
+                }
+            }
+        }
+
+        let query = restaurantName ?? sharedText
+        let encoded = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? query
+
+        guard let deepLink = URL(string: "parallax://analyze?query=\(encoded)") else {
             done()
             return
         }
 
         DispatchQueue.main.async { [weak self] in
-            // Get UIApplication.shared via KVC (works in extensions)
             guard let app = UIApplication.value(forKeyPath: "sharedApplication") as? UIApplication else {
                 self?.done()
                 return
@@ -65,13 +95,6 @@ class ShareViewController: UIViewController {
                 self?.done()
             }
         }
-    }
-
-    private func extractURL(from text: String) -> String? {
-        let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-        let range = NSRange(text.startIndex..., in: text)
-        let matches = detector?.matches(in: text, range: range) ?? []
-        return matches.first?.url?.absoluteString
     }
 
     private func done() {
