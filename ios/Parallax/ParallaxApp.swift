@@ -11,6 +11,11 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         return true
     }
 
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        handleURL(url)
+        return true
+    }
+
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         if let urlString = response.notification.request.content.userInfo["url"] as? String {
             onDeepLink?(urlString)
@@ -20,6 +25,17 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.banner, .sound])
+    }
+
+    private func handleURL(_ url: URL) {
+        guard url.scheme == "parallax" else { return }
+        if let components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
+            if let urlParam = components.queryItems?.first(where: { $0.name == "url" })?.value {
+                onDeepLink?(urlParam)
+            } else if let query = components.queryItems?.first(where: { $0.name == "query" })?.value {
+                onDeepLink?(query)
+            }
+        }
     }
 }
 
@@ -43,8 +59,8 @@ struct ParallaxApp: App {
                     handleDeepLink(url)
                 }
                 .onAppear {
-                    appDelegate.onDeepLink = { urlString in
-                        pendingQuery = urlString
+                    appDelegate.onDeepLink = { [self] query in
+                        pendingQuery = query
                     }
                 }
         }
