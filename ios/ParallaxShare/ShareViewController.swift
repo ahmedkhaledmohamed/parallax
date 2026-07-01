@@ -8,14 +8,14 @@ class ShareViewController: UIViewController {
         let label = UILabel()
         label.text = "✓ Saved to Parallax"
         label.font = .systemFont(ofSize: 17, weight: .semibold)
-        label.textColor = UIColor(red: 0.851, green: 0.467, blue: 0.024, alpha: 1) // amber
+        label.textColor = UIColor(red: 0.851, green: 0.467, blue: 0.024, alpha: 1)
         label.textAlignment = .center
         return label
     }()
 
     private let subtitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Open the app to see your score"
+        label.text = "Tap the notification to open"
         label.font = .systemFont(ofSize: 13)
         label.textColor = UIColor(white: 0.6, alpha: 1)
         label.textAlignment = .center
@@ -80,30 +80,26 @@ class ShareViewController: UIViewController {
 
     private func processSharedText(_ text: String) {
         let urlString = extractURL(from: text) ?? text
+        let restaurantName = extractRestaurantName(from: urlString)
 
         DispatchQueue.main.async { [weak self] in
-            // Save to App Group
-            let defaults = UserDefaults(suiteName: "group.com.ahmedkhaled.parallax")
-            defaults?.set(urlString, forKey: "pendingShareURL")
-            defaults?.synchronize()
-
-            // Send local notification so user can tap to open Parallax
-            self?.sendNotification(urlString: urlString)
-
-            // Auto-dismiss after a moment
+            self?.sendNotification(urlString: urlString, restaurantName: restaurantName)
             self?.autoDismiss()
         }
     }
 
-    private func sendNotification(urlString: String) {
+    private func sendNotification(urlString: String, restaurantName: String) {
         let content = UNMutableNotificationContent()
         content.title = "Parallax"
-        content.body = "Tap to score this restaurant"
+        content.body = "Tap to score \(restaurantName)"
         content.sound = .default
-        content.userInfo = ["url": urlString]
+        content.userInfo = [
+            "url": urlString,
+            "deepLink": "parallax://analyze?url=\(urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? urlString)"
+        ]
 
         let request = UNNotificationRequest(
-            identifier: "parallax-share-\(Date().timeIntervalSince1970)",
+            identifier: "parallax-share",
             content: content,
             trigger: UNTimeIntervalNotificationTrigger(timeInterval: 0.5, repeats: false)
         )
@@ -116,6 +112,18 @@ class ShareViewController: UIViewController {
         let range = NSRange(text.startIndex..., in: text)
         let matches = detector?.matches(in: text, range: range) ?? []
         return matches.first?.url?.absoluteString
+    }
+
+    private func extractRestaurantName(from urlString: String) -> String {
+        // Try to extract name from Google Maps URL path: /maps/place/Restaurant+Name/
+        if let range = urlString.range(of: "place/") {
+            let after = urlString[range.upperBound...]
+            if let end = after.firstIndex(of: "/") ?? after.firstIndex(of: "@") {
+                let raw = String(after[..<end])
+                return raw.replacingOccurrences(of: "+", with: " ").removingPercentEncoding ?? raw
+            }
+        }
+        return "this restaurant"
     }
 
     private func autoDismiss() {

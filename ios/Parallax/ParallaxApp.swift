@@ -2,19 +2,38 @@ import SwiftUI
 import SwiftData
 import UserNotifications
 
+class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+    var onDeepLink: ((String) -> Void)?
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { _, _ in }
+        return true
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        if let urlString = response.notification.request.content.userInfo["url"] as? String {
+            onDeepLink?(urlString)
+        }
+        completionHandler()
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .sound])
+    }
+}
+
 @main
 struct ParallaxApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     let container: ModelContainer
 
     @State private var pendingQuery: String?
-    @Environment(\.scenePhase) private var scenePhase
 
     init() {
         let schema = Schema([SearchHistoryItem.self])
         let config = ModelConfiguration(schema: schema)
         container = try! ModelContainer(for: schema, configurations: config)
-
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { _, _ in }
     }
 
     var body: some Scene {
@@ -23,9 +42,9 @@ struct ParallaxApp: App {
                 .onOpenURL { url in
                     handleDeepLink(url)
                 }
-                .onChange(of: scenePhase) { _, newPhase in
-                    if newPhase == .active {
-                        checkPendingShare()
+                .onAppear {
+                    appDelegate.onDeepLink = { urlString in
+                        pendingQuery = urlString
                     }
                 }
         }
@@ -43,17 +62,6 @@ struct ParallaxApp: App {
                 pendingQuery = query
                 return
             }
-        }
-
-        checkPendingShare()
-    }
-
-    private func checkPendingShare() {
-        let defaults = UserDefaults(suiteName: "group.com.ahmedkhaled.parallax")
-        if let sharedURL = defaults?.string(forKey: "pendingShareURL") {
-            pendingQuery = sharedURL
-            defaults?.removeObject(forKey: "pendingShareURL")
-            defaults?.synchronize()
         }
     }
 }
