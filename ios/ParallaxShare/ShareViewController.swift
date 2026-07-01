@@ -1,16 +1,48 @@
 import UIKit
 import UniformTypeIdentifiers
+import UserNotifications
 
 class ShareViewController: UIViewController {
+
+    private let confirmationLabel: UILabel = {
+        let label = UILabel()
+        label.text = "✓ Saved to Parallax"
+        label.font = .systemFont(ofSize: 17, weight: .semibold)
+        label.textColor = UIColor(red: 0.851, green: 0.467, blue: 0.024, alpha: 1) // amber
+        label.textAlignment = .center
+        return label
+    }()
+
+    private let subtitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Open the app to see your score"
+        label.font = .systemFont(ofSize: 13)
+        label.textColor = UIColor(white: 0.6, alpha: 1)
+        label.textAlignment = .center
+        return label
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 0.035, green: 0.035, blue: 0.043, alpha: 1)
+
+        let stack = UIStackView(arrangedSubviews: [confirmationLabel, subtitleLabel])
+        stack.axis = .vertical
+        stack.spacing = 6
+        stack.alignment = .center
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(stack)
+        NSLayoutConstraint.activate([
+            stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
+
         handleSharedContent()
     }
 
     private func handleSharedContent() {
         guard let items = extensionContext?.inputItems as? [NSExtensionItem] else {
-            done()
+            autoDismiss()
             return
         }
 
@@ -22,7 +54,7 @@ class ShareViewController: UIViewController {
                         if let text = item as? String {
                             self?.processSharedText(text)
                         } else {
-                            self?.done()
+                            self?.autoDismiss()
                         }
                     }
                     return
@@ -35,7 +67,7 @@ class ShareViewController: UIViewController {
                         } else if let urlString = item as? String {
                             self?.processSharedText(urlString)
                         } else {
-                            self?.done()
+                            self?.autoDismiss()
                         }
                     }
                     return
@@ -43,45 +75,40 @@ class ShareViewController: UIViewController {
             }
         }
 
-        done()
+        autoDismiss()
     }
 
     private func processSharedText(_ text: String) {
         let urlString = extractURL(from: text) ?? text
 
         DispatchQueue.main.async { [weak self] in
+            // Save to App Group
             let defaults = UserDefaults(suiteName: "group.com.ahmedkhaled.parallax")
             defaults?.set(urlString, forKey: "pendingShareURL")
             defaults?.synchronize()
 
-            // Open the main app — the only reliable way from a share extension
-            self?.openMainApp()
+            // Send local notification so user can tap to open Parallax
+            self?.sendNotification(urlString: urlString)
 
-            // Dismiss after a short delay to let the open happen
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                self?.done()
-            }
+            // Auto-dismiss after a moment
+            self?.autoDismiss()
         }
     }
 
-    private func openMainApp() {
-        guard let url = URL(string: "parallax://pending") else { return }
+    private func sendNotification(urlString: String) {
+        let content = UNMutableNotificationContent()
+        content.title = "Parallax"
+        content.body = "Tap to score this restaurant"
+        content.sound = .default
+        content.userInfo = ["url": urlString]
 
-        // Method 1: Walk the responder chain to find UIApplication
-        var responder: UIResponder? = self as UIResponder
-        let openURLSelector = NSSelectorFromString("openURL:")
-        while responder != nil {
-            if responder?.responds(to: openURLSelector) == true {
-                responder?.perform(openURLSelector, with: url)
-                return
-            }
-            responder = responder?.next
-        }
+        let request = UNNotificationRequest(
+            identifier: "parallax-share-\(Date().timeIntervalSince1970)",
+            content: content,
+            trigger: UNTimeIntervalNotificationTrigger(timeInterval: 0.5, repeats: false)
+        )
 
-        // Method 2: Use shared UIApplication via string-based lookup
-        if let app = UIApplication.value(forKeyPath: "sharedApplication") as? UIApplication {
-            app.open(url)
-        }
+        UNUserNotificationCenter.current().add(request)
     }
 
     private func extractURL(from text: String) -> String? {
@@ -91,7 +118,9 @@ class ShareViewController: UIViewController {
         return matches.first?.url?.absoluteString
     }
 
-    private func done() {
-        extensionContext?.completeRequest(returningItems: nil)
+    private func autoDismiss() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+            self?.extensionContext?.completeRequest(returningItems: nil)
+        }
     }
 }

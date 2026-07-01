@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import UserNotifications
 
 @main
 struct ParallaxApp: App {
@@ -12,6 +13,8 @@ struct ParallaxApp: App {
         let schema = Schema([SearchHistoryItem.self])
         let config = ModelConfiguration(schema: schema)
         container = try! ModelContainer(for: schema, configurations: config)
+
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { _, _ in }
     }
 
     var body: some Scene {
