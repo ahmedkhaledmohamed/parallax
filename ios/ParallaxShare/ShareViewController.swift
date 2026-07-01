@@ -5,13 +5,13 @@ class ShareViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .clear
+        view.backgroundColor = UIColor(red: 0.035, green: 0.035, blue: 0.043, alpha: 1)
         handleSharedContent()
     }
 
     private func handleSharedContent() {
         guard let items = extensionContext?.inputItems as? [NSExtensionItem] else {
-            done()
+            dismiss()
             return
         }
 
@@ -23,7 +23,7 @@ class ShareViewController: UIViewController {
                         if let text = item as? String {
                             self?.openApp(with: text)
                         } else {
-                            self?.done()
+                            self?.dismiss()
                         }
                     }
                     return
@@ -36,7 +36,7 @@ class ShareViewController: UIViewController {
                         } else if let urlString = item as? String {
                             self?.openApp(with: urlString)
                         } else {
-                            self?.done()
+                            self?.dismiss()
                         }
                     }
                     return
@@ -44,16 +44,14 @@ class ShareViewController: UIViewController {
             }
         }
 
-        done()
+        dismiss()
     }
 
     private func openApp(with sharedText: String) {
-        // Google Maps shares text like:
-        // "Pai Northern Thai Kitchen\nhttps://maps.app.goo.gl/xyz"
-        // or just a URL. Extract the restaurant name (first line) if present.
-        let lines = sharedText.components(separatedBy: "\n").map { $0.trimmingCharacters(in: .whitespaces) }.filter { !$0.isEmpty }
+        let lines = sharedText.components(separatedBy: "\n")
+            .map { $0.trimmingCharacters(in: .whitespaces) }
+            .filter { !$0.isEmpty }
 
-        // Use the first non-URL line as the restaurant name, or extract from URL
         var restaurantName: String?
         for line in lines {
             if !line.hasPrefix("http") {
@@ -62,10 +60,9 @@ class ShareViewController: UIViewController {
             }
         }
 
-        // If no name found, try to extract from the URL
         if restaurantName == nil {
             for line in lines {
-                if line.contains("maps") && line.contains("place/") {
+                if line.contains("place/") {
                     if let range = line.range(of: "place/") {
                         let after = line[range.upperBound...]
                         if let end = after.firstIndex(of: "/") ?? after.firstIndex(of: "@") {
@@ -82,22 +79,23 @@ class ShareViewController: UIViewController {
         let encoded = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? query
 
         guard let deepLink = URL(string: "parallax://analyze?query=\(encoded)") else {
-            done()
+            dismiss()
             return
         }
 
         DispatchQueue.main.async { [weak self] in
-            guard let app = UIApplication.value(forKeyPath: "sharedApplication") as? UIApplication else {
-                self?.done()
-                return
-            }
-            app.open(deepLink, options: [:]) { _ in
-                self?.done()
+            // iOS 17+: extensionContext.open() works in share extensions
+            // CRITICAL: do NOT call done/dismiss before this completes
+            self?.extensionContext?.open(deepLink) { success in
+                // Only dismiss AFTER the open attempt completes
+                self?.dismiss()
             }
         }
     }
 
-    private func done() {
-        extensionContext?.completeRequest(returningItems: nil)
+    private func dismiss() {
+        DispatchQueue.main.async { [weak self] in
+            self?.extensionContext?.completeRequest(returningItems: nil)
+        }
     }
 }
