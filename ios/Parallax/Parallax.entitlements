@@ -6,5 +6,9 @@
 	<array>
 		<string>group.com.ahmedkhaled.parallax</string>
 	</array>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:parallax-ten-sigma.vercel.app</string>
+	</array>
 </dict>
 </plist>
