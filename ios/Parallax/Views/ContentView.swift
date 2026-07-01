@@ -78,10 +78,21 @@ struct ContentView: View {
         }
         .onChange(of: pendingQuery) { _, newQuery in
             if let q = newQuery {
-                searchText = q
                 pendingQuery = nil
+
+                // Extract restaurant name from Google Maps URL, or use raw text
+                let query: String
+                if GoogleMapsURLParser.isGoogleMapsURL(q),
+                   let parsed = GoogleMapsURLParser.extract(from: q),
+                   let name = parsed.query {
+                    query = name
+                } else {
+                    query = q
+                }
+
+                searchText = query
                 Task {
-                    await mapSearch.search(query: q, near: searchCenter)
+                    await mapSearch.search(query: query, near: searchCenter)
                     if let first = mapSearch.results.first {
                         selectPlace(first)
                     }
