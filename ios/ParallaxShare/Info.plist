@@ -7,7 +7,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0.0</string>
 	<key>CFBundleVersion</key>
-	<string>16</string>
+	<string>17</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionPointIdentifier</key>
@@ -17,7 +17,7 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>NSExtensionActivationRule</key>
-			<string>SUBQUERY(extensionItems, $item, SUBQUERY($item.attachments, $att, ANY $att.registeredTypeIdentifiers UTI-CONFORMS-TO "public.url").@count &gt; 0).@count &gt; 0</string>
+			<string>SUBQUERY(extensionItems, $item, SUBQUERY($item.attachments, $att, ANY $att.registeredTypeIdentifiers UTI-CONFORMS-TO "public.url" OR ANY $att.registeredTypeIdentifiers UTI-CONFORMS-TO "public.plain-text").@count &gt; 0).@count &gt; 0</string>
 		</dict>
 	</dict>
 </dict>
