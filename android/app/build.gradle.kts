@@ -19,6 +19,7 @@ android {
 
         buildConfigField("String", "API_BASE_URL", "\"https://parallax-ten-sigma.vercel.app\"")
         buildConfigField("String", "API_KEY", "\"${project.findProperty("PARALLAX_API_KEY") ?: ""}\"")
+        manifestPlaceholders["GOOGLE_MAPS_API_KEY"] = project.findProperty("GOOGLE_MAPS_API_KEY")?.toString() ?: ""
     }
 
     buildTypes {
@@ -60,5 +61,8 @@ dependencies {
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
     implementation(libs.play.services.location)
+    implementation(libs.play.services.maps)
+    implementation(libs.maps.compose)
+    implementation(libs.places)
     debugImplementation(libs.compose.ui.tooling)
 }
