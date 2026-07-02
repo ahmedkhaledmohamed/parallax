@@ -7,7 +7,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         UNUserNotificationCenter.current().delegate = self
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { _, _ in }
         return true
     }
 
@@ -45,6 +44,7 @@ struct ParallaxApp: App {
     let container: ModelContainer
 
     @State private var pendingQuery: String?
+    @Environment(\.scenePhase) private var scenePhase
 
     init() {
         let schema = Schema([SearchHistoryItem.self])
@@ -59,8 +59,13 @@ struct ParallaxApp: App {
                     handleDeepLink(url)
                 }
                 .onAppear {
-                    appDelegate.onDeepLink = { [self] query in
+                    appDelegate.onDeepLink = { query in
                         pendingQuery = query
+                    }
+                }
+                .onChange(of: scenePhase) { _, newPhase in
+                    if newPhase == .active {
+                        checkClipboard()
                     }
                 }
         }
@@ -69,15 +74,23 @@ struct ParallaxApp: App {
 
     private func handleDeepLink(_ url: URL) {
         guard url.scheme == "parallax" else { return }
-
         if let components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
             if let urlParam = components.queryItems?.first(where: { $0.name == "url" })?.value {
                 pendingQuery = urlParam
-                return
             } else if let query = components.queryItems?.first(where: { $0.name == "query" })?.value {
                 pendingQuery = query
-                return
             }
+        }
+    }
+
+    private func checkClipboard() {
+        guard let text = UIPasteboard.general.string,
+              text.hasPrefix("parallax:") else { return }
+
+        let query = String(text.dropFirst("parallax:".count))
+        UIPasteboard.general.string = ""
+        if !query.isEmpty {
+            pendingQuery = query
         }
     }
 }

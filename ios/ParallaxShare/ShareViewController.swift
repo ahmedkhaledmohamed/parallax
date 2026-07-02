@@ -5,13 +5,43 @@ class ShareViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         view.backgroundColor = UIColor(red: 0.035, green: 0.035, blue: 0.043, alpha: 1)
+
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 8
+        stack.alignment = .center
+        stack.translatesAutoresizingMaskIntoConstraints = false
+
+        let check = UILabel()
+        check.text = "✓ Copied restaurant"
+        check.font = .systemFont(ofSize: 17, weight: .semibold)
+        check.textColor = UIColor(red: 0.851, green: 0.467, blue: 0.024, alpha: 1)
+
+        let sub = UILabel()
+        sub.text = "Open Parallax — it will load automatically"
+        sub.font = .systemFont(ofSize: 13)
+        sub.textColor = UIColor(white: 0.6, alpha: 1)
+        sub.numberOfLines = 0
+        sub.textAlignment = .center
+
+        stack.addArrangedSubview(check)
+        stack.addArrangedSubview(sub)
+        view.addSubview(stack)
+
+        NSLayoutConstraint.activate([
+            stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            stack.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 32),
+        ])
+
         handleSharedContent()
     }
 
     private func handleSharedContent() {
         guard let items = extensionContext?.inputItems as? [NSExtensionItem] else {
-            dismiss()
+            autoDismiss()
             return
         }
 
@@ -21,9 +51,9 @@ class ShareViewController: UIViewController {
                 if attachment.hasItemConformingToTypeIdentifier(UTType.plainText.identifier) {
                     attachment.loadItem(forTypeIdentifier: UTType.plainText.identifier) { [weak self] item, _ in
                         if let text = item as? String {
-                            self?.openApp(with: text)
+                            self?.copyToClipboard(text)
                         } else {
-                            self?.dismiss()
+                            self?.autoDismiss()
                         }
                     }
                     return
@@ -32,11 +62,11 @@ class ShareViewController: UIViewController {
                 if attachment.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
                     attachment.loadItem(forTypeIdentifier: UTType.url.identifier) { [weak self] item, _ in
                         if let url = item as? URL {
-                            self?.openApp(with: url.absoluteString)
+                            self?.copyToClipboard(url.absoluteString)
                         } else if let urlString = item as? String {
-                            self?.openApp(with: urlString)
+                            self?.copyToClipboard(urlString)
                         } else {
-                            self?.dismiss()
+                            self?.autoDismiss()
                         }
                     }
                     return
@@ -44,14 +74,15 @@ class ShareViewController: UIViewController {
             }
         }
 
-        dismiss()
+        autoDismiss()
     }
 
-    private func openApp(with sharedText: String) {
+    private func copyToClipboard(_ sharedText: String) {
         let lines = sharedText.components(separatedBy: "\n")
             .map { $0.trimmingCharacters(in: .whitespaces) }
             .filter { !$0.isEmpty }
 
+        // Extract restaurant name (first non-URL line)
         var restaurantName: String?
         for line in lines {
             if !line.hasPrefix("http") {
@@ -60,6 +91,7 @@ class ShareViewController: UIViewController {
             }
         }
 
+        // Fallback: extract from URL path
         if restaurantName == nil {
             for line in lines {
                 if line.contains("place/") {
@@ -76,25 +108,16 @@ class ShareViewController: UIViewController {
         }
 
         let query = restaurantName ?? sharedText
-        let encoded = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? query
-
-        guard let deepLink = URL(string: "parallax://analyze?query=\(encoded)") else {
-            dismiss()
-            return
-        }
 
         DispatchQueue.main.async { [weak self] in
-            // iOS 17+: extensionContext.open() works in share extensions
-            // CRITICAL: do NOT call done/dismiss before this completes
-            self?.extensionContext?.open(deepLink) { success in
-                // Only dismiss AFTER the open attempt completes
-                self?.dismiss()
-            }
+            // Copy with a special prefix so the app knows it's from the share extension
+            UIPasteboard.general.string = "parallax:\(query)"
+            self?.autoDismiss()
         }
     }
 
-    private func dismiss() {
-        DispatchQueue.main.async { [weak self] in
+    private func autoDismiss() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
             self?.extensionContext?.completeRequest(returningItems: nil)
         }
     }
