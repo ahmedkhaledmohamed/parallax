@@ -4,21 +4,25 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Place
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -42,14 +46,12 @@ fun HomeScreen(viewModel: HomeViewModel) {
         )
     }
 
-    // Move camera when user location updates
     LaunchedEffect(userLocation) {
         userLocation?.let {
             cameraPositionState.animate(CameraUpdateFactory.newLatLngZoom(it, 14f))
         }
     }
 
-    // Move camera when a place is selected
     LaunchedEffect(selectedPlace) {
         selectedPlace?.latLng?.let {
             cameraPositionState.animate(CameraUpdateFactory.newLatLngZoom(it, 16f))
@@ -57,11 +59,9 @@ fun HomeScreen(viewModel: HomeViewModel) {
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        // Map
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
             cameraPositionState = cameraPositionState,
-            properties = MapProperties(isMyLocationEnabled = true),
             uiSettings = MapUiSettings(myLocationButtonEnabled = false, zoomControlsEnabled = false),
         ) {
             searchResults.forEach { place ->
@@ -69,86 +69,48 @@ fun HomeScreen(viewModel: HomeViewModel) {
                     Marker(
                         state = MarkerState(position = pos),
                         title = place.name,
-                        onClick = {
-                            viewModel.selectPlace(place)
-                            true
-                        }
+                        onClick = { viewModel.selectPlace(place); true },
                     )
                 }
             }
             selectedPlace?.latLng?.let { pos ->
-                Marker(
-                    state = MarkerState(position = pos),
-                    title = selectedPlace?.name ?: "",
-                )
+                Marker(state = MarkerState(position = pos), title = selectedPlace?.name ?: "")
             }
         }
 
-        // Floating search bar + location button
+        // Floating search + results
         Column(
             modifier = Modifier
                 .statusBarsPadding()
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
-            Row(spacing = 10.dp) {
+            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 FloatingSearchBar(
                     query = uiState.searchQuery,
                     onQueryChange = viewModel::updateSearchQuery,
                     onSubmit = { viewModel.selectFirstResult() },
                     modifier = Modifier.weight(1f),
                 )
-                // Location button
                 IconButton(
-                    onClick = {
-                        userLocation?.let {
-                            viewModel.recenterMap()
-                        }
-                    },
+                    onClick = { /* camera recenters via LaunchedEffect */ },
                     modifier = Modifier
                         .size(48.dp)
-                        .shadow(8.dp, CircleShape)
+                        .shadow(8.dp, RoundedCornerShape(14.dp))
                         .clip(RoundedCornerShape(14.dp))
-                        .background(Background.copy(alpha = 0.85f))
+                        .background(Background.copy(alpha = 0.85f)),
                 ) {
-                    Icon(
-                        painter = rememberVectorPainter(
-                            defaultWidth = 24.dp, defaultHeight = 24.dp,
-                            viewportWidth = 24f, viewportHeight = 24f,
-                            autoMirror = false,
-                        ) { _, _ ->
-                            addPath(
-                                pathData = listOf(
-                                    androidx.compose.ui.graphics.vector.PathNode.MoveTo(12f, 8f),
-                                    androidx.compose.ui.graphics.vector.PathNode.ArcTo(4f, 4f, 0f, false, true, 16f, 12f),
-                                    androidx.compose.ui.graphics.vector.PathNode.ArcTo(4f, 4f, 0f, false, true, 12f, 16f),
-                                    androidx.compose.ui.graphics.vector.PathNode.ArcTo(4f, 4f, 0f, false, true, 8f, 12f),
-                                    androidx.compose.ui.graphics.vector.PathNode.ArcTo(4f, 4f, 0f, false, true, 12f, 8f),
-                                    androidx.compose.ui.graphics.vector.PathNode.Close,
-                                ),
-                                fill = androidx.compose.ui.graphics.SolidColor(Amber600),
-                            )
-                        },
-                        contentDescription = "My location",
-                        tint = Amber600,
-                    )
+                    Icon(Icons.Default.LocationOn, "My location", tint = Amber600)
                 }
             }
 
-            // Search results overlay
             AnimatedVisibility(visible = searchResults.isNotEmpty() && selectedPlace == null) {
-                SearchResultsOverlay(
-                    results = searchResults,
-                    onSelect = { viewModel.selectPlace(it) },
-                )
+                SearchResultsOverlay(results = searchResults, onSelect = { viewModel.selectPlace(it) })
             }
         }
 
-        // Bottom sheet for selected place
+        // Bottom sheet
         if (selectedPlace != null) {
-            PlaceBottomSheet(
-                viewModel = viewModel,
-                onDismiss = { viewModel.clearSelection() },
-            )
+            PlaceBottomSheet(viewModel = viewModel, onDismiss = { viewModel.clearSelection() })
         }
     }
 }
@@ -170,45 +132,29 @@ private fun FloatingSearchBar(
             .background(Background.copy(alpha = 0.85f))
             .padding(horizontal = 14.dp, vertical = 12.dp),
     ) {
-        Icon(
-            imageVector = androidx.compose.material.icons.Icons.Default.Search,
-            contentDescription = null,
-            tint = if (isFocused) Amber600 else TextTertiary,
-            modifier = Modifier.size(20.dp),
-        )
+        Icon(Icons.Default.Search, null, tint = if (isFocused) Amber600 else TextTertiary, modifier = Modifier.size(20.dp))
         Spacer(Modifier.width(10.dp))
-        BasicTextField(
-            value = query,
-            onValueChange = onQueryChange,
-            textStyle = androidx.compose.ui.text.TextStyle(
-                color = TextPrimary,
-                fontSize = 15.sp,
-            ),
-            singleLine = true,
-            modifier = Modifier
-                .weight(1f)
-                .onFocusChanged { isFocused = it.isFocused },
-            decorationBox = { inner ->
-                if (query.isEmpty()) {
-                    Text("Search restaurants", color = TextTertiary, fontSize = 15.sp)
-                }
-                inner()
-            },
-            keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
-                imeAction = androidx.compose.ui.text.input.ImeAction.Search,
-            ),
-            keyboardActions = androidx.compose.foundation.text.KeyboardActions(
-                onSearch = { onSubmit() },
-            ),
-        )
+
+        Box(modifier = Modifier.weight(1f)) {
+            if (query.isEmpty()) {
+                Text("Search restaurants", color = TextTertiary, fontSize = 15.sp)
+            }
+            BasicTextField(
+                value = query,
+                onValueChange = onQueryChange,
+                textStyle = TextStyle(color = TextPrimary, fontSize = 15.sp),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                keyboardActions = KeyboardActions(onSearch = { onSubmit() }),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .onFocusChanged { isFocused = it.isFocused },
+            )
+        }
+
         if (query.isNotEmpty()) {
-            IconButton(onClick = { onQueryChange("") }, modifier = Modifier.size(20.dp)) {
-                Icon(
-                    imageVector = androidx.compose.material.icons.Icons.Default.Close,
-                    contentDescription = "Clear",
-                    tint = TextTertiary,
-                    modifier = Modifier.size(16.dp),
-                )
+            IconButton(onClick = { onQueryChange("") }, modifier = Modifier.size(24.dp)) {
+                Icon(Icons.Default.Close, "Clear", tint = TextTertiary, modifier = Modifier.size(16.dp))
             }
         }
     }
@@ -231,12 +177,7 @@ private fun SearchResultsOverlay(results: List<PlaceResult>, onSelect: (PlaceRes
                     .clickable { onSelect(place) }
                     .padding(horizontal = 14.dp, vertical = 12.dp),
             ) {
-                Icon(
-                    imageVector = androidx.compose.material.icons.Icons.Default.Place,
-                    contentDescription = null,
-                    tint = Amber600,
-                    modifier = Modifier.size(24.dp),
-                )
+                Icon(Icons.Default.Place, null, tint = Amber600, modifier = Modifier.size(24.dp))
                 Spacer(Modifier.width(12.dp))
                 Column(modifier = Modifier.weight(1f)) {
                     Text(place.name, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = TextPrimary)
@@ -250,10 +191,7 @@ private fun SearchResultsOverlay(results: List<PlaceResult>, onSelect: (PlaceRes
                 }
             }
             if (index < results.lastIndex) {
-                HorizontalDivider(
-                    modifier = Modifier.padding(start = 50.dp),
-                    color = Border.copy(alpha = 0.5f),
-                )
+                HorizontalDivider(modifier = Modifier.padding(start = 50.dp), color = Border.copy(alpha = 0.5f))
             }
         }
     }
@@ -272,9 +210,6 @@ private fun PlaceBottomSheet(viewModel: HomeViewModel, onDismiss: () -> Unit) {
         containerColor = Background,
         dragHandle = { BottomSheetDefaults.DragHandle(color = TextTertiary) },
     ) {
-        com.parallax.app.ui.component.PlaceDetailContent(
-            place = place,
-            viewModel = viewModel,
-        )
+        com.parallax.app.ui.component.PlaceDetailContent(place = place, viewModel = viewModel)
     }
 }

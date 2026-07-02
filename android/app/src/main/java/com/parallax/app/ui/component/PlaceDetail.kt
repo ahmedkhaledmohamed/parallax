@@ -83,11 +83,11 @@ fun PlaceDetailContent(place: PlaceResult, viewModel: HomeViewModel) {
                         }
                     }
                     place.websiteUri?.let { url ->
-                        ActionChip("Website", Icons.Default.Language) {
+                        ActionChip("Website", Icons.Default.Info) {
                             context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
                         }
                     }
-                    ActionChip("Directions", Icons.Default.Directions) {
+                    ActionChip("Directions", Icons.Default.Place) {
                         val uri = Uri.parse("google.navigation:q=${place.latLng?.latitude},${place.latLng?.longitude}")
                         context.startActivity(Intent(Intent.ACTION_VIEW, uri))
                     }
@@ -105,7 +105,7 @@ fun PlaceDetailContent(place: PlaceResult, viewModel: HomeViewModel) {
                     colors = ButtonDefaults.buttonColors(containerColor = Amber600),
                     shape = RoundedCornerShape(14.dp),
                 ) {
-                    Icon(Icons.Default.AutoAwesome, contentDescription = null, modifier = Modifier.size(18.dp))
+                    Icon(Icons.Default.Star, contentDescription = null, modifier = Modifier.size(18.dp))
                     Spacer(Modifier.width(8.dp))
                     Text("Get Parallax Score", fontWeight = FontWeight.SemiBold)
                 }
@@ -180,7 +180,7 @@ fun PlaceDetailContent(place: PlaceResult, viewModel: HomeViewModel) {
                         ),
                         shape = RoundedCornerShape(14.dp),
                     ) {
-                        Icon(Icons.Default.AutoAwesome, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Icon(Icons.Default.Star, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(Modifier.width(8.dp))
                         Text("Analyze", fontWeight = FontWeight.SemiBold)
                     }

@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import com.parallax.app.data.db.SearchHistoryEntity
 import com.parallax.app.data.model.*
 import com.parallax.app.ui.theme.*
-import com.parallax.app.ui.viewmodel.Stage
+import com.parallax.app.ui.viewmodel.SheetPhase
 
 @Composable
 fun ErrorCard(message: String, suggestion: String, onRetry: () -> Unit) {
@@ -43,37 +43,7 @@ fun ErrorCard(message: String, suggestion: String, onRetry: () -> Unit) {
     }
 }
 
-@Composable
-fun LoadingSection(stage: Stage, restaurant: RestaurantInfo?) {
-    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        if (restaurant != null && stage != Stage.Searching) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(12.dp))
-                    .border(1.dp, Border, RoundedCornerShape(12.dp))
-                    .padding(16.dp),
-            ) {
-                Text(restaurant.name, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = TextPrimary)
-                Text(restaurant.address, fontSize = 12.sp, color = TextTertiary)
-                Text("Google: %.1f/5 from %d reviews".format(restaurant.rating, restaurant.totalReviews), fontSize = 12.sp, color = TextTertiary)
-            }
-        }
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            CircularProgressIndicator(modifier = Modifier.size(16.dp), color = Amber600, strokeWidth = 2.dp)
-            Text(
-                when (stage) {
-                    Stage.Searching -> "Finding restaurant..."
-                    Stage.Found -> "Analyzing reviews..."
-                    Stage.Decomposing -> "Computing your personalized score..."
-                    else -> ""
-                },
-                fontSize = 13.sp,
-                color = TextTertiary,
-            )
-        }
-    }
-}
+// LoadingSection removed — loading is handled in PlaceDetail.kt
 
 @Composable
 fun ConfidenceBadge(result: AnalysisResult) {
